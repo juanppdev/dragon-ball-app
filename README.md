@@ -9,9 +9,7 @@ La aplicación Dragon Ball es una herramienta para explorar información sobre p
 ## Capturas de Pantalla
 A continuación, se muestra una captura de pantalla de la aplicación:
 
-Uploading Running Devices - Dragon Ball App 2024-07-30 18-32-18.mp4…
-
-
+https://github.com/user-attachments/assets/fe10aa6c-0b42-4aa9-9a23-14662da20402
 
 ## Instalación
 Clona este repositorio: git clone https://github.com/juanppdev/Dragon-Ball.git
