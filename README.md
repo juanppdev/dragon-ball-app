@@ -6,14 +6,11 @@ La aplicación Dragon Ball es una herramienta para explorar información sobre p
 ## Características
 **Personajes**: Explora una lista de personajes icónicos de Dragon Ball. Cada personaje tiene una imagen y una breve descripción.
 
-**Planetas**: Descubre detalles sobre los planetas presentes en el universo de Dragon Ball.
-
-**Música**: Escucha fragmentos de la banda sonora original de la serie.
-
 ## Capturas de Pantalla
 A continuación, se muestra una captura de pantalla de la aplicación:
 
-https://github.com/juanppdev/Dragon-Ball/assets/81490579/7a14d370-c6b8-4b77-b097-7f6c4e29e153
+Uploading Running Devices - Dragon Ball App 2024-07-30 18-32-18.mp4…
+
 
 
 ## Instalación
