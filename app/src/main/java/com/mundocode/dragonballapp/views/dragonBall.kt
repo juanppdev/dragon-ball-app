@@ -2,6 +2,7 @@ package com.mundocode.dragonballapp.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -106,7 +107,7 @@ fun DragonBall(
                         modifier = Modifier.fillMaxSize(),
                     ) {
                         items(list) { item ->
-                            CarPersonaje(item.name, item.image)
+                            CarPersonaje(item.id, item.name, item.image, navController)
                         }
                     }
                 }
@@ -117,7 +118,7 @@ fun DragonBall(
 
 
 @Composable
-fun CarPersonaje(name: String, image: String) {
+fun CarPersonaje(id: String, name: String, image: String, navController: NavController,) {
 
     var scale by remember { mutableStateOf(2f) }
     var offsetX by remember { mutableStateOf(0f) }
@@ -133,6 +134,9 @@ fun CarPersonaje(name: String, image: String) {
             .padding(8.dp)
             .fillMaxWidth()
             .height(110.dp)
+            .clickable {
+                navController.navigate("personaje/${id}")
+            }
     ) {
         Box {
             Box(

@@ -89,7 +89,9 @@ fun HomeScreen(navController: NavController) {
                                     .padding(16.dp),
                                 textAlign = TextAlign.Center,
                             )
-                            AsyncImage(R.drawable.logo_db, modifier = Modifier
+
+                            AsyncImage(
+                                R.drawable.logo_db, modifier = Modifier
                                 .fillMaxWidth()
                                 .height(60.dp)
                             )
@@ -105,7 +107,7 @@ fun HomeScreen(navController: NavController) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(75.dp)
-                            .clickable {  }
+                            .clickable { navController.navigate("dragonBallZ") }
                     ) {
                         Row(
                             modifier = Modifier
@@ -119,7 +121,8 @@ fun HomeScreen(navController: NavController) {
                                     .padding(16.dp),
                                 textAlign = TextAlign.Center,
                             )
-                            AsyncImage(R.drawable.logo_z, modifier = Modifier
+                            AsyncImage(
+                                R.drawable.logo_z, modifier = Modifier
                                 .fillMaxWidth()
                                 .height(80.dp)
                             )
@@ -148,7 +151,8 @@ fun HomeScreen(navController: NavController) {
                                     .padding(16.dp),
                                 textAlign = TextAlign.Center,
                             )
-                            AsyncImage(R.drawable.logo_dr, modifier = Modifier
+                            AsyncImage(
+                                R.drawable.logo_dr, modifier = Modifier
                                 .fillMaxWidth()
                                 .height(80.dp)
                             )
@@ -212,7 +216,7 @@ fun BottomAppBar() {
 }
 
 @Composable
-private fun AsyncImage(url: Int, modifier: Modifier) {
+fun AsyncImage(url: Int, modifier: Modifier) {
     val painter: Painter = // Optionally, you can apply transformations
         rememberAsyncImagePainter(
             ImageRequest.Builder(LocalContext.current).data(data = url)
