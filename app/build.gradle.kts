@@ -1,8 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.compose.compiler)
     // Add the Google services Gradle plugin
     id ("com.google.gms.google-services")
+    // Dagger Hilt
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 
 }
 
@@ -54,6 +58,12 @@ android {
 
 dependencies {
 
+    //Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.runtime.livedata)
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -79,14 +89,27 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 
     //Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.2.3"))
+    implementation(platform(libs.firebase.bom.v3223))
     implementation(libs.firebase.auth.ktx)
     implementation(libs.play.services.auth.v2070)
+    // Declare the dependency for the Cloud Firestore library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation(libs.firebase.firestore)
 
 
     // Add the dependency for the Firebase Authentication library
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation(libs.google.firebase.auth.ktx)
+    implementation(libs.androidx.credentials)
+    implementation(libs.play.services.auth.v2020)
+
+    // Agregaremos las dependencias de los productos de Firebase que deseas usar
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.messaging)
+
+    // Dagger Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 
 
 }

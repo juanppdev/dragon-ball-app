@@ -15,7 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -55,7 +55,7 @@ fun HomeScreen(navController: NavController) {
         topBar = {
             TopBar()
         },
-        bottomBar = { BottomAppBar() }
+        bottomBar = { BottomAppBar(navController) }
     ) { innerPadding ->
 
         Box(modifier = Modifier.padding(innerPadding)) {
@@ -190,7 +190,7 @@ fun TopBar() {
 }
 
 @Composable
-fun BottomAppBar() {
+fun BottomAppBar(navController: NavController) {
 
     BottomAppBar(
         containerColor = colorResource(id = R.color.card),
@@ -206,8 +206,8 @@ fun BottomAppBar() {
             IconButton(onClick = { /* do something */ }) {
                 Icon(Icons.Filled.Edit, contentDescription = "Localized description", modifier = Modifier.size(50.dp))
             }
-            IconButton(onClick = { /* do something */ }) {
-                Icon(Icons.Filled.Person, contentDescription = "Localized description", modifier = Modifier.size(50.dp))
+            IconButton(onClick = { navController.navigate("favoriteScreen") }) {
+                Icon(Icons.Filled.Favorite, contentDescription = "Localized description", modifier = Modifier.size(50.dp))
             }
         }
     }

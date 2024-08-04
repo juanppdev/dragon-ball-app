@@ -1,4 +1,4 @@
-package com.mundocode.dragonball.network
+package com.mundocode.dragonballapp.network
 
 import com.mundocode.dragonball.models.DragonBallLista
 import com.mundocode.dragonball.models.DragonBallZLista

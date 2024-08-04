@@ -29,9 +29,8 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -48,7 +47,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.mundocode.dragonballapp.R
-import com.mundocode.dragonballapp.viewmodels.DragonBallListViewModel
 import com.mundocode.dragonballapp.viewmodels.DragonBallZListViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -97,7 +95,7 @@ fun DragonBallZ(
                     scrollBehavior = scrollBehavior,
                 )
             },
-            bottomBar = { BottomAppBar() }
+            bottomBar = { BottomAppBar(navController) }
         ) { innerPadding ->
 
             Box(modifier = Modifier.padding(innerPadding)) {
@@ -119,11 +117,11 @@ fun DragonBallZ(
 
 
 @Composable
-fun CarPersonajeZ(id: String, name: String, image: String, navController: NavController,) {
+fun CarPersonajeZ(id: String, name: String, image: String, navController: NavController) {
 
-    var scale by remember { mutableStateOf(2f) }
-    var offsetX by remember { mutableStateOf(0f) }
-    var offsetY by remember { mutableStateOf(200f) }
+    val scale by remember { mutableFloatStateOf(2f) }
+    val offsetX by remember { mutableFloatStateOf(0f) }
+    val offsetY by remember { mutableFloatStateOf(200f) }
 
 
     Card(

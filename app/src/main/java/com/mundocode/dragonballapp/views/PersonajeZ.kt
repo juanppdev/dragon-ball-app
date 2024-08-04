@@ -109,7 +109,7 @@ private fun ContentZ(
                         scrollBehavior = scrollBehavior,
                     )
                 },
-                bottomBar = { BottomAppBar() }
+                bottomBar = { BottomAppBar(navController) }
             ) {
 
                 dragonDetails.let { details ->

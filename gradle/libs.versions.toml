@@ -1,30 +1,42 @@
 [versions]
 agp = "8.5.1"
 coilCompose = "2.7.0"
-googleFirebaseBom = "33.1.2"
-googlePlayServicesAuth = "20.7.0"
-kotlin = "1.9.0"
+credentials = "1.2.2"
+firebaseBom = "33.1.2"
+firebaseMessaging = "24.0.0"
+googlePlayServicesAuth = "21.2.0"
+hiltAndroid = "2.51.1"
+hiltAndroidCompiler = "2.51.1"
+kotlin = "2.0.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
-junitVersion = "1.1.5"
+junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.3"
-activityCompose = "1.9.0"
-composeBom = "2024.04.01"
+lifecycleRuntimeKtx = "2.8.4"
+activityCompose = "1.9.1"
+composeBom = "2024.06.00"
 navigationCompose = "2.7.7"
-playServicesAuth = "21.2.0"
 googleid = "1.1.1"
-playServicesAuthVersion = "21.0.0"
+playServicesAuth = "20.2.0"
+roomRuntime = "2.6.1"
+runtimeLivedata = "1.6.8"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "credentials" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
-com-google-firebase-firebase-auth = { module = "com.google.firebase:firebase-auth" }
-com-google-firebase-firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "googleFirebaseBom" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-auth = { module = "com.google.firebase:firebase-auth" }
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
-google-firebase-auth = { module = "com.google.firebase:firebase-auth" }
+firebase-bom-v3223 = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-firestore = { module = "com.google.firebase:firebase-firestore" }
+firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebaseMessaging" }
 google-firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -39,12 +51,14 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
-play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 googleid = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "googleid" }
+play-services-auth-v2020 = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 play-services-auth-v2070 = { module = "com.google.android.gms:play-services-auth", version.ref = "googlePlayServicesAuth" }
-play-services-auth-v2100 = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuthVersion" }
+androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 

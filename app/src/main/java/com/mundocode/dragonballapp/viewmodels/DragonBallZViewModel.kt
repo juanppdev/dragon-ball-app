@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.mundocode.dragonball.models.DragonBallZLista
 import com.mundocode.dragonball.models.DragonBallZModel
 import com.mundocode.dragonball.models.SingleDragonBallZLista
-import com.mundocode.dragonball.network.ApiDragonBall
+import com.mundocode.dragonballapp.network.ApiDragonBall
 import com.mundocode.dragonballapp.network.RetrofitClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

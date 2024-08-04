@@ -30,7 +30,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableFloatStateOf
@@ -53,17 +52,11 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.data.Favorite
-import com.mundocode.dragonballapp.viewmodels.DragonBallListViewModel
 import com.mundocode.dragonballapp.viewmodels.FavoriteViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DragonBall(
-    navController: NavController,
-    viewModel: DragonBallListViewModel,
-    viewModelF: FavoriteViewModel
-) {
-    val dragonList by viewModel.saiyanList.collectAsState()
+fun FavoriteScreen(viewModel: FavoriteViewModel, navController: NavController) {
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -76,7 +69,8 @@ fun DragonBall(
             contentColor = Color.White,
             containerColor = colorResource(id = R.color.background),
             topBar = {
-                val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+                val scrollBehavior =
+                    TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
                 CenterAlignedTopAppBar(
                     colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
@@ -85,7 +79,7 @@ fun DragonBall(
                     ),
                     title = {
                         Text(
-                            "Personajes",
+                            "Favoritos",
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
@@ -105,31 +99,28 @@ fun DragonBall(
             bottomBar = { BottomAppBar(navController) }
         ) { innerPadding ->
 
-            Box(modifier = Modifier.padding(innerPadding)) {
+            val favorites by viewModel.allFavorites.observeAsState(emptyList())
 
-                dragonList?.let { list ->
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2), // Número de columnas
-                        modifier = Modifier.fillMaxSize(),
-                    ) {
-                        items(list) { item ->
-                            CarPersonaje(item.id, item.name, item.image, viewModelF, navController)
-                        }
-                    }
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2), // Número de columnas
+                modifier = Modifier.fillMaxSize().padding(innerPadding),
+            ) {
+                items(favorites) { favorite ->
+                    FavoriteCard(favorite, navController, viewModel)
                 }
             }
+
+
         }
     }
 }
 
-
 @Composable
-fun CarPersonaje(id: String, name: String, image: String, viewModel: FavoriteViewModel, navController: NavController) {
+fun FavoriteCard(favorite: Favorite, navController: NavController, viewModel: FavoriteViewModel) {
 
     val scale by remember { mutableFloatStateOf(2f) }
     val offsetX by remember { mutableFloatStateOf(0f) }
     val offsetY by remember { mutableFloatStateOf(200f) }
-
 
     Card(
         shape = RoundedCornerShape(16.dp),
@@ -141,7 +132,7 @@ fun CarPersonaje(id: String, name: String, image: String, viewModel: FavoriteVie
             .fillMaxWidth()
             .height(110.dp)
             .clickable {
-                navController.navigate("personaje/${id}")
+                navController.navigate("personaje/${favorite.id}")
             }
     ) {
         // Estado para controlar si es favorito
@@ -152,7 +143,7 @@ fun CarPersonaje(id: String, name: String, image: String, viewModel: FavoriteVie
 
 // Actualizar el estado cuando cambien los favoritos
         LaunchedEffect(favorites) {
-            isFavorite.value = favorites.any { it.title == name }
+            isFavorite.value = favorites.any { it.title == favorite.title }
         }
 
         Column {
@@ -160,9 +151,19 @@ fun CarPersonaje(id: String, name: String, image: String, viewModel: FavoriteVie
                 modifier = Modifier
                     .clickable {
                         if (isFavorite.value) {
-                            viewModel.removeFavorite(Favorite(id= id, title = name, imageUrl = image))
+                            viewModel.removeFavorite(
+                                Favorite(
+                                    title = favorite.title,
+                                    imageUrl = favorite.imageUrl
+                                )
+                            )
                         } else {
-                            viewModel.addFavorite(Favorite(id= id, title = name, imageUrl = image))
+                            viewModel.addFavorite(
+                                Favorite(
+                                    title = favorite.title,
+                                    imageUrl = favorite.imageUrl
+                                )
+                            )
                         }
                     },
                 imageVector = if (isFavorite.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
@@ -175,7 +176,7 @@ fun CarPersonaje(id: String, name: String, image: String, viewModel: FavoriteVie
                         .align(Alignment.BottomEnd)
                 ) {
                     Image(
-                        painter = rememberAsyncImagePainter(model = image),
+                        painter = rememberAsyncImagePainter(model = favorite.imageUrl),
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
@@ -196,7 +197,7 @@ fun CarPersonaje(id: String, name: String, image: String, viewModel: FavoriteVie
                 ) {
                     Text(
                         modifier = Modifier.fillMaxWidth(),
-                        text = name.replace(" ", "\n"),
+                        text = favorite.title.replace(" ", "\n"),
                         fontSize = 25.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.White,
@@ -210,5 +211,4 @@ fun CarPersonaje(id: String, name: String, image: String, viewModel: FavoriteVie
         }
 
     }
-
 }

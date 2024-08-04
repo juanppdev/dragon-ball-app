@@ -1,7 +1,6 @@
 package com.mundocode.dragonballapp.network
 
-import com.mundocode.dragonball.network.ApiDragonBall
-import com.mundocode.dragonball.utils.Constants
+import com.mundocode.dragonballapp.utils.Constants
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
