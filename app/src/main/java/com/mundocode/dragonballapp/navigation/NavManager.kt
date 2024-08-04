@@ -41,6 +41,6 @@ fun NavManager() {
                 PersonajeZ(navController = navController, id = id)
             }
         }
-        composable("favoriteScreen") { FavoriteScreen(viewModelF, navController) }
+        composable("favoriteScreen") { FavoriteScreen(viewModelF, navController, DragonBallListViewModel()) }
     }
 }

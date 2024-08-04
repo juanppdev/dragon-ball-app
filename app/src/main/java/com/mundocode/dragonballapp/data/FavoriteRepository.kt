@@ -2,19 +2,21 @@ package com.mundocode.dragonballapp.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FavoriteRepository {
 
     private val firestore = FirebaseFirestore.getInstance()
-    private val favoritesCollection = firestore.collection("favorites")
+    private val currentUser = FirebaseAuth.getInstance().currentUser
+    private val favoritesCollection = firestore.collection("users").document(currentUser?.uid ?: "").collection("favoriteCharacters")
 
     fun addFavorite(favorite: Favorite) {
-        favoritesCollection.add(favorite)
+        favoritesCollection.document(favorite.id).set(favorite)
     }
 
     fun removeFavorite(favorite: Favorite) {
-        favoritesCollection.whereEqualTo("title", favorite.title)
+        favoritesCollection.whereEqualTo("id", favorite.id)
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {

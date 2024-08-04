@@ -152,7 +152,7 @@ fun CarPersonaje(id: String, name: String, image: String, viewModel: FavoriteVie
 
 // Actualizar el estado cuando cambien los favoritos
         LaunchedEffect(favorites) {
-            isFavorite.value = favorites.any { it.title == name }
+            isFavorite.value = favorites.any { it.id == id }
         }
 
         Column {
@@ -160,9 +160,9 @@ fun CarPersonaje(id: String, name: String, image: String, viewModel: FavoriteVie
                 modifier = Modifier
                     .clickable {
                         if (isFavorite.value) {
-                            viewModel.removeFavorite(Favorite(id= id, title = name, imageUrl = image))
+                            viewModel.removeFavorite(Favorite(id= id))
                         } else {
-                            viewModel.addFavorite(Favorite(id= id, title = name, imageUrl = image))
+                            viewModel.addFavorite(Favorite(id= id))
                         }
                     },
                 imageVector = if (isFavorite.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,

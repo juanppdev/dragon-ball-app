@@ -30,6 +30,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableFloatStateOf
@@ -52,11 +53,12 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.data.Favorite
+import com.mundocode.dragonballapp.viewmodels.DragonBallListViewModel
 import com.mundocode.dragonballapp.viewmodels.FavoriteViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FavoriteScreen(viewModel: FavoriteViewModel, navController: NavController) {
+fun FavoriteScreen(viewModel: FavoriteViewModel, navController: NavController, ModelView: DragonBallListViewModel) {
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -106,7 +108,7 @@ fun FavoriteScreen(viewModel: FavoriteViewModel, navController: NavController) {
                 modifier = Modifier.fillMaxSize().padding(innerPadding),
             ) {
                 items(favorites) { favorite ->
-                    FavoriteCard(favorite, navController, viewModel)
+                    FavoriteCard(favorite, navController, ModelView, viewModel)
                 }
             }
 
@@ -116,7 +118,7 @@ fun FavoriteScreen(viewModel: FavoriteViewModel, navController: NavController) {
 }
 
 @Composable
-fun FavoriteCard(favorite: Favorite, navController: NavController, viewModel: FavoriteViewModel) {
+fun FavoriteCard(favorite: Favorite, navController: NavController, ModelView: DragonBallListViewModel, viewModel: FavoriteViewModel) {
 
     val scale by remember { mutableFloatStateOf(2f) }
     val offsetX by remember { mutableFloatStateOf(0f) }
@@ -143,7 +145,7 @@ fun FavoriteCard(favorite: Favorite, navController: NavController, viewModel: Fa
 
 // Actualizar el estado cuando cambien los favoritos
         LaunchedEffect(favorites) {
-            isFavorite.value = favorites.any { it.title == favorite.title }
+            isFavorite.value = favorites.any { it.id == favorite.id }
         }
 
         Column {
@@ -153,15 +155,13 @@ fun FavoriteCard(favorite: Favorite, navController: NavController, viewModel: Fa
                         if (isFavorite.value) {
                             viewModel.removeFavorite(
                                 Favorite(
-                                    title = favorite.title,
-                                    imageUrl = favorite.imageUrl
+                                    id = favorite.id
                                 )
                             )
                         } else {
                             viewModel.addFavorite(
                                 Favorite(
-                                    title = favorite.title,
-                                    imageUrl = favorite.imageUrl
+                                    id = favorite.id
                                 )
                             )
                         }
@@ -170,43 +170,55 @@ fun FavoriteCard(favorite: Favorite, navController: NavController, viewModel: Fa
                 contentDescription = "Favorite",
                 tint = if (isFavorite.value) Color.Red else Color.Gray
             )
-            Box {
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                ) {
-                    Image(
-                        painter = rememberAsyncImagePainter(model = favorite.imageUrl),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
+
+            val dragonList by ModelView.saiyanList.collectAsState()
+
+            dragonList?.let {
+                val item = it.find { it.id == favorite.id }
+
+                Box {
+                    Box(
                         modifier = Modifier
-                            .fillMaxHeight()
-                            .aspectRatio(1f)
-                            .graphicsLayer(
-                                scaleX = scale,
-                                scaleY = scale,
-                                translationX = offsetX,
-                                translationY = offsetY
+                            .align(Alignment.BottomEnd)
+                    ) {
+                        if (item != null) {
+                            Image(
+                                painter = rememberAsyncImagePainter(model = item.image),
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .fillMaxHeight()
+                                    .aspectRatio(1f)
+                                    .graphicsLayer(
+                                        scaleX = scale,
+                                        scaleY = scale,
+                                        translationX = offsetX,
+                                        translationY = offsetY
+                                    )
                             )
-                    )
-                }
+                        }
+                    }
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp)
                 ) {
-                    Text(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = favorite.title.replace(" ", "\n"),
-                        fontSize = 25.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White,
-                        softWrap = true,
-                        style = TextStyle(
-                            lineBreak = LineBreak.Paragraph.copy(strictness = LineBreak.Strictness.Loose)
+                    if (item != null) {
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = item.name.replace(" ", "\n"),
+                            fontSize = 25.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White,
+                            softWrap = true,
+                            style = TextStyle(
+                                lineBreak = LineBreak.Paragraph.copy(strictness = LineBreak.Strictness.Loose)
+                            )
                         )
-                    )
+                    }
                 }
+                }
+
             }
         }
 
