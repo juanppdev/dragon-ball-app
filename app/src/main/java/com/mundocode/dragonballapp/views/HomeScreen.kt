@@ -23,6 +23,9 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarDefaults
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -35,6 +38,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -53,7 +57,7 @@ fun HomeScreen(navController: NavController) {
         contentColor = Color.White,
         containerColor = colorResource(id = R.color.background),
         topBar = {
-            TopBar()
+            TopBar(navController)
         },
         bottomBar = { BottomAppBar(navController) }
     ) { innerPadding ->
@@ -92,8 +96,8 @@ fun HomeScreen(navController: NavController) {
 
                             AsyncImage(
                                 R.drawable.logo_db, modifier = Modifier
-                                .fillMaxWidth()
-                                .height(60.dp)
+                                    .fillMaxWidth()
+                                    .height(60.dp)
                             )
                         }
                     }
@@ -123,8 +127,8 @@ fun HomeScreen(navController: NavController) {
                             )
                             AsyncImage(
                                 R.drawable.logo_z, modifier = Modifier
-                                .fillMaxWidth()
-                                .height(80.dp)
+                                    .fillMaxWidth()
+                                    .height(80.dp)
                             )
                         }
                     }
@@ -153,8 +157,8 @@ fun HomeScreen(navController: NavController) {
                             )
                             AsyncImage(
                                 R.drawable.logo_dr, modifier = Modifier
-                                .fillMaxWidth()
-                                .height(80.dp)
+                                    .fillMaxWidth()
+                                    .height(80.dp)
                             )
                         }
                     }
@@ -169,7 +173,7 @@ fun HomeScreen(navController: NavController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar() {
+fun TopBar(navController: NavController) {
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -184,6 +188,11 @@ fun TopBar() {
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
+        },
+        actions = {
+            IconButton(onClick = { navController.navigate("favoriteScreen") }) {
+                Icon(Icons.Filled.Favorite, contentDescription = "Localized description", modifier = Modifier.size(50.dp), tint = Color.White)
+            }
         },
         scrollBehavior = scrollBehavior,
     )
@@ -200,19 +209,27 @@ fun BottomAppBar(navController: NavController) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            IconButton(onClick = { /* do something */ }) {
-                Icon(Icons.Filled.Check, contentDescription = "Localized description", modifier = Modifier.size(50.dp))
-            }
-            IconButton(onClick = { /* do something */ }) {
-                Icon(Icons.Filled.Edit, contentDescription = "Localized description", modifier = Modifier.size(50.dp))
-            }
-            IconButton(onClick = { navController.navigate("favoriteScreen") }) {
-                Icon(Icons.Filled.Favorite, contentDescription = "Localized description", modifier = Modifier.size(50.dp))
+
+            NavigationBar(
+                containerColor = colorResource(id = R.color.card),
+                contentColor = Color.White,
+                windowInsets = NavigationBarDefaults.windowInsets
+            ){
+                NavigationBarItem(
+                    selected = false,
+                    onClick = { navController.navigate("homeScreen") },
+                    icon = { Icon(painterResource(id = R.drawable.wiki), contentDescription = "Localized description", modifier = Modifier.size(30.dp), tint = Color.White) },
+                    label = { Text(text = "Wiki", color = Color.White)}
+                )
+                NavigationBarItem(
+                    selected = false,
+                    onClick = { navController.navigate("homeScreen") },
+                    icon = { Icon(painterResource(id = R.drawable.games), contentDescription = "Localized description", modifier = Modifier.size(30.dp), tint = Color.White) },
+                    label = { Text(text = "Games", color = Color.White)}
+                )
             }
         }
     }
-
-
 }
 
 @Composable
