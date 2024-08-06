@@ -13,8 +13,6 @@ import androidx.compose.foundation.layout.size
 import coil.compose.rememberAsyncImagePainter
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
@@ -224,6 +222,7 @@ fun BottomAppBar(navController: NavController) {
                 NavigationBarItem(
                     selected = false,
                     onClick = { navController.navigate("homeScreen") },
+                    enabled = false,
                     icon = { Icon(painterResource(id = R.drawable.games), contentDescription = "Localized description", modifier = Modifier.size(30.dp), tint = Color.White) },
                     label = { Text(text = "Games", color = Color.White)}
                 )

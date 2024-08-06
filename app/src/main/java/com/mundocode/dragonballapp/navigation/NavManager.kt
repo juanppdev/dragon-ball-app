@@ -29,7 +29,7 @@ fun NavManager() {
     NavHost(navController = navController, startDestination = "loginScreen") {
         composable("loginScreen") { LoginScreen(navController = navController) }
         composable("homeScreen") { HomeScreen(navController = navController) }
-        composable("dragonBallZ") { DragonBallZ(navController = navController, viewModel = DragonBallZListViewModel()) }
+        composable("dragonBallZ") { DragonBallZ(navController, DragonBallZListViewModel(), viewModelF) }
         composable("dragonBall") { DragonBall(navController = navController, viewModel = DragonBallListViewModel(), viewModelF) }
         composable("personaje/{id}", arguments = listOf(navArgument("id") { type = NavType.StringType })) {
             it.arguments?.getString("id")?.let { id ->

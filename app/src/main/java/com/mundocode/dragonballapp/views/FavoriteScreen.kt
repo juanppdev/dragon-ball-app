@@ -118,7 +118,7 @@ fun FavoriteScreen(viewModel: FavoriteViewModel, navController: NavController, M
 }
 
 @Composable
-fun FavoriteCard(favorite: Favorite, navController: NavController, ModelView: DragonBallListViewModel, viewModel: FavoriteViewModel) {
+fun FavoriteCard(favorite: Favorite, navController: NavController, modelView: DragonBallListViewModel, viewModel: FavoriteViewModel) {
 
     val scale by remember { mutableFloatStateOf(2f) }
     val offsetX by remember { mutableFloatStateOf(0f) }
@@ -171,7 +171,7 @@ fun FavoriteCard(favorite: Favorite, navController: NavController, ModelView: Dr
                 tint = if (isFavorite.value) Color.Red else Color.Gray
             )
 
-            val dragonList by ModelView.saiyanList.collectAsState()
+            val dragonList by modelView.saiyanList.collectAsState()
 
             dragonList?.let {
                 val item = it.find { it.id == favorite.id }

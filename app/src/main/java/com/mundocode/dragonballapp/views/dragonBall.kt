@@ -208,7 +208,5 @@ fun CarPersonaje(id: String, name: String, image: String, viewModel: FavoriteVie
                 }
             }
         }
-
     }
-
 }
