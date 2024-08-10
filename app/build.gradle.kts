@@ -2,12 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
-    // Add the Google services Gradle plugin
-    id ("com.google.gms.google-services")
-    // Dagger Hilt
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.google.dagger.hilt)
     id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
-
 }
 
 android {
@@ -47,7 +44,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.14"
     }
     packaging {
         resources {
@@ -58,58 +55,48 @@ android {
 
 dependencies {
 
-    //Room
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.runtime.livedata)
-    kapt(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
+//    implementation(libs.androidx.runtime.livedata)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.googleid)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
 
+    //Room
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+
+    // Compose
+    implementation(platform(libs.compose.bom))
+    implementation(libs.bundles.compose.bundle)
     implementation(libs.coil.compose)
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
     //Firebase
-    implementation(platform(libs.firebase.bom.v3223))
-    implementation(libs.firebase.auth.ktx)
-    implementation(libs.play.services.auth.v2070)
-    // Declare the dependency for the Cloud Firestore library
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation(libs.firebase.firestore)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.bundles.firebase.bundle)
 
-
-    // Add the dependency for the Firebase Authentication library
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation(libs.google.firebase.auth.ktx)
+    // Google Play Services + Credentials
+    implementation(libs.play.services.auth)
     implementation(libs.androidx.credentials)
-    implementation(libs.play.services.auth.v2020)
-
-    // Agregaremos las dependencias de los productos de Firebase que deseas usar
-    implementation(libs.firebase.analytics)
-    implementation(libs.firebase.messaging)
 
     // Dagger Hilt
-    implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation.compose)
 
+    // Tests
+    testImplementation(libs.junit)
+
+    // Android Test
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.compose.bom))
 
 }

@@ -4,8 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.mundocode.dragonballapp.data.Favorite
 import com.mundocode.dragonballapp.data.FavoriteRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class FavoriteViewModel : ViewModel() {
+@HiltViewModel
+class FavoriteViewModel @Inject constructor() : ViewModel() {
 
     private val repository = FavoriteRepository()
     val allFavorites: LiveData<List<Favorite>> = repository.getAllFavorites()

@@ -3,11 +3,10 @@ package com.mundocode.dragonballapp.network
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class AndroidFirebaseApp : Application() {
-    companion object {
-        const val FCM_CHANNEL_ID = "FCM_CHANNEL_ID"
-    }
 
     override fun onCreate() {
         super.onCreate()
@@ -16,5 +15,9 @@ class AndroidFirebaseApp : Application() {
             val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             manager.createNotificationChannel(fcmChannel)
         }
+    }
+
+    companion object {
+        const val FCM_CHANNEL_ID = "FCM_CHANNEL_ID"
     }
 }

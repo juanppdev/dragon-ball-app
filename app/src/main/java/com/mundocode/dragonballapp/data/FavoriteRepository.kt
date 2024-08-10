@@ -9,7 +9,10 @@ class FavoriteRepository {
 
     private val firestore = FirebaseFirestore.getInstance()
     private val currentUser = FirebaseAuth.getInstance().currentUser
-    private val favoritesCollection = firestore.collection("users").document(currentUser?.uid ?: "").collection("favoriteCharacters")
+    private val favoritesCollection = firestore
+        .collection("users")
+        .document(currentUser?.uid ?: "")
+        .collection("favoriteCharacters")
 
     fun addFavorite(favorite: Favorite) {
         favoritesCollection.document(favorite.id).set(favorite)

@@ -34,6 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -46,10 +47,9 @@ import com.mundocode.dragonballapp.viewmodels.LoginScreenViewModel
 @Composable
 fun LoginScreen(
     navController: NavController,
-    viewModel: LoginScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    viewModel: LoginScreenViewModel = hiltViewModel(),
 ) {
 
-    val context = LocalContext.current
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts
             .StartActivityForResult()
@@ -65,7 +65,6 @@ fun LoginScreen(
             Log.d("Juan", "Error: ${ex.localizedMessage}")
         }
     }
-
 
     Scaffold(
         modifier = Modifier,

@@ -49,6 +49,7 @@ import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.mundocode.dragonballapp.R
@@ -59,9 +60,9 @@ import com.mundocode.dragonballapp.viewmodels.FavoriteViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DragonBall(
+    viewModel: DragonBallListViewModel = hiltViewModel(),
+    viewModelF: FavoriteViewModel = hiltViewModel(),
     navController: NavController,
-    viewModel: DragonBallListViewModel,
-    viewModelF: FavoriteViewModel
 ) {
     val dragonList by viewModel.saiyanList.collectAsState()
 
@@ -76,7 +77,8 @@ fun DragonBall(
             contentColor = Color.White,
             containerColor = colorResource(id = R.color.background),
             topBar = {
-                val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+                val scrollBehavior =
+                    TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
                 CenterAlignedTopAppBar(
                     colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
@@ -122,9 +124,14 @@ fun DragonBall(
     }
 }
 
-
 @Composable
-fun CarPersonaje(id: String, name: String, image: String, viewModel: FavoriteViewModel, navController: NavController) {
+fun CarPersonaje(
+    id: String,
+    name: String,
+    image: String,
+    viewModel: FavoriteViewModel,
+    navController: NavController
+) {
 
     val scale by remember { mutableFloatStateOf(2f) }
     val offsetX by remember { mutableFloatStateOf(0f) }
@@ -147,10 +154,10 @@ fun CarPersonaje(id: String, name: String, image: String, viewModel: FavoriteVie
         // Estado para controlar si es favorito
         val isFavorite = remember { mutableStateOf(false) }
 
-// Observar los favoritos desde el ViewModel
+        // Observar los favoritos desde el ViewModel
         val favorites by viewModel.allFavorites.observeAsState(emptyList())
 
-// Actualizar el estado cuando cambien los favoritos
+        // Actualizar el estado cuando cambien los favoritos
         LaunchedEffect(favorites) {
             isFavorite.value = favorites.any { it.id == id }
         }
@@ -160,9 +167,9 @@ fun CarPersonaje(id: String, name: String, image: String, viewModel: FavoriteVie
                 modifier = Modifier
                     .clickable {
                         if (isFavorite.value) {
-                            viewModel.removeFavorite(Favorite(id= id))
+                            viewModel.removeFavorite(Favorite(id = id))
                         } else {
-                            viewModel.addFavorite(Favorite(id= id))
+                            viewModel.addFavorite(Favorite(id = id))
                         }
                     },
                 imageVector = if (isFavorite.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,

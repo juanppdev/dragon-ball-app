@@ -49,6 +49,7 @@ import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.mundocode.dragonballapp.R
@@ -58,7 +59,11 @@ import com.mundocode.dragonballapp.viewmodels.FavoriteViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FavoriteScreen(viewModel: FavoriteViewModel, navController: NavController, ModelView: DragonBallListViewModel) {
+fun FavoriteScreen(
+    navController: NavController,
+    viewModel: FavoriteViewModel = hiltViewModel(),
+    modelView: DragonBallListViewModel = hiltViewModel(),
+) {
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -105,10 +110,12 @@ fun FavoriteScreen(viewModel: FavoriteViewModel, navController: NavController, M
 
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2), // Número de columnas
-                modifier = Modifier.fillMaxSize().padding(innerPadding),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
             ) {
                 items(favorites) { favorite ->
-                    FavoriteCard(favorite, navController, ModelView, viewModel)
+                    FavoriteCard(favorite, navController, modelView, viewModel)
                 }
             }
 
@@ -118,7 +125,12 @@ fun FavoriteScreen(viewModel: FavoriteViewModel, navController: NavController, M
 }
 
 @Composable
-fun FavoriteCard(favorite: Favorite, navController: NavController, modelView: DragonBallListViewModel, viewModel: FavoriteViewModel) {
+fun FavoriteCard(
+    favorite: Favorite,
+    navController: NavController,
+    modelView: DragonBallListViewModel,
+    viewModel: FavoriteViewModel
+) {
 
     val scale by remember { mutableFloatStateOf(2f) }
     val offsetX by remember { mutableFloatStateOf(0f) }
@@ -198,25 +210,25 @@ fun FavoriteCard(favorite: Favorite, navController: NavController, modelView: Dr
                             )
                         }
                     }
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                ) {
-                    if (item != null) {
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = item.name.replace(" ", "\n"),
-                            fontSize = 25.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.White,
-                            softWrap = true,
-                            style = TextStyle(
-                                lineBreak = LineBreak.Paragraph.copy(strictness = LineBreak.Strictness.Loose)
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp)
+                    ) {
+                        if (item != null) {
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = item.name.replace(" ", "\n"),
+                                fontSize = 25.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White,
+                                softWrap = true,
+                                style = TextStyle(
+                                    lineBreak = LineBreak.Paragraph.copy(strictness = LineBreak.Strictness.Loose)
+                                )
                             )
-                        )
+                        }
                     }
-                }
                 }
 
             }

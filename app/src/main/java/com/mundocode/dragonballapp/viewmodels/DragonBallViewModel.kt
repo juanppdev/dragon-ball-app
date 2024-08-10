@@ -9,11 +9,13 @@ import com.mundocode.dragonball.models.DragonBallModel
 import com.mundocode.dragonball.models.SingleDragonBallLista
 import com.mundocode.dragonballapp.network.ApiDragonBall
 import com.mundocode.dragonballapp.network.RetrofitClient
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import javax.inject.Inject
 
 interface DBZListRepositoryInterface {
     suspend fun getSaiyanList(): Response<DragonBallModel>
@@ -27,8 +29,9 @@ class DBZListRepository(
     }
 }
 
-class DragonBallListViewModel(
-    private val repository: DBZListRepositoryInterface = DBZListRepository()
+@HiltViewModel
+class DragonBallListViewModel @Inject constructor(
+    private val repository: DBZListRepositoryInterface
 ): ViewModel() {
     private val _saiyanList = MutableStateFlow<List<DragonBallLista>?>(null)
 
