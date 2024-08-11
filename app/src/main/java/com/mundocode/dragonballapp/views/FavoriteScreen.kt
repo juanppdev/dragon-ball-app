@@ -128,8 +128,8 @@ fun FavoriteScreen(
 fun FavoriteCard(
     favorite: Favorite,
     navController: NavController,
-    modelView: DragonBallListViewModel,
-    viewModel: FavoriteViewModel
+    modelView: DragonBallListViewModel = hiltViewModel(),
+    viewModel: FavoriteViewModel = hiltViewModel(),
 ) {
 
     val scale by remember { mutableFloatStateOf(2f) }

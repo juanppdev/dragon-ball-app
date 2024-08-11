@@ -129,7 +129,7 @@ fun CarPersonaje(
     id: String,
     name: String,
     image: String,
-    viewModel: FavoriteViewModel,
+    viewModel: FavoriteViewModel = hiltViewModel(),
     navController: NavController
 ) {
 
