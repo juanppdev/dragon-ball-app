@@ -21,7 +21,6 @@ import com.mundocode.dragonballapp.ui.theme.DragonBallAppTheme
 
 
 class MainActivity : ComponentActivity() {
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         askNotificationPermission()
         tokenNew()

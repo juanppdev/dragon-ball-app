@@ -38,25 +38,25 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import com.mundocode.dragonball.models.SingleDragonBallZLista
+import com.mundocode.dragonball.models.SingleDragonsLista
 import com.mundocode.dragonballapp.R
-import com.mundocode.dragonballapp.viewmodels.MyViewModelFactoryZ
-import com.mundocode.dragonballapp.viewmodels.MyViewModelZ
+import com.mundocode.dragonballapp.viewmodels.MyViewModelDragons
+import com.mundocode.dragonballapp.viewmodels.MyViewModelFactorydragons
 
 @Composable
-fun PersonajeZ(
+fun PersonajeDragons(
     navController: NavController,
     id: Long
 ) {
 
-    val viewModel = viewModel<MyViewModelZ>(
-        factory = MyViewModelFactoryZ(id)
+    val viewModel = viewModel<MyViewModelDragons>(
+        factory = MyViewModelFactorydragons(id)
     )
 
-    val dragonDetails by viewModel.dragonZDetails.collectAsState()
+    val dragonsDetails by viewModel.dragonsDetails.collectAsState()
 
-    ContentZ(
-        dragonDetails = dragonDetails,
+    ContentD(
+        dragonsDetails = dragonsDetails,
         navController = navController
     )
 
@@ -65,8 +65,8 @@ fun PersonajeZ(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ContentZ(
-    dragonDetails: SingleDragonBallZLista?,
+private fun ContentD(
+    dragonsDetails: SingleDragonsLista?,
     navController: NavController
 ) {
     Box(
@@ -87,7 +87,7 @@ private fun ContentZ(
                             titleContentColor = Color.White,
                         ),
                         title = {
-                            dragonDetails.let { details ->
+                            dragonsDetails.let { details ->
                                 if (details != null) {
                                     Text(
                                         details.name,
@@ -98,7 +98,7 @@ private fun ContentZ(
                             }
                         },
                         navigationIcon = {
-                            IconButton(onClick = { navController.navigate("dragonBallZ") }) {
+                            IconButton(onClick = { navController.navigate("dragons") }) {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                     tint = Color.White,
@@ -112,7 +112,7 @@ private fun ContentZ(
                 bottomBar = { BottomAppBar(navController) }
             ) {
 
-                dragonDetails.let { details ->
+                dragonsDetails.let { details ->
                     if (details != null) {
 
                         LazyColumn(
@@ -136,7 +136,7 @@ private fun ContentZ(
 //                                            drawCircle(Color.Blue, radius = 20.dp.toPx())
 //                                        }
 //                                    }
-                                    AsyncImagePersonZ(url = details.image, modifier = Modifier)
+                                    AsyncImagePersonD(url = details.image, modifier = Modifier)
                                 }
                                 Text(
                                     modifier = Modifier
@@ -157,16 +157,6 @@ private fun ContentZ(
                                     fontSize = 20.sp,
                                     color = Color.White
                                 )
-                                Text(
-                                    modifier = Modifier
-                                        .padding(top = 8.dp, start = 10.dp, end = 10.dp)
-                                        .fillMaxWidth(),
-                                    text = "Planeta al que pertence",
-                                    fontWeight = FontWeight.Bold,
-                                    textAlign = TextAlign.Start,
-                                    fontSize = 24.sp,
-                                    color = Color.White
-                                )
                             }
                         }
 
@@ -178,7 +168,7 @@ private fun ContentZ(
 }
 
 @Composable
-fun AsyncImagePersonZ(url: String, modifier: Modifier) {
+fun AsyncImagePersonD(url: String, modifier: Modifier) {
     val painter: Painter = // Optionally, you can apply transformations
         rememberAsyncImagePainter(
             ImageRequest.Builder(LocalContext.current).data(data = url)
@@ -193,3 +183,4 @@ fun AsyncImagePersonZ(url: String, modifier: Modifier) {
         contentDescription = null
     )
 }
+

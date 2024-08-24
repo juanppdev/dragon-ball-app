@@ -12,7 +12,7 @@ class FavoriteRepository {
     private val favoritesCollection = firestore.collection("users").document(currentUser?.uid ?: "").collection("favoriteCharacters")
 
     fun addFavorite(favorite: Favorite) {
-        favoritesCollection.document(favorite.id).set(favorite)
+        favoritesCollection.document(favorite.id.toString()).set(favorite)
     }
 
     fun removeFavorite(favorite: Favorite) {

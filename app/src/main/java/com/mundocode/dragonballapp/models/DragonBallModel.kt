@@ -3,12 +3,12 @@ package com.mundocode.dragonball.models
 import com.google.gson.annotations.SerializedName
 
 typealias DragonBallModel = List<DragonBallLista>
-typealias SingleDragonBallModel = SingleDragonBallLista
 typealias DragonBallZModel = List<DragonBallZLista>
+typealias DragonsModel = List<DragonsLista>
 
 data class DragonBallLista (
     @SerializedName("id")
-    val id: String,
+    val id: Long,
     @SerializedName("name")
     val name: String,
     @SerializedName("genre")
@@ -27,7 +27,7 @@ data class DragonBallLista (
 
 data class SingleDragonBallLista (
     @SerializedName("id")
-    val id: String,
+    val id: Long,
     @SerializedName("name")
     val name: String,
     @SerializedName("genre")
@@ -46,7 +46,7 @@ data class SingleDragonBallLista (
 
 data class DragonBallZLista (
     @SerializedName("id")
-    val id: String,
+    val id: Long,
     @SerializedName("name")
     val name: String,
     @SerializedName("genre")
@@ -67,7 +67,7 @@ data class DragonBallZLista (
 
 data class Transformations (
     @SerializedName("id")
-    val id: String,
+    val id: Long,
     @SerializedName("image")
     val image: String,
     @SerializedName("description")
@@ -76,7 +76,7 @@ data class Transformations (
 
 data class SingleDragonBallZLista (
     @SerializedName("id")
-    val id: String,
+    val id: Long,
     @SerializedName("name")
     val name: String,
     @SerializedName("genre")
@@ -93,4 +93,30 @@ data class SingleDragonBallZLista (
     val biography: String,
     @SerializedName("transformations")
     val transformations: List<Transformations>
+)
+
+data class DragonsLista (
+    @SerializedName("id")
+    val id: Long,
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("image")
+    val image: String,
+    @SerializedName("description")
+    val description: String,
+    @SerializedName("biography")
+    val biography: String
+)
+
+data class SingleDragonsLista (
+    @SerializedName("id")
+    val id: Long,
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("image")
+    val image: String,
+    @SerializedName("description")
+    val description: String,
+    @SerializedName("biography")
+    val biography: String
 )

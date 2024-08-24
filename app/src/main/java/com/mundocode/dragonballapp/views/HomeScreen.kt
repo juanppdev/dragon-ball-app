@@ -140,6 +140,7 @@ fun HomeScreen(navController: NavController) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(75.dp)
+                            .clickable { navController.navigate("dragons") }
                     ) {
                         Row(
                             modifier = Modifier

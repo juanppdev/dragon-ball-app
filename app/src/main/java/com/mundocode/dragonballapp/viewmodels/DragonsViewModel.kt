@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.mundocode.dragonball.models.DragonBallLista
-import com.mundocode.dragonball.models.DragonBallModel
-import com.mundocode.dragonball.models.SingleDragonBallLista
+import com.mundocode.dragonball.models.DragonsLista
+import com.mundocode.dragonball.models.DragonsModel
+import com.mundocode.dragonball.models.SingleDragonsLista
 import com.mundocode.dragonballapp.network.ApiDragonBall
 import com.mundocode.dragonballapp.network.RetrofitClient
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,37 +15,37 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-interface DBZListRepositoryInterface {
-    suspend fun getSaiyanList(): Response<DragonBallModel>
+interface DragonsListRepositoryInterface {
+    suspend fun getDragonsList(): Response<DragonsModel>
 }
 
-class DBZListRepository(
+class DragonsListRepository(
     private val apiService: ApiDragonBall = RetrofitClient.retrofit
-): DBZListRepositoryInterface {
-    override suspend fun getSaiyanList(): Response<List<DragonBallLista>> {
-        return apiService.obtenerPersonajes()
+): DragonsListRepositoryInterface {
+    override suspend fun getDragonsList(): Response<List<DragonsLista>> {
+        return apiService.obtenerDragons()
     }
 }
 
-class DragonBallListViewModel(
-    private val repository: DBZListRepositoryInterface = DBZListRepository()
+class DragonsListViewModel(
+    private val repository: DragonsListRepositoryInterface = DragonsListRepository()
 ): ViewModel() {
-    private val _saiyanList = MutableStateFlow<List<DragonBallLista>?>(null)
+    private val _dragonsList = MutableStateFlow<List<DragonsLista>?>(null)
 
-    val saiyanList: StateFlow<List<DragonBallLista>?> get() = _saiyanList.asStateFlow()
+    val dragonsList: StateFlow<List<DragonsLista>?> get() = _dragonsList.asStateFlow()
 
     init {
-        getSaiyanList()
+        getDragonsList()
     }
 
-    private fun getSaiyanList() {
+    private fun getDragonsList() {
         viewModelScope.launch {
-            val response = repository.getSaiyanList()
+            val response = repository.getDragonsList()
             if(response.isSuccessful) {
                 val body = response.body()
                 if(body != null) {
                     Log.d("Success", "${body.size}")
-                    _saiyanList.value = body
+                    _dragonsList.value = body
                 }
             } else {
                 val error = response.errorBody()?.string()
@@ -58,30 +58,30 @@ class DragonBallListViewModel(
 
 
 
-interface DragonDetailsRepositoryInterface {
-    suspend fun obtenerPersonaje(id: Long): Response<SingleDragonBallLista>
+interface DragonsDetailsRepositoryInterface {
+    suspend fun obtenerDragons(id: Long): Response<SingleDragonsLista>
 }
 
-class DragonDetailsRepository(
+class DragonsDetailsRepository(
     private val apiService: ApiDragonBall = RetrofitClient.retrofit
-): DragonDetailsRepositoryInterface {
-    override suspend fun obtenerPersonaje(id: Long): Response<SingleDragonBallLista> {
-        return apiService.obtenerPersonaje(id)
+): DragonsDetailsRepositoryInterface {
+    override suspend fun obtenerDragons(id: Long): Response<SingleDragonsLista> {
+        return apiService.obtenerDragons(id)
     }
 }
 
 
 
-class MyViewModel(
+class MyViewModelDragons(
     id: Long,
-    private val repository: DragonDetailsRepositoryInterface = DragonDetailsRepository()
+    private val repository: DragonsDetailsRepositoryInterface = DragonsDetailsRepository()
 ) : ViewModel() {
 
     // Mutable States
-    private val _dragonDetails = MutableStateFlow<SingleDragonBallLista?>(null)
+    private val _dragonsDetails = MutableStateFlow<SingleDragonsLista?>(null)
 
     // States
-    val dragonDetails: StateFlow<SingleDragonBallLista?> get() = _dragonDetails.asStateFlow()
+    val dragonsDetails: StateFlow<SingleDragonsLista?> get() = _dragonsDetails.asStateFlow()
 
     init {
         fetchDetails(id)
@@ -92,7 +92,7 @@ class MyViewModel(
 // Start in another thread
         viewModelScope.launch {
 // Loading state
-            val result = repository.obtenerPersonaje(id)
+            val result = repository.obtenerDragons(id)
             val error = result.errorBody()
             val data = result.body()
 
@@ -104,7 +104,7 @@ class MyViewModel(
             if (data != null) {
 // Handle success case
                 Log.i("Got data", "Got data")
-                _dragonDetails.value = data
+                _dragonsDetails.value = data
                 Log.i("Juan", data.toString())
             } else {
 // Handle empty data
@@ -114,10 +114,10 @@ class MyViewModel(
     }
 }
 
-class MyViewModelFactory(
+class MyViewModelFactorydragons(
     private val id: Long,
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return MyViewModel(id) as T
+        return MyViewModelDragons(id) as T
     }
 }

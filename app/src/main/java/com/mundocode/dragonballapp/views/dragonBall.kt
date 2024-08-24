@@ -76,8 +76,6 @@ fun DragonBall(
             contentColor = Color.White,
             containerColor = colorResource(id = R.color.background),
             topBar = {
-                val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-
                 CenterAlignedTopAppBar(
                     colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                         containerColor = colorResource(id = R.color.card),
@@ -124,7 +122,7 @@ fun DragonBall(
 
 
 @Composable
-fun CarPersonaje(id: String, name: String, image: String, viewModel: FavoriteViewModel, navController: NavController) {
+fun CarPersonaje(id: Long, name: String, image: String, viewModel: FavoriteViewModel, navController: NavController) {
 
     val scale by remember { mutableFloatStateOf(2f) }
     val offsetX by remember { mutableFloatStateOf(0f) }
@@ -160,9 +158,9 @@ fun CarPersonaje(id: String, name: String, image: String, viewModel: FavoriteVie
                 modifier = Modifier
                     .clickable {
                         if (isFavorite.value) {
-                            viewModel.removeFavorite(Favorite(id= id))
+                            viewModel.removeFavorite(Favorite(id=id))
                         } else {
-                            viewModel.addFavorite(Favorite(id= id))
+                            viewModel.addFavorite(Favorite(id=id))
                         }
                     },
                 imageVector = if (isFavorite.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,

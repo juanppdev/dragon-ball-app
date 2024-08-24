@@ -1,8 +1,6 @@
 package com.mundocode.dragonballapp.views
 
 import android.graphics.Bitmap
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -52,11 +50,10 @@ import com.mundocode.dragonballapp.viewmodels.MyViewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Personaje(
     navController: NavController,
-    id: String
+    id: Long
 ) {
 
     val viewModel = viewModel<MyViewModel>(
@@ -73,7 +70,6 @@ fun Personaje(
 
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun Content(
@@ -96,21 +92,21 @@ private fun Content(
                 contentColor = Color.White,
                 containerColor = colorResource(id = R.color.background),
                 topBar = {
-                    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(
-                        rememberTopAppBarState()
-                    )
-
                     CenterAlignedTopAppBar(
                         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                             containerColor = colorResource(id = R.color.card),
                             titleContentColor = Color.White,
                         ),
                         title = {
-                            Text(
-                                "Personajes",
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
-                            )
+                            dragonDetails.let { details ->
+                                if (details != null) {
+                                    Text(
+                                        details.name,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                }
+                            }
                         },
                         navigationIcon = {
                             IconButton(onClick = { navController.navigate("dragonBall") }) {
@@ -211,7 +207,6 @@ private fun Content(
         }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 suspend fun detectColors(bitmap: Bitmap, onComplete: (List<Color>, Color) -> Unit) {
     withContext(Dispatchers.Default) {
         // Convertir el bitmap a ARGB_8888 si es necesario
@@ -235,7 +230,6 @@ suspend fun detectColors(bitmap: Bitmap, onComplete: (List<Color>, Color) -> Uni
 }
 
 
-@RequiresApi(Build.VERSION_CODES.O)
 fun clusterColors(colorCounts: Map<Int, Int>, maxClusters: Int): List<Int> {
     val clusters = mutableListOf<Int>()
 
@@ -288,7 +282,6 @@ fun colorDistance(color1: Int, color2: Int): Float {
     return dr * dr + dg * dg + db * db
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 fun mixColors(color1: Int, color2: Int): Int {
     val r1 = android.graphics.Color.red(color1) / 255.0f
     val g1 = android.graphics.Color.green(color1) / 255.0f

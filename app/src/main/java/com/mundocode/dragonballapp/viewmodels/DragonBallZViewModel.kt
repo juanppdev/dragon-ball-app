@@ -59,13 +59,13 @@ class DragonBallZListViewModel(
 
 
 interface DragonZDetailsRepositoryInterface {
-    suspend fun obtenerPersonaje(id: String): Response<SingleDragonBallZLista>
+    suspend fun obtenerPersonaje(id: Long): Response<SingleDragonBallZLista>
 }
 
 class DragonZDetailsRepository(
     private val apiService: ApiDragonBall = RetrofitClient.retrofit
 ): DragonZDetailsRepositoryInterface {
-    override suspend fun obtenerPersonaje(id: String): Response<SingleDragonBallZLista> {
+    override suspend fun obtenerPersonaje(id: Long): Response<SingleDragonBallZLista> {
         return apiService.obtenerPersonajeZ(id)
     }
 }
@@ -73,7 +73,7 @@ class DragonZDetailsRepository(
 
 
 class MyViewModelZ(
-    id: String,
+    id: Long,
     private val repository: DragonZDetailsRepositoryInterface = DragonZDetailsRepository()
 ) : ViewModel() {
 
@@ -88,7 +88,7 @@ class MyViewModelZ(
     }
 
 
-    private fun fetchDetails(id: String) {
+    private fun fetchDetails(id: Long) {
 // Start in another thread
         viewModelScope.launch {
 // Loading state
@@ -115,7 +115,7 @@ class MyViewModelZ(
 }
 
 class MyViewModelFactoryZ(
-    private val id: String,
+    private val id: Long,
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return MyViewModelZ(id) as T
