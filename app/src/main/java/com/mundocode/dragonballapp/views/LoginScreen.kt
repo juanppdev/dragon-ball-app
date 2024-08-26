@@ -24,7 +24,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
@@ -49,12 +48,12 @@ fun LoginScreen(
     viewModel: LoginScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
 
-    val context = LocalContext.current
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts
             .StartActivityForResult()
-    ) {
-        val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
+    ) { result ->
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+
         try {
             val account = task.getResult(ApiException::class.java)
             val credendial = GoogleAuthProvider.getCredential(account.idToken, null)

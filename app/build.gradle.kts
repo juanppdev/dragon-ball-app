@@ -91,7 +91,7 @@ dependencies {
     //Firebase
     implementation(platform(libs.firebase.bom.v3223))
     implementation(libs.firebase.auth.ktx)
-    implementation(libs.play.services.auth.v2070)
+    implementation(libs.play.services.auth)
     // Declare the dependency for the Cloud Firestore library
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation(libs.firebase.firestore)
@@ -101,7 +101,6 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation(libs.google.firebase.auth.ktx)
     implementation(libs.androidx.credentials)
-    implementation(libs.play.services.auth.v2020)
 
     // Agregaremos las dependencias de los productos de Firebase que deseas usar
     implementation(libs.firebase.analytics)
@@ -110,6 +109,13 @@ dependencies {
     // Dagger Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+
+    implementation("com.google.android.gms:play-services-auth:20.5.0")
+    implementation("com.google.firebase:firebase-auth-ktx:23.0.0")
+
+    implementation("androidx.credentials:credentials:1.2.2")
+    implementation("androidx.credentials:credentials-play-services-auth:1.2.2")
+    implementation("com.google.android.libraries.identity.googleid:googleid:.1.2.2")
 
 
 }

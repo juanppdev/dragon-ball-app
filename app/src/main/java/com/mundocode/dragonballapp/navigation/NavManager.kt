@@ -1,7 +1,5 @@
 package com.mundocode.dragonballapp.navigation
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
@@ -23,7 +21,6 @@ import com.mundocode.dragonballapp.views.Personaje
 import com.mundocode.dragonballapp.views.PersonajeDragons
 import com.mundocode.dragonballapp.views.PersonajeZ
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NavManager() {
     val navController = rememberNavController()
@@ -50,6 +47,6 @@ fun NavManager() {
                 PersonajeDragons(navController = navController, id = id)
             }
         }
-        composable("favoriteScreen") { FavoriteScreen(viewModelF, navController, DragonBallListViewModel()) }
+        composable("favoriteScreen") { FavoriteScreen(viewModelF, navController, DragonBallListViewModel(), DragonBallZListViewModel(), DragonsListViewModel()) }
     }
 }

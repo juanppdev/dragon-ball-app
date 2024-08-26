@@ -54,6 +54,8 @@ import coil.compose.rememberAsyncImagePainter
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.data.Favorite
 import com.mundocode.dragonballapp.viewmodels.DragonBallListViewModel
+import com.mundocode.dragonballapp.viewmodels.DragonBallZListViewModel
+import com.mundocode.dragonballapp.viewmodels.DragonsListViewModel
 import com.mundocode.dragonballapp.viewmodels.FavoriteViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -61,7 +63,9 @@ import com.mundocode.dragonballapp.viewmodels.FavoriteViewModel
 fun FavoriteScreen(
     viewModel: FavoriteViewModel,
     navController: NavController,
-    modelView: DragonBallListViewModel
+    modelView: DragonBallListViewModel,
+    modelZView: DragonBallZListViewModel,
+    modelDView: DragonsListViewModel
 ) {
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
@@ -113,6 +117,8 @@ fun FavoriteScreen(
             ) {
                 items(favorites) { favorite ->
                     FavoriteCard(favorite, navController, modelView, viewModel)
+                    FavoriteZCard(favorite, navController, modelZView, viewModel)
+                    FavoriteDCard(favorite, navController, modelDView, viewModel)
                 }
             }
 
@@ -182,7 +188,229 @@ fun FavoriteCard(
 
             val dragonList by modelView.saiyanList.collectAsState()
 
-            dragonList?.let {
+            dragonList?.let { it ->
+                val item = it.find { it.id == favorite.id }
+
+                Box {
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                    ) {
+                        if (item != null) {
+                            Image(
+                                painter = rememberAsyncImagePainter(model = item.image),
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .fillMaxHeight()
+                                    .aspectRatio(1f)
+                                    .graphicsLayer(
+                                        scaleX = scale,
+                                        scaleY = scale,
+                                        translationX = offsetX,
+                                        translationY = offsetY
+                                    )
+                            )
+                        }
+                    }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp)
+                    ) {
+                        if (item != null) {
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = item.name.replace(" ", "\n"),
+                                fontSize = 25.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White,
+                                softWrap = true,
+                                style = TextStyle(
+                                    lineBreak = LineBreak.Paragraph.copy(strictness = LineBreak.Strictness.Loose)
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun FavoriteZCard(
+    favorite: Favorite,
+    navController: NavController,
+    modelView: DragonBallZListViewModel,
+    viewModel: FavoriteViewModel
+) {
+
+    val scale by remember { mutableFloatStateOf(2f) }
+    val offsetX by remember { mutableFloatStateOf(0f) }
+    val offsetY by remember { mutableFloatStateOf(200f) }
+
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = colorResource(id = R.color.card),
+        ),
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
+            .height(110.dp)
+            .clickable {
+                navController.navigate("personaje/${favorite.id}")
+            }
+    ) {
+        // Estado para controlar si es favorito
+        val isFavorite = remember { mutableStateOf(false) }
+
+// Observar los favoritos desde el ViewModel
+        val favorites by viewModel.allFavorites.observeAsState(emptyList())
+
+// Actualizar el estado cuando cambien los favoritos
+        LaunchedEffect(favorites) {
+            isFavorite.value = favorites.any { it.id == favorite.id }
+        }
+
+        Column {
+            Icon(
+                modifier = Modifier
+                    .clickable {
+                        if (isFavorite.value) {
+                            viewModel.removeFavorite(
+                                Favorite(
+                                    id = favorite.id
+                                )
+                            )
+                        } else {
+                            viewModel.addFavorite(
+                                Favorite(
+                                    id = favorite.id
+                                )
+                            )
+                        }
+                    },
+                imageVector = if (isFavorite.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                contentDescription = "Favorite",
+                tint = if (isFavorite.value) Color.Red else Color.Gray
+            )
+
+            val dragonList by modelView.saiyanZList.collectAsState()
+
+            dragonList?.let { it ->
+                val item = it.find { it.id == favorite.id }
+
+                Box {
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                    ) {
+                        if (item != null) {
+                            Image(
+                                painter = rememberAsyncImagePainter(model = item.image),
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .fillMaxHeight()
+                                    .aspectRatio(1f)
+                                    .graphicsLayer(
+                                        scaleX = scale,
+                                        scaleY = scale,
+                                        translationX = offsetX,
+                                        translationY = offsetY
+                                    )
+                            )
+                        }
+                    }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp)
+                    ) {
+                        if (item != null) {
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = item.name.replace(" ", "\n"),
+                                fontSize = 25.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White,
+                                softWrap = true,
+                                style = TextStyle(
+                                    lineBreak = LineBreak.Paragraph.copy(strictness = LineBreak.Strictness.Loose)
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun FavoriteDCard(
+    favorite: Favorite,
+    navController: NavController,
+    modelView: DragonsListViewModel,
+    viewModel: FavoriteViewModel
+) {
+
+    val scale by remember { mutableFloatStateOf(2f) }
+    val offsetX by remember { mutableFloatStateOf(0f) }
+    val offsetY by remember { mutableFloatStateOf(200f) }
+
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = colorResource(id = R.color.card),
+        ),
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
+            .height(110.dp)
+            .clickable {
+                navController.navigate("personaje/${favorite.id}")
+            }
+    ) {
+        // Estado para controlar si es favorito
+        val isFavorite = remember { mutableStateOf(false) }
+
+// Observar los favoritos desde el ViewModel
+        val favorites by viewModel.allFavorites.observeAsState(emptyList())
+
+// Actualizar el estado cuando cambien los favoritos
+        LaunchedEffect(favorites) {
+            isFavorite.value = favorites.any { it.id == favorite.id }
+        }
+
+        Column {
+            Icon(
+                modifier = Modifier
+                    .clickable {
+                        if (isFavorite.value) {
+                            viewModel.removeFavorite(
+                                Favorite(
+                                    id = favorite.id
+                                )
+                            )
+                        } else {
+                            viewModel.addFavorite(
+                                Favorite(
+                                    id = favorite.id
+                                )
+                            )
+                        }
+                    },
+                imageVector = if (isFavorite.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                contentDescription = "Favorite",
+                tint = if (isFavorite.value) Color.Red else Color.Gray
+            )
+
+            val dragonList by modelView.dragonsList.collectAsState()
+
+            dragonList?.let { it ->
                 val item = it.find { it.id == favorite.id }
 
                 Box {
