@@ -75,52 +75,48 @@ fun DragonBallZ(
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
-    Box(
+    Scaffold(
         modifier = Modifier
             .fillMaxSize()
-    ) {
-        Scaffold(
-            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-            contentColor = Color.White,
-            containerColor = colorResource(id = R.color.background),
-            topBar = {
-                CenterAlignedTopAppBar(
-                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                        containerColor = colorResource(id = R.color.card),
-                        titleContentColor = Color.White,
-                    ),
-                    title = {
-                        Text(
-                            "Personajes",
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
+        contentColor = Color.White,
+        containerColor = colorResource(id = R.color.background),
+        topBar = {
+            CenterAlignedTopAppBar(
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = colorResource(id = R.color.card),
+                    titleContentColor = Color.White,
+                ),
+                title = {
+                    Text(
+                        "Personajes",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigate("homeScreen") }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            tint = Color.White,
+                            contentDescription = "Localized description"
                         )
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = { navController.navigate("homeScreen") }) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                tint = Color.White,
-                                contentDescription = "Localized description"
-                            )
-                        }
-                    },
-                    scrollBehavior = scrollBehavior,
-                )
-            },
-            bottomBar = { BottomAppBar(navController) }
-        ) { innerPadding ->
+                    }
+                },
+                scrollBehavior = scrollBehavior,
+            )
+        },
+        bottomBar = { CustomBottomAppBar(navController) }
+    ) { innerPadding ->
 
-            Box(modifier = Modifier.padding(innerPadding)) {
-
-                dragonList?.let { list ->
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2), // Número de columnas
-                        modifier = Modifier.fillMaxSize(),
-                    ) {
-                        items(list) { item ->
-                            CarPersonajeZ(item.id, item.name, item.image, viewModelF, navController)
-                        }
+        Box(modifier = Modifier.padding(innerPadding)) {
+            dragonList?.let { list ->
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2), // Número de columnas
+                    modifier = Modifier.fillMaxSize(),
+                ) {
+                    items(list) { item ->
+                        CarPersonajeZ(item.id, item.name, item.image, viewModelF, navController)
                     }
                 }
             }

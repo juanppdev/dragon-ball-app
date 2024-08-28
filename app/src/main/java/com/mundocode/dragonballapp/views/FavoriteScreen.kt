@@ -84,23 +84,22 @@ fun FavoriteScreen(
 
 
 
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Scaffold(
-            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-            contentColor = Color.White,
-            containerColor = colorResource(id = R.color.background),
-            topBar = {
-                CustomTopBar(title = "Favoritos") {
-                    IconButton(onClick = { navController.navigate("homeScreen") }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            tint = Color.White,
-                            contentDescription = "Localized description"
-                        )
-                    }
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
+        contentColor = Color.White,
+        containerColor = colorResource(id = R.color.background),
+        topBar = {
+            CustomTopBar(title = "Favoritos") {
+                IconButton(onClick = { navController.navigate("homeScreen") }) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        tint = Color.White,
+                        contentDescription = "Localized description"
+                    )
                 }
+            }
 
 //                CenterAlignedTopAppBar(
 //                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
@@ -125,59 +124,58 @@ fun FavoriteScreen(
 //                    },
 //                    scrollBehavior = scrollBehavior,
 //                )
-            },
-            bottomBar = { BottomAppBar(navController) }
-        ) { innerPadding ->
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
-            ) {
-                items(favorites) { favorite ->
-                    when (favorite.type) {
-                        DragonBallType.SAIYAN -> {
-                            val item = list?.find { it.id == favorite.id }
-                            item?.let {
-                                FavoriteItemCard(
-                                    favorite,
-                                    navController,
-                                    { id -> list?.find { it.id == id } },
-                                    {
-                                        rememberAsyncImagePainter(model = item.image)
-                                    },
-                                    it.name,
-                                    viewModel
-                                )
-                            }
+        },
+        bottomBar = { CustomBottomAppBar(navController) }
+    ) { innerPadding ->
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
+        ) {
+            items(favorites) { favorite ->
+                when (favorite.type) {
+                    DragonBallType.SAIYAN -> {
+                        val item = list?.find { it.id == favorite.id }
+                        item?.let {
+                            FavoriteItemCard(
+                                favorite,
+                                navController,
+                                { id -> list?.find { it.id == id } },
+                                {
+                                    rememberAsyncImagePainter(model = item.image)
+                                },
+                                it.name,
+                                viewModel
+                            )
                         }
+                    }
 
-                        DragonBallType.SAIYAN_Z -> {
-                            val item = listZ?.find { it.id == favorite.id }
-                            item?.let {
-                                FavoriteItemCard(
-                                    favorite,
-                                    navController,
-                                    { id -> listZ?.find { it.id == id } },
-                                    { rememberAsyncImagePainter(model = item.image) },
-                                    it.name,
-                                    viewModel
-                                )
-                            }
+                    DragonBallType.SAIYAN_Z -> {
+                        val item = listZ?.find { it.id == favorite.id }
+                        item?.let {
+                            FavoriteItemCard(
+                                favorite,
+                                navController,
+                                { id -> listZ?.find { it.id == id } },
+                                { rememberAsyncImagePainter(model = item.image) },
+                                it.name,
+                                viewModel
+                            )
                         }
+                    }
 
-                        DragonBallType.DRAGONS -> {
-                            val item = listD?.find { it.id == favorite.id }
-                            item?.let { it ->
-                                FavoriteItemCard(
-                                    favorite,
-                                    navController,
-                                    { id -> listD?.find { it.id == id } },
-                                    { rememberAsyncImagePainter(model = item.image) },
-                                    it.name,
-                                    viewModel
-                                )
-                            }
+                    DragonBallType.DRAGONS -> {
+                        val item = listD?.find { it.id == favorite.id }
+                        item?.let { it ->
+                            FavoriteItemCard(
+                                favorite,
+                                navController,
+                                { id -> listD?.find { it.id == id } },
+                                { rememberAsyncImagePainter(model = item.image) },
+                                it.name,
+                                viewModel
+                            )
                         }
                     }
                 }

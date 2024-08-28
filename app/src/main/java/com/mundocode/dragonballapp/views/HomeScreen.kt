@@ -46,6 +46,7 @@ import com.mundocode.dragonballapp.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController) {
+
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     Scaffold(
@@ -64,7 +65,7 @@ fun HomeScreen(navController: NavController) {
                 }
             }
         },
-        bottomBar = { BottomAppBar(navController) }
+        bottomBar = { CustomBottomAppBar(navController) }
     ) { innerPadding ->
 
         Box(modifier = Modifier.padding(innerPadding)) {
@@ -176,55 +177,6 @@ fun HomeScreen(navController: NavController) {
     }
 }
 
-
-@Composable
-fun BottomAppBar(navController: NavController) {
-
-    BottomAppBar(
-        containerColor = colorResource(id = R.color.card),
-        contentColor = Color.White,
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-
-            NavigationBar(
-                containerColor = colorResource(id = R.color.card),
-                contentColor = Color.White,
-                windowInsets = NavigationBarDefaults.windowInsets
-            ) {
-                NavigationBarItem(
-                    selected = false,
-                    onClick = { navController.navigate("homeScreen") },
-                    icon = {
-                        Icon(
-                            painterResource(id = R.drawable.wiki),
-                            contentDescription = "Localized description",
-                            modifier = Modifier.size(30.dp),
-                            tint = Color.White
-                        )
-                    },
-                    label = { Text(text = "Wiki", color = Color.White) }
-                )
-                NavigationBarItem(
-                    selected = false,
-                    onClick = { navController.navigate("homeScreen") },
-                    enabled = false,
-                    icon = {
-                        Icon(
-                            painterResource(id = R.drawable.games),
-                            contentDescription = "Localized description",
-                            modifier = Modifier.size(30.dp),
-                            tint = Color.White
-                        )
-                    },
-                    label = { Text(text = "Games", color = Color.White) }
-                )
-            }
-        }
-    }
-}
 
 @Composable
 fun AsyncImage(url: Int, modifier: Modifier) {

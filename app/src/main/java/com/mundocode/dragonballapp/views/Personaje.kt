@@ -120,7 +120,7 @@ private fun Content(
                     scrollBehavior = scrollBehavior,
                 )
             },
-            bottomBar = { BottomAppBar(navController) }
+            bottomBar = { CustomBottomAppBar(navController) }
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 dragonDetails?.let { details ->
