@@ -47,17 +47,13 @@ import com.mundocode.dragonball.models.SingleDragonsLista
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.UnifiedDragonBallViewModel
-import com.mundocode.dragonballapp.viewmodels.UnifiedDragonBallViewModelFactory
 
 @Composable
 fun PersonajeDragons(
     navController: NavController,
-    id: Long
+    id: Long,
+    viewModel: UnifiedDragonBallViewModel = viewModel()
 ) {
-    // Crear el ViewModel con el tipo y ID adecuados
-    val viewModel: UnifiedDragonBallViewModel = viewModel(
-        factory = UnifiedDragonBallViewModelFactory(DragonBallType.DRAGONS, id)
-    )
 
     // Obtener detalles del personaje
     LaunchedEffect(id) {

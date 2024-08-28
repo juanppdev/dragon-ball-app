@@ -57,17 +57,14 @@ import com.mundocode.dragonballapp.data.Favorite
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.FavoriteViewModel
 import com.mundocode.dragonballapp.viewmodels.UnifiedDragonBallViewModel
-import com.mundocode.dragonballapp.viewmodels.UnifiedDragonBallViewModelFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Dragons(
     navController: NavController,
-    viewModelF: FavoriteViewModel
+    viewModelF: FavoriteViewModel = viewModel(),
+    viewModel: UnifiedDragonBallViewModel = viewModel()
 ) {
-    val viewModel: UnifiedDragonBallViewModel = viewModel(factory = UnifiedDragonBallViewModelFactory(
-        DragonBallType.DRAGONS)
-    )
 
     // Obtener lista de personajes
     LaunchedEffect(Unit) {
@@ -168,9 +165,9 @@ fun CarPersonajeD(id: Long, name: String, image: String, viewModel: FavoriteView
                 modifier = Modifier
                     .clickable {
                         if (isFavorite.value) {
-                            viewModel.removeFavorite(Favorite(id=id, type = DragonBallType.DRAGONS))
+                            viewModel.removeFavorite(Favorite(id = id, type = DragonBallType.DRAGONS))
                         } else {
-                            viewModel.addFavorite(Favorite(id=id, type = DragonBallType.DRAGONS))
+                            viewModel.addFavorite(Favorite(id = id, type = DragonBallType.DRAGONS))
                         }
                     },
                 imageVector = if (isFavorite.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,

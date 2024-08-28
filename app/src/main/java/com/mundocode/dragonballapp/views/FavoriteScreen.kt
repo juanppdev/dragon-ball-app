@@ -21,7 +21,6 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -46,9 +45,9 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.mundocode.dragonballapp.R
@@ -60,24 +59,22 @@ import com.mundocode.dragonballapp.viewmodels.UnifiedDragonBallViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FavoriteScreen(
-    viewModel: FavoriteViewModel,
     navController: NavController,
-    modelView: UnifiedDragonBallViewModel,
-    modelZView: UnifiedDragonBallViewModel,
-    modelDView: UnifiedDragonBallViewModel
+    viewModel: FavoriteViewModel = viewModel(),
+    viewModelU: UnifiedDragonBallViewModel = viewModel(),
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val favorites by viewModel.allFavorites.observeAsState(emptyList())
 
-    val list by modelView.list.collectAsState()
-    val listZ by modelZView.listZ.collectAsState()
-    val listD by modelDView.listD.collectAsState()
+    val list by viewModelU.list.collectAsState()
+    val listZ by viewModelU.listZ.collectAsState()
+    val listD by viewModelU.listD.collectAsState()
 
     LaunchedEffect(Unit) {
         // Verifica si los datos están cargados o llama a cargar datos aquí si es necesario
-        if (list == null) modelView.getList(DragonBallType.SAIYAN)
-        if (listZ == null) modelZView.getList(DragonBallType.SAIYAN_Z)
-        if (listD == null) modelDView.getList(DragonBallType.DRAGONS)
+        if (list == null) viewModelU.getList(DragonBallType.SAIYAN)
+        if (listZ == null) viewModelU.getList(DragonBallType.SAIYAN_Z)
+        if (listD == null) viewModelU.getList(DragonBallType.DRAGONS)
     }
 
     Log.d("FavoriteScreen", "Favorites: $favorites")
@@ -95,29 +92,39 @@ fun FavoriteScreen(
             contentColor = Color.White,
             containerColor = colorResource(id = R.color.background),
             topBar = {
-                CenterAlignedTopAppBar(
-                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                        containerColor = colorResource(id = R.color.card),
-                        titleContentColor = Color.White,
-                    ),
-                    title = {
-                        Text(
-                            "Favoritos",
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
+                CustomTopBar(title = "Favoritos") {
+                    IconButton(onClick = { navController.navigate("homeScreen") }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            tint = Color.White,
+                            contentDescription = "Localized description"
                         )
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = { navController.navigate("homeScreen") }) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                tint = Color.White,
-                                contentDescription = "Localized description"
-                            )
-                        }
-                    },
-                    scrollBehavior = scrollBehavior,
-                )
+                    }
+                }
+
+//                CenterAlignedTopAppBar(
+//                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+//                        containerColor = colorResource(id = R.color.card),
+//                        titleContentColor = Color.White,
+//                    ),
+//                    title = {
+//                        Text(
+//                            "Favoritos",
+//                            maxLines = 1,
+//                            overflow = TextOverflow.Ellipsis
+//                        )
+//                    },
+//                    navigationIcon = {
+//                        IconButton(onClick = { navController.navigate("homeScreen") }) {
+//                            Icon(
+//                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+//                                tint = Color.White,
+//                                contentDescription = "Localized description"
+//                            )
+//                        }
+//                    },
+//                    scrollBehavior = scrollBehavior,
+//                )
             },
             bottomBar = { BottomAppBar(navController) }
         ) { innerPadding ->
@@ -144,6 +151,7 @@ fun FavoriteScreen(
                                 )
                             }
                         }
+
                         DragonBallType.SAIYAN_Z -> {
                             val item = listZ?.find { it.id == favorite.id }
                             item?.let {
@@ -157,6 +165,7 @@ fun FavoriteScreen(
                                 )
                             }
                         }
+
                         DragonBallType.DRAGONS -> {
                             val item = listD?.find { it.id == favorite.id }
                             item?.let { it ->

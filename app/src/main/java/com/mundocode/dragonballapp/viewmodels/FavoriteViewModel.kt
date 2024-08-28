@@ -7,6 +7,7 @@ import com.mundocode.dragonballapp.data.FavoriteRepository
 
 class FavoriteViewModel : ViewModel() {
 
+
     private val repository = FavoriteRepository()
     val allFavorites: LiveData<List<Favorite>> = repository.getAllFavorites()
 

@@ -121,16 +121,15 @@ class UnifiedDragonBallViewModel(
 }
 
 
-
-class UnifiedDragonBallViewModelFactory(
-    private val type: DragonBallType,
-    private val id: Long? = null
-) : ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(UnifiedDragonBallViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return UnifiedDragonBallViewModel() as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
+//class UnifiedDragonBallViewModelFactory(
+//    private val type: DragonBallType,
+//    private val id: Long? = null
+//) : ViewModelProvider.NewInstanceFactory() {
+//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//        if (modelClass.isAssignableFrom(UnifiedDragonBallViewModel::class.java)) {
+//            @Suppress("UNCHECKED_CAST")
+//            return UnifiedDragonBallViewModel() as T
+//        }
+//        throw IllegalArgumentException("Unknown ViewModel class")
+//    }
+//}

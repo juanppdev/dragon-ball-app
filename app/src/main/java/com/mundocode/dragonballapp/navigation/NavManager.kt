@@ -1,6 +1,7 @@
 package com.mundocode.dragonballapp.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -19,16 +20,22 @@ import com.mundocode.dragonballapp.views.PersonajeDragons
 import com.mundocode.dragonballapp.views.PersonajeZ
 
 @Composable
-fun NavManager() {
+fun NavManager(
+    modifier: Modifier = Modifier,
+    viewModelF: FavoriteViewModel = viewModel()
+) {
     val navController = rememberNavController()
-    val viewModelF: FavoriteViewModel = viewModel()
 
-    NavHost(navController = navController, startDestination = "loginScreen") {
+    NavHost(
+        navController = navController,
+        startDestination = "loginScreen",
+        modifier = modifier
+    ) {
         composable("loginScreen") { LoginScreen(navController = navController) }
         composable("homeScreen") { HomeScreen(navController = navController) }
-        composable("dragonBallZ") { DragonBallZ(navController, viewModelF) }
-        composable("dragons") { Dragons(navController, viewModelF) }
-        composable("dragonBall") { DragonBall(navController = navController, viewModelF) }
+        composable("dragonBallZ") { DragonBallZ(navController) }
+        composable("dragons") { Dragons(navController) }
+        composable("dragonBall") { DragonBall(navController = navController) }
         composable("personaje/{id}", arguments = listOf(navArgument("id") { type = NavType.LongType })) {
             it.arguments?.getLong("id")?.let { id ->
                 Personaje(navController = navController, id = id)
@@ -44,6 +51,8 @@ fun NavManager() {
                 PersonajeDragons(navController = navController, id = id)
             }
         }
-        composable("favoriteScreen") { FavoriteScreen(viewModelF, navController, viewModel(), viewModel(), viewModel()) }
+        composable("favoriteScreen") {
+            FavoriteScreen(navController)
+        }
     }
 }

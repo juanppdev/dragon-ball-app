@@ -10,14 +10,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import coil.compose.rememberAsyncImagePainter
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -38,10 +36,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.mundocode.dragonballapp.R
 
@@ -55,7 +53,16 @@ fun HomeScreen(navController: NavController) {
         contentColor = Color.White,
         containerColor = colorResource(id = R.color.background),
         topBar = {
-            TopBar(navController)
+            CustomTopBar(title = "Personajes") {
+                IconButton(onClick = { navController.navigate("favoriteScreen") }) {
+                    Icon(
+                        Icons.Filled.Favorite,
+                        contentDescription = "Localized description",
+                        modifier = Modifier.size(50.dp),
+                        tint = Color.White
+                    )
+                }
+            }
         },
         bottomBar = { BottomAppBar(navController) }
     ) { innerPadding ->
@@ -169,32 +176,6 @@ fun HomeScreen(navController: NavController) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TopBar(navController: NavController) {
-
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-
-    CenterAlignedTopAppBar(
-        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = colorResource(id = R.color.card),
-            titleContentColor = Color.White,
-        ),
-        title = {
-            Text(
-                "Personajes",
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-        },
-        actions = {
-            IconButton(onClick = { navController.navigate("favoriteScreen") }) {
-                Icon(Icons.Filled.Favorite, contentDescription = "Localized description", modifier = Modifier.size(50.dp), tint = Color.White)
-            }
-        },
-        scrollBehavior = scrollBehavior,
-    )
-}
 
 @Composable
 fun BottomAppBar(navController: NavController) {
@@ -212,19 +193,33 @@ fun BottomAppBar(navController: NavController) {
                 containerColor = colorResource(id = R.color.card),
                 contentColor = Color.White,
                 windowInsets = NavigationBarDefaults.windowInsets
-            ){
+            ) {
                 NavigationBarItem(
                     selected = false,
                     onClick = { navController.navigate("homeScreen") },
-                    icon = { Icon(painterResource(id = R.drawable.wiki), contentDescription = "Localized description", modifier = Modifier.size(30.dp), tint = Color.White) },
-                    label = { Text(text = "Wiki", color = Color.White)}
+                    icon = {
+                        Icon(
+                            painterResource(id = R.drawable.wiki),
+                            contentDescription = "Localized description",
+                            modifier = Modifier.size(30.dp),
+                            tint = Color.White
+                        )
+                    },
+                    label = { Text(text = "Wiki", color = Color.White) }
                 )
                 NavigationBarItem(
                     selected = false,
                     onClick = { navController.navigate("homeScreen") },
                     enabled = false,
-                    icon = { Icon(painterResource(id = R.drawable.games), contentDescription = "Localized description", modifier = Modifier.size(30.dp), tint = Color.White) },
-                    label = { Text(text = "Games", color = Color.White)}
+                    icon = {
+                        Icon(
+                            painterResource(id = R.drawable.games),
+                            contentDescription = "Localized description",
+                            modifier = Modifier.size(30.dp),
+                            tint = Color.White
+                        )
+                    },
+                    label = { Text(text = "Games", color = Color.White) }
                 )
             }
         }

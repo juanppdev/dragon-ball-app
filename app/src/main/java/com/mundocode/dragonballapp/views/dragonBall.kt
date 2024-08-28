@@ -30,7 +30,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -53,21 +52,19 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.mundocode.dragonball.models.DragonBallLista
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.data.Favorite
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.FavoriteViewModel
 import com.mundocode.dragonballapp.viewmodels.UnifiedDragonBallViewModel
-import com.mundocode.dragonballapp.viewmodels.UnifiedDragonBallViewModelFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DragonBall(
     navController: NavController,
-    viewModelF: FavoriteViewModel
+    viewModelF: FavoriteViewModel = viewModel(),
+    viewModel: UnifiedDragonBallViewModel = viewModel()
 ) {
-    val viewModel: UnifiedDragonBallViewModel = viewModel(factory = UnifiedDragonBallViewModelFactory(DragonBallType.SAIYAN))
 
     // Obtener lista de personajes
     LaunchedEffect(Unit) {
@@ -132,8 +129,6 @@ fun DragonBall(
 }
 
 
-
-
 @Composable
 fun CarPersonaje(id: Long, name: String, image: String, viewModel: FavoriteViewModel, navController: NavController) {
 
@@ -171,9 +166,9 @@ fun CarPersonaje(id: Long, name: String, image: String, viewModel: FavoriteViewM
                 modifier = Modifier
                     .clickable {
                         if (isFavorite.value) {
-                            viewModel.removeFavorite(Favorite(id=id, type = DragonBallType.SAIYAN))
+                            viewModel.removeFavorite(Favorite(id = id, type = DragonBallType.SAIYAN))
                         } else {
-                            viewModel.addFavorite(Favorite(id=id, type = DragonBallType.SAIYAN))
+                            viewModel.addFavorite(Favorite(id = id, type = DragonBallType.SAIYAN))
                         }
                     },
                 imageVector = if (isFavorite.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
