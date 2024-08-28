@@ -8,11 +8,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
@@ -28,12 +23,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             DragonBallAppTheme {
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    contentColor = Color.Black
-                ) { innerPadding ->
-                    NavManager(modifier = Modifier.padding(innerPadding))
-                }
+                NavManager()
             }
         }
     }

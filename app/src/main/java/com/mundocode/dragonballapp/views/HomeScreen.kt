@@ -1,196 +1,154 @@
 package com.mundocode.dragonballapp.views
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarDefaults
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import coil.compose.rememberAsyncImagePainter
-import coil.request.ImageRequest
+import androidx.navigation.compose.rememberNavController
 import com.mundocode.dragonballapp.R
+import com.mundocode.dragonballapp.ui.theme.DragonBallAppTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController) {
 
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-
     Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        contentColor = Color.White,
-        containerColor = colorResource(id = R.color.background),
         topBar = {
             CustomTopBar(title = "Personajes") {
                 IconButton(onClick = { navController.navigate("favoriteScreen") }) {
                     Icon(
                         Icons.Filled.Favorite,
                         contentDescription = "Localized description",
-                        modifier = Modifier.size(50.dp),
                         tint = Color.White
                     )
                 }
             }
         },
-        bottomBar = { CustomBottomAppBar(navController) }
-    ) { innerPadding ->
+        bottomBar = { CustomBottomAppBar(navController) },
+        contentColor = Color.White,
+        containerColor = colorResource(id = R.color.background),
+    ) { paddingValues ->
 
-        Box(modifier = Modifier.padding(innerPadding)) {
-
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(25.dp)
-            ) {
-                item {
-                    Card(
-                        colors = CardDefaults.cardColors(
-                            containerColor = colorResource(id = R.color.card),
-                        ),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(75.dp)
-                            .clickable { navController.navigate("dragonBall") }
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                        ) {
-                            Text(
-                                text = "Dragon Ball",
-                                fontSize = 30.sp,
-                                modifier = Modifier
-                                    .padding(16.dp),
-                                textAlign = TextAlign.Center,
-                            )
-
-                            AsyncImage(
-                                R.drawable.logo_db, modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(60.dp)
-                            )
-                        }
-                    }
-                }
-
-                item {
-                    Card(
-                        colors = CardDefaults.cardColors(
-                            containerColor = colorResource(id = R.color.card),
-                        ),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(75.dp)
-                            .clickable { navController.navigate("dragonBallZ") }
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                        ) {
-                            Text(
-                                text = "Dragon Ball Z",
-                                fontSize = 30.sp,
-                                modifier = Modifier
-                                    .padding(16.dp),
-                                textAlign = TextAlign.Center,
-                            )
-                            AsyncImage(
-                                R.drawable.logo_z, modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(80.dp)
-                            )
-                        }
-                    }
-                }
-
-                item {
-                    Card(
-                        colors = CardDefaults.cardColors(
-                            containerColor = colorResource(id = R.color.card),
-                        ),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(75.dp)
-                            .clickable { navController.navigate("dragons") }
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceEvenly,
-                        ) {
-                            Text(
-                                text = "Dragones",
-                                fontSize = 30.sp,
-                                modifier = Modifier
-                                    .padding(16.dp),
-                                textAlign = TextAlign.Center,
-                            )
-                            AsyncImage(
-                                R.drawable.logo_dr, modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(80.dp)
-                            )
-                        }
-                    }
-                }
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize()
+                .padding(25.dp)
+        ) {
+            item {
+                PersonajesListItem(
+                    title = "Dragon Ball",
+                    icon = R.drawable.logo_db,
+                    onClick = { navController.navigate("dragonBall") }
+                )
             }
 
-        }
+            item {
+                PersonajesListItem(
+                    title = "DragonBallZ",
+                    icon = R.drawable.logo_z,
+                    onClick = { navController.navigate("dragonBallZ") }
+                )
+            }
 
+            item {
+                PersonajesListItem(
+                    title = "Dragones",
+                    icon = R.drawable.logo_dr,
+                    iconSize = 60.dp,
+                    onClick = { navController.navigate("dragons") }
+                )
+            }
+        }
     }
 }
 
-
 @Composable
-fun AsyncImage(url: Int, modifier: Modifier) {
-    val painter: Painter = // Optionally, you can apply transformations
-        rememberAsyncImagePainter(
-            ImageRequest.Builder(LocalContext.current).data(data = url)
-                .apply(block = fun ImageRequest.Builder.() {
-                    // Optionally, you can apply transformations
-                    transformations()
-                }).build()
+private fun PersonajesListItem(
+    title: String,
+    @DrawableRes icon: Int,
+    iconSize: Dp = 70.dp,
+    onClick: () -> Unit
+) {
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = colorResource(id = R.color.card),
+        ),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .clickable { onClick() }
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = title,
+                fontSize = 30.sp,
+                modifier = Modifier
+                    .weight(0.6f),
+                textAlign = TextAlign.Center,
+            )
+
+            Image(
+                painter = painterResource(id = icon),
+                contentDescription = null,
+                modifier = Modifier
+                    .weight(0.4f)
+                    .fillMaxWidth()
+                    .height(iconSize),
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF3F0F0)
+@Composable
+fun HomeScreenPreview() {
+    DragonBallAppTheme {
+        HomeScreen(navController = rememberNavController())
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF3F0F0)
+@Composable
+fun PersonajesListItemPreview() {
+    DragonBallAppTheme {
+        PersonajesListItem(
+            title = "DragonBallZ",
+            icon = R.drawable.logo_z,
+            onClick = {  }
         )
-    Image(
-        modifier = modifier,
-        painter = painter,
-        contentDescription = null
-    )
+    }
 }

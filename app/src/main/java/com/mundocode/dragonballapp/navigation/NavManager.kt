@@ -1,7 +1,6 @@
 package com.mundocode.dragonballapp.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,15 +17,12 @@ import com.mundocode.dragonballapp.views.PersonajeDragons
 import com.mundocode.dragonballapp.views.PersonajeZ
 
 @Composable
-fun NavManager(
-    modifier: Modifier = Modifier,
-) {
+fun NavManager() {
     val navController = rememberNavController()
 
     NavHost(
         navController = navController,
         startDestination = "loginScreen",
-        modifier = modifier
     ) {
         composable("loginScreen") { LoginScreen(navController = navController) }
         composable("homeScreen") { HomeScreen(navController = navController) }
