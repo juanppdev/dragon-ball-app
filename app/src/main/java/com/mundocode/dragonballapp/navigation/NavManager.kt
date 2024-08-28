@@ -7,9 +7,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.mundocode.dragonballapp.viewmodels.DragonBallListViewModel
-import com.mundocode.dragonballapp.viewmodels.DragonBallZListViewModel
-import com.mundocode.dragonballapp.viewmodels.DragonsListViewModel
 import com.mundocode.dragonballapp.viewmodels.FavoriteViewModel
 import com.mundocode.dragonballapp.views.DragonBall
 import com.mundocode.dragonballapp.views.DragonBallZ
@@ -29,9 +26,9 @@ fun NavManager() {
     NavHost(navController = navController, startDestination = "loginScreen") {
         composable("loginScreen") { LoginScreen(navController = navController) }
         composable("homeScreen") { HomeScreen(navController = navController) }
-        composable("dragonBallZ") { DragonBallZ(navController, DragonBallZListViewModel(), viewModelF) }
-        composable("dragons") { Dragons(navController, DragonsListViewModel(), viewModelF) }
-        composable("dragonBall") { DragonBall(navController = navController, viewModel = DragonBallListViewModel(), viewModelF) }
+        composable("dragonBallZ") { DragonBallZ(navController, viewModelF) }
+        composable("dragons") { Dragons(navController, viewModelF) }
+        composable("dragonBall") { DragonBall(navController = navController, viewModelF) }
         composable("personaje/{id}", arguments = listOf(navArgument("id") { type = NavType.LongType })) {
             it.arguments?.getLong("id")?.let { id ->
                 Personaje(navController = navController, id = id)
@@ -47,6 +44,6 @@ fun NavManager() {
                 PersonajeDragons(navController = navController, id = id)
             }
         }
-        composable("favoriteScreen") { FavoriteScreen(viewModelF, navController, DragonBallListViewModel(), DragonBallZListViewModel(), DragonsListViewModel()) }
+        composable("favoriteScreen") { FavoriteScreen(viewModelF, navController, viewModel(), viewModel(), viewModel()) }
     }
 }

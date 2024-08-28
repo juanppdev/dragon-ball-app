@@ -24,3 +24,8 @@
 -keep class androidx.credentials.playservices.** {
   *;
 }
+
+-keepclassmembers class * {
+    @com.google.firebase.firestore.Exclude <fields>;
+    @com.google.firebase.firestore.Exclude <methods>;
+}

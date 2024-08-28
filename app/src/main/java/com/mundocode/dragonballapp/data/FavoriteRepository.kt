@@ -1,5 +1,6 @@
 package com.mundocode.dragonballapp.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -31,6 +32,7 @@ class FavoriteRepository {
             if (snapshot != null) {
                 val favorites = snapshot.toObjects(Favorite::class.java)
                 favoritesLiveData.value = favorites
+                Log.d("Favorites", "Favorites: $favorites")
             }
         }
         return favoritesLiveData

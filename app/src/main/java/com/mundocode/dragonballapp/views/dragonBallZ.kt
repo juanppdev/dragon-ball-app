@@ -49,21 +49,32 @@ import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.data.Favorite
-import com.mundocode.dragonballapp.viewmodels.DragonBallZListViewModel
+import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.FavoriteViewModel
+import com.mundocode.dragonballapp.viewmodels.UnifiedDragonBallViewModel
+import com.mundocode.dragonballapp.viewmodels.UnifiedDragonBallViewModelFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DragonBallZ(
     navController: NavController,
-    viewModel: DragonBallZListViewModel,
     viewModelF: FavoriteViewModel
 ) {
-    val dragonList by viewModel.saiyanZList.collectAsState()
+    val viewModel: UnifiedDragonBallViewModel = viewModel(factory = UnifiedDragonBallViewModelFactory(
+        DragonBallType.SAIYAN_Z)
+    )
+
+    // Obtener lista de personajes
+    LaunchedEffect(Unit) {
+        viewModel.getList(DragonBallType.SAIYAN_Z)
+    }
+
+    val dragonList by viewModel.listZ.collectAsState()
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -157,9 +168,9 @@ fun CarPersonajeZ(id: Long, name: String, image: String, viewModel: FavoriteView
                 modifier = Modifier
                     .clickable {
                         if (isFavorite.value) {
-                            viewModel.removeFavorite(Favorite(id=id))
+                            viewModel.removeFavorite(Favorite(id=id, type = DragonBallType.SAIYAN_Z))
                         } else {
-                            viewModel.addFavorite(Favorite(id=id))
+                            viewModel.addFavorite(Favorite(id=id, type = DragonBallType.SAIYAN_Z))
                         }
                     },
                 imageVector = if (isFavorite.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,

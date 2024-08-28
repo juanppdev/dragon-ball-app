@@ -167,7 +167,6 @@ fun HomeScreen(navController: NavController) {
         }
 
     }
-    
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -49,21 +49,32 @@ import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.data.Favorite
-import com.mundocode.dragonballapp.viewmodels.DragonsListViewModel
+import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.FavoriteViewModel
+import com.mundocode.dragonballapp.viewmodels.UnifiedDragonBallViewModel
+import com.mundocode.dragonballapp.viewmodels.UnifiedDragonBallViewModelFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Dragons(
     navController: NavController,
-    viewModel: DragonsListViewModel,
     viewModelF: FavoriteViewModel
 ) {
-    val dragonList by viewModel.dragonsList.collectAsState()
+    val viewModel: UnifiedDragonBallViewModel = viewModel(factory = UnifiedDragonBallViewModelFactory(
+        DragonBallType.DRAGONS)
+    )
+
+    // Obtener lista de personajes
+    LaunchedEffect(Unit) {
+        viewModel.getList(DragonBallType.DRAGONS)
+    }
+
+    val dragonsList by viewModel.listD.collectAsState()
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -83,7 +94,7 @@ fun Dragons(
                     ),
                     title = {
                         Text(
-                            "Dragones",
+                            "Personajes",
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
@@ -105,7 +116,7 @@ fun Dragons(
 
             Box(modifier = Modifier.padding(innerPadding)) {
 
-                dragonList?.let { list ->
+                dragonsList?.let { list ->
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2), // Número de columnas
                         modifier = Modifier.fillMaxSize(),
@@ -157,9 +168,9 @@ fun CarPersonajeD(id: Long, name: String, image: String, viewModel: FavoriteView
                 modifier = Modifier
                     .clickable {
                         if (isFavorite.value) {
-                            viewModel.removeFavorite(Favorite(id=id))
+                            viewModel.removeFavorite(Favorite(id=id, type = DragonBallType.DRAGONS))
                         } else {
-                            viewModel.addFavorite(Favorite(id=id))
+                            viewModel.addFavorite(Favorite(id=id, type = DragonBallType.DRAGONS))
                         }
                     },
                 imageVector = if (isFavorite.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
