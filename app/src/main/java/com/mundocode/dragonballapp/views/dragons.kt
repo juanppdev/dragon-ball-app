@@ -56,22 +56,22 @@ import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.data.Favorite
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.FavoriteViewModel
-import com.mundocode.dragonballapp.viewmodels.UnifiedDragonBallViewModel
+import com.mundocode.dragonballapp.viewmodels.DragonBallViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Dragons(
     navController: NavController,
     viewModelF: FavoriteViewModel = viewModel(),
-    viewModel: UnifiedDragonBallViewModel = viewModel()
+    viewModel: DragonBallViewModel = viewModel()
 ) {
 
     // Obtener lista de personajes
-    LaunchedEffect(Unit) {
-        viewModel.getList(DragonBallType.DRAGONS)
-    }
+//    LaunchedEffect(Unit) {
+//        viewModel.getList(DragonBallType.DRAGONS)
+//    }
 
-    val dragonsList by viewModel.listD.collectAsState()
+//    val dragonsList by viewModel.listD.collectAsState()
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -113,16 +113,16 @@ fun Dragons(
 
             Box(modifier = Modifier.padding(innerPadding)) {
 
-                dragonsList?.let { list ->
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2), // Número de columnas
-                        modifier = Modifier.fillMaxSize(),
-                    ) {
-                        items(list) { item ->
-                            CarPersonajeD(item.id, item.name, item.image, viewModelF, navController)
-                        }
-                    }
-                }
+//                dragonsList?.let { list ->
+//                    LazyVerticalGrid(
+//                        columns = GridCells.Fixed(2), // Número de columnas
+//                        modifier = Modifier.fillMaxSize(),
+//                    ) {
+//                        items(list) { item ->
+//                            CarPersonajeD(item.id, item.name, item.image, viewModelF, navController)
+//                        }
+//                    }
+//                }
             }
         }
     }

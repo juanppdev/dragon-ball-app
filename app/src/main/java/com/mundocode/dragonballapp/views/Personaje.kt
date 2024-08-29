@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -37,7 +36,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -50,7 +48,7 @@ import com.mundocode.dragonball.models.SingleDragonBallLista
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.ui.theme.DragonBallAppTheme
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
-import com.mundocode.dragonballapp.viewmodels.UnifiedDragonBallViewModel
+import com.mundocode.dragonballapp.viewmodels.DragonBallViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -58,7 +56,7 @@ import kotlinx.coroutines.withContext
 fun Personaje(
     navController: NavController,
     id: Long,
-    viewModel: UnifiedDragonBallViewModel = viewModel(),
+    viewModel: DragonBallViewModel = viewModel(),
 ) {
 
     // Obtener detalles del personaje
@@ -94,31 +92,15 @@ private fun Content(
             contentColor = Color.White,
             containerColor = colorResource(id = R.color.background),
             topBar = {
-                CenterAlignedTopAppBar(
-                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                        containerColor = colorResource(id = R.color.card),
-                        titleContentColor = Color.White,
-                    ),
-                    title = {
-                        dragonDetails?.let { details ->
-                            Text(
-                                details.name,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
-                            )
-                        }
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = { navController.navigate("dragonBall") }) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                tint = Color.White,
-                                contentDescription = "Localized description"
-                            )
-                        }
-                    },
-                    scrollBehavior = scrollBehavior,
-                )
+                CustomTopBar(title = dragonDetails?.name ?: "") {
+                    IconButton(onClick = { navController.navigate("dragonBall") }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            tint = Color.White,
+                            contentDescription = "Localized description"
+                        )
+                    }
+                }
             },
             bottomBar = { CustomBottomAppBar(navController) }
         ) { innerPadding ->

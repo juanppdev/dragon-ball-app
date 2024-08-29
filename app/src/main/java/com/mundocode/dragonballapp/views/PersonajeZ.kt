@@ -46,13 +46,13 @@ import coil.request.ImageRequest
 import com.mundocode.dragonball.models.SingleDragonBallZLista
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
-import com.mundocode.dragonballapp.viewmodels.UnifiedDragonBallViewModel
+import com.mundocode.dragonballapp.viewmodels.DragonBallViewModel
 
 @Composable
 fun PersonajeZ(
     navController: NavController,
     id: Long,
-    viewModel: UnifiedDragonBallViewModel = viewModel()
+    viewModel: DragonBallViewModel = viewModel()
 ) {
 
     // Obtener detalles del personaje

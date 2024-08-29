@@ -56,22 +56,22 @@ import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.data.Favorite
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.FavoriteViewModel
-import com.mundocode.dragonballapp.viewmodels.UnifiedDragonBallViewModel
+import com.mundocode.dragonballapp.viewmodels.DragonBallViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DragonBallZ(
     navController: NavController,
     viewModelF: FavoriteViewModel = viewModel(),
-    viewModel: UnifiedDragonBallViewModel = viewModel()
+    viewModel: DragonBallViewModel = viewModel()
 ) {
 
     // Obtener lista de personajes
-    LaunchedEffect(Unit) {
-        viewModel.getList(DragonBallType.SAIYAN_Z)
-    }
+//    LaunchedEffect(Unit) {
+//        viewModel.getList(DragonBallType.SAIYAN_Z)
+//    }
 
-    val dragonList by viewModel.listZ.collectAsState()
+//    val dragonList by viewModel.listZ.collectAsState()
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -110,16 +110,16 @@ fun DragonBallZ(
     ) { innerPadding ->
 
         Box(modifier = Modifier.padding(innerPadding)) {
-            dragonList?.let { list ->
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2), // Número de columnas
-                    modifier = Modifier.fillMaxSize(),
-                ) {
-                    items(list) { item ->
-                        CarPersonajeZ(item.id, item.name, item.image, viewModelF, navController)
-                    }
-                }
-            }
+//            dragonList?.let { list ->
+//                LazyVerticalGrid(
+//                    columns = GridCells.Fixed(2), // Número de columnas
+//                    modifier = Modifier.fillMaxSize(),
+//                ) {
+//                    items(list) { item ->
+//                        CarPersonajeZ(item.id, item.name, item.image, viewModelF, navController)
+//                    }
+//                }
+//            }
         }
     }
 }

@@ -54,33 +54,33 @@ import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.data.Favorite
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.FavoriteViewModel
-import com.mundocode.dragonballapp.viewmodels.UnifiedDragonBallViewModel
+import com.mundocode.dragonballapp.viewmodels.DragonBallViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FavoriteScreen(
     navController: NavController,
     viewModel: FavoriteViewModel = viewModel(),
-    viewModelU: UnifiedDragonBallViewModel = viewModel(),
+    viewModelU: DragonBallViewModel = viewModel(),
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val favorites by viewModel.allFavorites.observeAsState(emptyList())
 
-    val list by viewModelU.list.collectAsState()
-    val listZ by viewModelU.listZ.collectAsState()
-    val listD by viewModelU.listD.collectAsState()
+//    val list by viewModelU.list.collectAsState()
+//    val listZ by viewModelU.listZ.collectAsState()
+//    val listD by viewModelU.listD.collectAsState()
 
-    LaunchedEffect(Unit) {
-        // Verifica si los datos están cargados o llama a cargar datos aquí si es necesario
-        if (list == null) viewModelU.getList(DragonBallType.SAIYAN)
-        if (listZ == null) viewModelU.getList(DragonBallType.SAIYAN_Z)
-        if (listD == null) viewModelU.getList(DragonBallType.DRAGONS)
-    }
+//    LaunchedEffect(Unit) {
+//        // Verifica si los datos están cargados o llama a cargar datos aquí si es necesario
+//        if (list == null) viewModelU.getList(DragonBallType.SAIYAN)
+//        if (listZ == null) viewModelU.getList(DragonBallType.SAIYAN_Z)
+//        if (listD == null) viewModelU.getList(DragonBallType.DRAGONS)
+//    }
 
-    Log.d("FavoriteScreen", "Favorites: $favorites")
-    Log.d("FavoriteScreen", "List: $list")
-    Log.d("FavoriteScreen", "ListZ: $listZ")
-    Log.d("FavoriteScreen", "ListD: $listD")
+//    Log.d("FavoriteScreen", "Favorites: $favorites")
+//    Log.d("FavoriteScreen", "List: $list")
+//    Log.d("FavoriteScreen", "ListZ: $listZ")
+//    Log.d("FavoriteScreen", "ListD: $listD")
 
 
 
@@ -136,47 +136,47 @@ fun FavoriteScreen(
             items(favorites) { favorite ->
                 when (favorite.type) {
                     DragonBallType.SAIYAN -> {
-                        val item = list?.find { it.id == favorite.id }
-                        item?.let {
-                            FavoriteItemCard(
-                                favorite,
-                                navController,
-                                { id -> list?.find { it.id == id } },
-                                {
-                                    rememberAsyncImagePainter(model = item.image)
-                                },
-                                it.name,
-                                viewModel
-                            )
-                        }
+//                        val item = list?.find { it.id == favorite.id }
+//                        item?.let {
+////                            FavoriteItemCard(
+////                                favorite,
+////                                navController,
+////                                { id -> list?.find { it.id == id } },
+////                                {
+////                                    rememberAsyncImagePainter(model = item.image)
+////                                },
+////                                it.name,
+////                                viewModel
+////                            )
+//                        }
                     }
 
                     DragonBallType.SAIYAN_Z -> {
-                        val item = listZ?.find { it.id == favorite.id }
-                        item?.let {
-                            FavoriteItemCard(
-                                favorite,
-                                navController,
-                                { id -> listZ?.find { it.id == id } },
-                                { rememberAsyncImagePainter(model = item.image) },
-                                it.name,
-                                viewModel
-                            )
-                        }
+//                        val item = listZ?.find { it.id == favorite.id }
+//                        item?.let {
+////                            FavoriteItemCard(
+////                                favorite,
+////                                navController,
+////                                { id -> listZ?.find { it.id == id } },
+////                                { rememberAsyncImagePainter(model = item.image) },
+////                                it.name,
+////                                viewModel
+////                            )
+//                        }
                     }
 
                     DragonBallType.DRAGONS -> {
-                        val item = listD?.find { it.id == favorite.id }
-                        item?.let { it ->
-                            FavoriteItemCard(
-                                favorite,
-                                navController,
-                                { id -> listD?.find { it.id == id } },
-                                { rememberAsyncImagePainter(model = item.image) },
-                                it.name,
-                                viewModel
-                            )
-                        }
+//                        val item = listD?.find { it.id == favorite.id }
+//                        item?.let { it ->
+////                            FavoriteItemCard(
+////                                favorite,
+////                                navController,
+////                                { id -> listD?.find { it.id == id } },
+////                                { rememberAsyncImagePainter(model = item.image) },
+////                                it.name,
+////                                viewModel
+////                            )
+//                        }
                     }
                 }
             }

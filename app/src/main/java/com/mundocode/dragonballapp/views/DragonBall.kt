@@ -27,12 +27,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,7 +37,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
@@ -52,77 +48,76 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
+import com.mundocode.dragonball.models.DragonBallLista
 import com.mundocode.dragonballapp.R
-import com.mundocode.dragonballapp.data.Favorite
-import com.mundocode.dragonballapp.viewmodels.DragonBallType
-import com.mundocode.dragonballapp.viewmodels.FavoriteViewModel
-import com.mundocode.dragonballapp.viewmodels.UnifiedDragonBallViewModel
+import com.mundocode.dragonballapp.viewmodels.DragonBallViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DragonBall(
     navController: NavController,
-    viewModelF: FavoriteViewModel = viewModel(),
-    viewModel: UnifiedDragonBallViewModel = viewModel()
+    viewModel: DragonBallViewModel = viewModel(),
 ) {
 
-    // Obtener lista de personajes
-    LaunchedEffect(Unit) {
-        viewModel.getList(DragonBallType.SAIYAN)
-    }
+    val state by viewModel.state.collectAsState()
 
-    val dragonList by viewModel.list.collectAsState()
-
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        Scaffold(
-            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-            contentColor = Color.White,
-            containerColor = colorResource(id = R.color.background),
-            topBar = {
-                CenterAlignedTopAppBar(
-                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                        containerColor = colorResource(id = R.color.card),
-                        titleContentColor = Color.White,
-                    ),
-                    title = {
-                        Text(
-                            "Personajes",
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        contentColor = Color.White,
+        containerColor = colorResource(id = R.color.background),
+        topBar = {
+            CenterAlignedTopAppBar(
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = colorResource(id = R.color.card),
+                    titleContentColor = Color.White,
+                ),
+                title = {
+                    Text(
+                        "Personajes",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigate("homeScreen") }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            tint = Color.White,
+                            contentDescription = "Localized description"
                         )
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = { navController.navigate("homeScreen") }) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                tint = Color.White,
-                                contentDescription = "Localized description"
-                            )
-                        }
-                    },
-                    scrollBehavior = scrollBehavior,
-                )
-            },
-            bottomBar = { CustomBottomAppBar(navController) }
-        ) { innerPadding ->
-
-            Box(modifier = Modifier.padding(innerPadding)) {
-
-                dragonList?.let { list ->
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2), // Número de columnas
-                        modifier = Modifier.fillMaxSize(),
-                    ) {
-                        items(list) { item ->
-                            CarPersonaje(item.id, item.name, item.image, viewModelF, navController)
-                        }
                     }
-                }
+                },
+            )
+        },
+        bottomBar = { CustomBottomAppBar(navController) }
+    ) { paddingValues ->
+        DragonBallContent(
+            list = state.dragonBallList,
+            modifier = Modifier.padding(paddingValues),
+            onItemClicked = { id ->
+                navController.navigate("personaje/$id")
+            }
+        )
+    }
+}
+
+@Composable
+private fun DragonBallContent(
+    list: List<DragonBallLista>,
+    modifier: Modifier = Modifier,
+    onItemClicked: (Long) -> Unit,
+) {
+    Box(modifier = modifier.fillMaxSize()) {
+
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2), // Número de columnas
+            modifier = Modifier.fillMaxSize(),
+        ) {
+            items(list) { item ->
+                CardPersonaje(
+                    item = item,
+                    onItemClicked = onItemClicked,
+                )
             }
         }
     }
@@ -130,7 +125,10 @@ fun DragonBall(
 
 
 @Composable
-fun CarPersonaje(id: Long, name: String, image: String, viewModel: FavoriteViewModel, navController: NavController) {
+fun CardPersonaje(
+    item: DragonBallLista,
+    onItemClicked: (Long) -> Unit,
+) {
 
     val scale by remember { mutableFloatStateOf(2f) }
     val offsetX by remember { mutableFloatStateOf(0f) }
@@ -146,30 +144,28 @@ fun CarPersonaje(id: Long, name: String, image: String, viewModel: FavoriteViewM
             .padding(8.dp)
             .fillMaxWidth()
             .height(110.dp)
-            .clickable {
-                navController.navigate("personaje/${id}")
-            }
+            .clickable { onItemClicked(item.id) }
     ) {
         // Estado para controlar si es favorito
         val isFavorite = remember { mutableStateOf(false) }
 
-// Observar los favoritos desde el ViewModel
-        val favorites by viewModel.allFavorites.observeAsState(emptyList())
+        // Observar los favoritos desde el ViewModel
+//        val favorites by viewModel.allFavorites.observeAsState(emptyList())
 
-// Actualizar el estado cuando cambien los favoritos
-        LaunchedEffect(favorites) {
-            isFavorite.value = favorites.any { it.id == id }
-        }
+        // Actualizar el estado cuando cambien los favoritos
+//        LaunchedEffect(favorites) {
+//            isFavorite.value = favorites.any { it.id == id }
+//        }
 
         Column {
             Icon(
                 modifier = Modifier
                     .clickable {
-                        if (isFavorite.value) {
-                            viewModel.removeFavorite(Favorite(id = id, type = DragonBallType.SAIYAN))
-                        } else {
-                            viewModel.addFavorite(Favorite(id = id, type = DragonBallType.SAIYAN))
-                        }
+//                        if (isFavorite.value) {
+//                            viewModel.removeFavorite(Favorite(id = id, type = DragonBallType.SAIYAN))
+//                        } else {
+//                            viewModel.addFavorite(Favorite(id = id, type = DragonBallType.SAIYAN))
+//                        }
                     },
                 imageVector = if (isFavorite.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
                 contentDescription = "Favorite",
@@ -181,7 +177,7 @@ fun CarPersonaje(id: Long, name: String, image: String, viewModel: FavoriteViewM
                         .align(Alignment.BottomEnd)
                 ) {
                     Image(
-                        painter = rememberAsyncImagePainter(model = image),
+                        painter = rememberAsyncImagePainter(model = item.image),
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
@@ -202,7 +198,7 @@ fun CarPersonaje(id: Long, name: String, image: String, viewModel: FavoriteViewM
                 ) {
                     Text(
                         modifier = Modifier.fillMaxWidth(),
-                        text = name.replace(" ", "\n"),
+                        text = item.name.replace(" ", "\n"),
                         fontSize = 25.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.White,

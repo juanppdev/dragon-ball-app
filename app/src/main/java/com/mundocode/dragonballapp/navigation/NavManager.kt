@@ -26,9 +26,9 @@ fun NavManager() {
     ) {
         composable("loginScreen") { LoginScreen(navController = navController) }
         composable("homeScreen") { HomeScreen(navController = navController) }
+        composable("dragonBall") { DragonBall(navController = navController) }
         composable("dragonBallZ") { DragonBallZ(navController = navController) }
         composable("dragons") { Dragons(navController = navController) }
-        composable("dragonBall") { DragonBall(navController = navController) }
         composable("personaje/{id}", arguments = listOf(navArgument("id") { type = NavType.LongType })) {
             it.arguments?.getLong("id")?.let { id ->
                 Personaje(navController = navController, id = id)
