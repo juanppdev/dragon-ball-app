@@ -56,9 +56,24 @@ class DragonBallViewModel(
                         }
                     }
                 },
+                async {
+                    firebaseRepository.getAllFavorites().observeForever { favorites ->
+                        _state.update {
+                            it.copy(favoriteList = favorites)
+                        }
+                    }
+                },
+                async {
+                    firebaseRepository.addFavorite(favorite = Favorite())
+                },
+                async {
+                    firebaseRepository.removeFavorite(favorite = Favorite())
+                },
             )
         }
     }
+
+
 
     private val _details = MutableStateFlow<SingleDragonBallLista?>(null) // Ajusta el tipo según sea necesario
     val details: StateFlow<SingleDragonBallLista?> get() = _details.asStateFlow()

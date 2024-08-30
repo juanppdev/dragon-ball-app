@@ -8,15 +8,15 @@ import com.mundocode.dragonballapp.repositories.FirebaseRepositoryImpl
 
 class FavoriteViewModel : ViewModel() {
 
-    private val repository : FirebaseRepository= FirebaseRepositoryImpl()
-
-    val allFavorites: LiveData<List<Favorite>> = repository.getAllFavorites()
-
-    fun addFavorite(favorite: Favorite) {
-        repository.addFavorite(favorite)
-    }
-
-    fun removeFavorite(favorite: Favorite) {
-        repository.removeFavorite(favorite)
-    }
+//    private val repository : FirebaseRepository= FirebaseRepositoryImpl()
+//
+//    val allFavorites: LiveData<List<Favorite>> = repository.getAllFavorites()
+//
+//    fun addFavorite(favorite: Favorite) {
+//        repository.addFavorite(favorite)
+//    }
+//
+//    fun removeFavorite(favorite: Favorite) {
+//        repository.removeFavorite(favorite)
+//    }
 }

@@ -145,31 +145,31 @@ fun CarPersonajeZ(id: Long, name: String, image: String, viewModel: FavoriteView
                 navController.navigate("personajeZ/${id}")
             }
     ) {
-        // Estado para controlar si es favorito
-        val isFavorite = remember { mutableStateOf(false) }
-
-// Observar los favoritos desde el ViewModel
-        val favorites by viewModel.allFavorites.observeAsState(emptyList())
-
-// Actualizar el estado cuando cambien los favoritos
-        LaunchedEffect(favorites) {
-            isFavorite.value = favorites.any { it.id == id }
-        }
+//        // Estado para controlar si es favorito
+//        val isFavorite = remember { mutableStateOf(false) }
+//
+//        // Observar los favoritos desde el ViewModel
+//        val favorites by viewModel.allFavorites.observeAsState(emptyList())
+//
+//        // Actualizar el estado cuando cambien los favoritos
+//        LaunchedEffect(favorites) {
+//            isFavorite.value = favorites.any { it.id == id }
+//        }
 
         Column {
-            Icon(
-                modifier = Modifier
-                    .clickable {
-                        if (isFavorite.value) {
-                            viewModel.removeFavorite(Favorite(id = id, type = DragonBallType.SAIYAN_Z))
-                        } else {
-                            viewModel.addFavorite(Favorite(id = id, type = DragonBallType.SAIYAN_Z))
-                        }
-                    },
-                imageVector = if (isFavorite.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
-                contentDescription = "Favorite",
-                tint = if (isFavorite.value) Color.Red else Color.Gray
-            )
+//            Icon(
+//                modifier = Modifier
+//                    .clickable {
+////                        if (isFavorite.value) {
+////                            viewModel.removeFavorite(Favorite(id = id, type = DragonBallType.SAIYAN_Z))
+////                        } else {
+////                            viewModel.addFavorite(Favorite(id = id, type = DragonBallType.SAIYAN_Z))
+////                        }
+//                    },
+////                imageVector = if (isFavorite.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+//                contentDescription = "Favorite",
+////                tint = if (isFavorite.value) Color.Red else Color.Gray
+//            )
             Box {
                 Box(
                     modifier = Modifier
