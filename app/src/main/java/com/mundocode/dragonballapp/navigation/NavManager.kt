@@ -7,8 +7,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.mundocode.dragonballapp.views.DragonBallScreen
-import com.mundocode.dragonballapp.views.DragonBallZ
-import com.mundocode.dragonballapp.views.Dragons
+import com.mundocode.dragonballapp.views.DragonBallZScreen
+import com.mundocode.dragonballapp.views.DragonsScreen
 import com.mundocode.dragonballapp.views.FavoriteScreen
 import com.mundocode.dragonballapp.views.HomeScreen
 import com.mundocode.dragonballapp.views.LoginScreen
@@ -27,8 +27,8 @@ fun NavManager() {
         composable("loginScreen") { LoginScreen(navController = navController) }
         composable("homeScreen") { HomeScreen(navController = navController) }
         composable("dragonBall") { DragonBallScreen(navController = navController) }
-        composable("dragonBallZ") { DragonBallZ(navController = navController) }
-        composable("dragons") { Dragons(navController = navController) }
+        composable("dragonBallZ") { DragonBallZScreen(navController = navController) }
+        composable("dragons") { DragonsScreen(navController = navController) }
         composable("personaje/{id}", arguments = listOf(navArgument("id") { type = NavType.LongType })) {
             it.arguments?.getLong("id")?.let { id ->
                 Personaje(navController = navController, id = id)

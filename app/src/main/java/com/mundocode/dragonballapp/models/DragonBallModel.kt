@@ -2,10 +2,6 @@ package com.mundocode.dragonball.models
 
 import com.google.gson.annotations.SerializedName
 
-typealias DragonBallModel = List<DragonBallLista>
-typealias DragonBallZModel = List<DragonBallZLista>
-typealias DragonsModel = List<DragonsLista>
-
 data class DragonBallLista (
     @SerializedName("id")
     val id: Long,
