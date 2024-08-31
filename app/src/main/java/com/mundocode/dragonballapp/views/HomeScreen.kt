@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -39,15 +40,21 @@ fun HomeScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            CustomTopBar(title = "Personajes") {
-                IconButton(onClick = { navController.navigate("favoriteScreen") }) {
-                    Icon(
-                        Icons.Filled.Favorite,
-                        contentDescription = "Localized description",
-                        tint = Color.White
-                    )
+            CustomTopBar(
+                title = "Personajes",
+                actions = {
+                    IconButton(onClick = {
+                        navController.navigate("favoriteScreen")
+                    }) {
+                        Icon(
+                            Icons.Filled.Favorite,
+                            contentDescription = "Localized description",
+                            tint = Color.White,
+                            modifier = Modifier.size(30.dp)
+                        )
+                    }
                 }
-            }
+            )
         },
         bottomBar = { CustomBottomAppBar(navController) },
         contentColor = Color.White,
@@ -148,7 +155,7 @@ fun PersonajesListItemPreview() {
         PersonajesListItem(
             title = "DragonBallZ",
             icon = R.drawable.logo_z,
-            onClick = {  }
+            onClick = { }
         )
     }
 }

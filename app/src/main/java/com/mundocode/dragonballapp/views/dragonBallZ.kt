@@ -95,7 +95,7 @@ fun DragonBallZ(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigate("homeScreen") }) {
+                    IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             tint = Color.White,

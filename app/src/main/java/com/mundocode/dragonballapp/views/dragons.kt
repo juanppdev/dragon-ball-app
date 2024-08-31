@@ -10,9 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -29,10 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -53,10 +47,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.mundocode.dragonballapp.R
-import com.mundocode.dragonballapp.data.Favorite
-import com.mundocode.dragonballapp.viewmodels.DragonBallType
-import com.mundocode.dragonballapp.viewmodels.FavoriteViewModel
 import com.mundocode.dragonballapp.viewmodels.DragonBallViewModel
+import com.mundocode.dragonballapp.viewmodels.FavoriteViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -129,7 +121,13 @@ fun Dragons(
 }
 
 @Composable
-fun CarPersonajeD(id: Long, name: String, image: String, viewModel: FavoriteViewModel, navController: NavController) {
+fun CarPersonajeD(
+    id: Long,
+    name: String,
+    image: String,
+    viewModel: FavoriteViewModel,
+    navController: NavController
+) {
 
     val scale by remember { mutableFloatStateOf(2f) }
     val offsetX by remember { mutableFloatStateOf(0f) }
@@ -153,22 +151,22 @@ fun CarPersonajeD(id: Long, name: String, image: String, viewModel: FavoriteView
         val isFavorite = remember { mutableStateOf(false) }
 
 // Observar los favoritos desde el ViewModel
-        val favorites by viewModel.allFavorites.observeAsState(emptyList())
+//        val favorites by viewModel.allFavorites.observeAsState(emptyList())
 
 // Actualizar el estado cuando cambien los favoritos
-        LaunchedEffect(favorites) {
-            isFavorite.value = favorites.any { it.id == id }
-        }
+//        LaunchedEffect(favorites) {
+//            isFavorite.value = favorites.any { it.id == id }
+//        }
 
         Column {
             Icon(
                 modifier = Modifier
                     .clickable {
-                        if (isFavorite.value) {
-                            viewModel.removeFavorite(Favorite(id = id, type = DragonBallType.DRAGONS))
-                        } else {
-                            viewModel.addFavorite(Favorite(id = id, type = DragonBallType.DRAGONS))
-                        }
+//                        if (isFavorite.value) {
+//                            viewModel.removeFavorite(Favorite(id = id, type = DragonBallType.DRAGONS))
+//                        } else {
+//                            viewModel.addFavorite(Favorite(id = id, type = DragonBallType.DRAGONS))
+//                        }
                     },
                 imageVector = if (isFavorite.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
                 contentDescription = "Favorite",

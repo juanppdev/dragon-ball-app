@@ -57,31 +57,31 @@ class DragonBallViewModel(
                     }
                 },
                 async {
-                    firebaseRepository.getAllFavorites().observeForever { favorites ->
-                        _state.update {
-                            it.copy(favoriteList = favorites)
-                        }
-                    }
-                },
-                async {
-                    firebaseRepository.addFavorite(favorite = Favorite())
-                },
-                async {
-                    firebaseRepository.removeFavorite(favorite = Favorite())
+                    getFavoriteList()
                 },
             )
         }
     }
 
+    private fun getFavoriteList() {
+        firebaseRepository.getAllFavorites { favorites ->
+            _state.update {
+                it.copy(favoriteList = favorites)
+            }
+        }
+    }
 
 
-    private val _details = MutableStateFlow<SingleDragonBallLista?>(null) // Ajusta el tipo según sea necesario
+    private val _details =
+        MutableStateFlow<SingleDragonBallLista?>(null) // Ajusta el tipo según sea necesario
     val details: StateFlow<SingleDragonBallLista?> get() = _details.asStateFlow()
 
-    private val _detailsZ = MutableStateFlow<SingleDragonBallZLista?>(null) // Ajusta el tipo según sea necesario
+    private val _detailsZ =
+        MutableStateFlow<SingleDragonBallZLista?>(null) // Ajusta el tipo según sea necesario
     val detailsZ: StateFlow<SingleDragonBallZLista?> get() = _detailsZ.asStateFlow()
 
-    private val _detailsD = MutableStateFlow<SingleDragonsLista?>(null) // Ajusta el tipo según sea necesario
+    private val _detailsD =
+        MutableStateFlow<SingleDragonsLista?>(null) // Ajusta el tipo según sea necesario
     val detailsD: StateFlow<SingleDragonsLista?> get() = _detailsD.asStateFlow()
 
     fun getDetails(type: DragonBallType, id: Long) {
@@ -89,14 +89,29 @@ class DragonBallViewModel(
             val response = apiRepository.getDetails(type, id)
             if (response.isSuccessful) {
                 when (type) {
-                    DragonBallType.SAIYAN -> _details.value = response.body() as? SingleDragonBallLista
-                    DragonBallType.SAIYAN_Z -> _detailsZ.value = response.body() as? SingleDragonBallZLista
-                    DragonBallType.DRAGONS -> _detailsD.value = response.body() as? SingleDragonsLista
+                    DragonBallType.SAIYAN -> _details.value =
+                        response.body() as? SingleDragonBallLista
+
+                    DragonBallType.SAIYAN_Z -> _detailsZ.value =
+                        response.body() as? SingleDragonBallZLista
+
+                    DragonBallType.DRAGONS -> _detailsD.value =
+                        response.body() as? SingleDragonsLista
                 }
             } else {
                 Log.d("DragonBall Details Error", response.errorBody()?.string() ?: "Unknown error")
             }
         }
+    }
+
+    fun favoriteClicked(itemId: Long) = viewModelScope.launch {
+        val isFavorite = _state.value.favoriteList.any { it.id == itemId }
+        if (isFavorite) {
+            firebaseRepository.removeFavorite(Favorite(itemId))
+        } else {
+            firebaseRepository.addFavorite(Favorite(itemId))
+        }
+        getFavoriteList()
     }
 
     data class DragonBallState(
