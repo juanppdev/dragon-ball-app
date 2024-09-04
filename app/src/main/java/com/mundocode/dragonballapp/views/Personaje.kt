@@ -63,7 +63,7 @@ fun Personaje(
 
     val characterDetails by viewModel.details.collectAsState()
 
-    Content(
+    GenericCharacterContent(
         personaje = characterDetails,
         navController = navController
     )
@@ -71,7 +71,7 @@ fun Personaje(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun Content(
+private fun GenericCharacterContent(
     personaje: Character?,
     navController: NavController
 ) {

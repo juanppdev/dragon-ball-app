@@ -1,7 +1,10 @@
 package com.mundocode.dragonballapp.models
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Character(
     @SerializedName("id")
     val id: Long,
@@ -19,10 +22,11 @@ data class Character(
     val race: String?,
     @SerializedName("planet")
     val planet: String?,
-//    @SerializedName("transformations")
-//    val transformations: List<Transformations> ?
-)
+    @SerializedName("transformations")
+    val transformations: List<Transformations>?
+) : Parcelable
 
+@Parcelize
 data class Transformations(
     @SerializedName("id")
     val id: Long?,
@@ -30,6 +34,6 @@ data class Transformations(
     val image: String?,
     @SerializedName("description")
     val description: String?,
-)
+):Parcelable
 
 

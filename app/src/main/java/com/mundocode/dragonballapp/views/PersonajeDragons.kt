@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -36,7 +35,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
@@ -62,7 +60,7 @@ fun PersonajeDragons(
 
     val dragonDetails by viewModel.details.collectAsState()
 
-    Content(
+    GenericCharacterContent(
         dragonDetails = dragonDetails,
         navController = navController
     )
@@ -70,7 +68,7 @@ fun PersonajeDragons(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun Content(
+private fun GenericCharacterContent(
     dragonDetails: Character?,
     navController: NavController
 ) {

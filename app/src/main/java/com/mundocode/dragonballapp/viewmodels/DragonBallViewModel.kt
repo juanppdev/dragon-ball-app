@@ -1,6 +1,5 @@
 package com.mundocode.dragonballapp.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mundocode.dragonballapp.data.Favorite

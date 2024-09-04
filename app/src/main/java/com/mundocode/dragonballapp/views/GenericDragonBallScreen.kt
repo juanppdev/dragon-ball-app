@@ -85,8 +85,10 @@ fun GenericDragonBallScreen(
             },
             favorites = state.favoriteList,
             modifier = Modifier.padding(paddingValues),
-            onItemClicked = { id ->
-                navController.navigate("personaje/$id")
+            onItemClicked = { character ->
+                navController.navigate(
+                    route = "genericCharacterBallScreen/$dragonBallType/$character"
+                )
             },
             favoriteClicked = {
                 viewModel.favoriteClicked(it)
@@ -100,7 +102,7 @@ private fun ListContent(
     list: List<Character>,
     favorites: List<Favorite>,
     modifier: Modifier = Modifier,
-    onItemClicked: (Long) -> Unit = {},
+    onItemClicked: (Character) -> Unit = {},
     favoriteClicked: (Long) -> Unit = {},
 ) {
     Box(modifier = modifier.fillMaxSize()) {
@@ -126,7 +128,7 @@ private fun ListContent(
 fun GenericCardCharacter(
     item: Character,
     isFavorite: Boolean,
-    onItemClicked: (Long) -> Unit = {},
+    onItemClicked: (Character) -> Unit = {},
     favoriteClicked: (Long) -> Unit = {},
 ) {
 
@@ -138,7 +140,7 @@ fun GenericCardCharacter(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { onItemClicked(item.id) }
+            .clickable { onItemClicked(item) }
     ) {
 
         Column(
