@@ -6,10 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.mundocode.dragonballapp.views.DragonBallScreen
-import com.mundocode.dragonballapp.views.DragonBallZScreen
-import com.mundocode.dragonballapp.views.DragonsScreen
+import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.views.FavoriteScreen
+import com.mundocode.dragonballapp.views.GenericDragonBallScreen
 import com.mundocode.dragonballapp.views.HomeScreen
 import com.mundocode.dragonballapp.views.LoginScreen
 import com.mundocode.dragonballapp.views.Personaje
@@ -26,9 +25,13 @@ fun NavManager() {
     ) {
         composable("loginScreen") { LoginScreen(navController = navController) }
         composable("homeScreen") { HomeScreen(navController = navController) }
-        composable("dragonBall") { DragonBallScreen(navController = navController) }
-        composable("dragonBallZ") { DragonBallZScreen(navController = navController) }
-        composable("dragons") { DragonsScreen(navController = navController) }
+
+        composable("genericDragonBallScreen/{dragonBallType}", arguments = listOf(navArgument("dragonBallType") { type = NavType.IntType })) {
+            it.arguments?.getInt("dragonBallType")?.let { dragonBallInt ->
+                GenericDragonBallScreen(navController = navController, dragonBallType = DragonBallType.entries[dragonBallInt])
+            }
+        }
+
         composable("personaje/{id}", arguments = listOf(navArgument("id") { type = NavType.LongType })) {
             it.arguments?.getLong("id")?.let { id ->
                 Personaje(navController = navController, id = id)

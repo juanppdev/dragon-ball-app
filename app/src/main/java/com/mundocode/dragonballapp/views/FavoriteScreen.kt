@@ -74,7 +74,7 @@ fun FavoriteScreen(
         ) {
             items(state.favoriteList) { favorite ->
                 when (favorite.type) {
-                    DragonBallType.SAIYAN -> {
+                    DragonBallType.DragonBall -> {
                         val item = state.dragonBallList.find { it.id == favorite.id }
                         if (item != null) {
                             FavoriteItemCard(
@@ -91,7 +91,7 @@ fun FavoriteScreen(
                         }
                     }
 
-                    DragonBallType.SAIYAN_Z -> {
+                    DragonBallType.DragonBallZ -> {
                         val item = state.dragonBallZList.find { it.id == favorite.id }
                         if (item != null) {
                             FavoriteItemCard(
@@ -108,7 +108,7 @@ fun FavoriteScreen(
                         }
                     }
 
-                    DragonBallType.DRAGONS -> {
+                    DragonBallType.Dragons -> {
                         val item = state.dragonList.find { it.id == favorite.id }
                         if (item != null) {
                             FavoriteItemCard(
@@ -195,7 +195,7 @@ fun FavoriteItemCard(
 @Composable
 fun FavoriteScreenPreview() {
     FavoriteItemCard(
-        favorite = Favorite(1, DragonBallType.SAIYAN),
+        favorite = Favorite(1, DragonBallType.DragonBall),
         isFavorite = true,
         getItem = 1,
         imagePainter = "https://fastly.picsum.photos/id/959/200/300.jpg?hmac=q2WZ7w-aqWQyUVa4vEv-28yCS6TLS-M19or3y7YVvso",

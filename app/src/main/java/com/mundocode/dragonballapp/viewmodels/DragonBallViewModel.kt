@@ -3,13 +3,8 @@ package com.mundocode.dragonballapp.viewmodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mundocode.dragonball.models.DragonBallLista
-import com.mundocode.dragonball.models.DragonBallZLista
-import com.mundocode.dragonball.models.DragonsLista
-import com.mundocode.dragonball.models.SingleDragonBallLista
-import com.mundocode.dragonball.models.SingleDragonBallZLista
-import com.mundocode.dragonball.models.SingleDragonsLista
 import com.mundocode.dragonballapp.data.Favorite
+import com.mundocode.dragonballapp.models.Character
 import com.mundocode.dragonballapp.repositories.ApiRepository
 import com.mundocode.dragonballapp.repositories.ApiRepositoryImpl
 import com.mundocode.dragonballapp.repositories.FirebaseRepository
@@ -31,6 +26,9 @@ class DragonBallViewModel(
 
     private val _state = MutableStateFlow(DragonBallState())
     val state: StateFlow<DragonBallState> = _state.asStateFlow()
+
+    private val _details = MutableStateFlow<Character?>(null)
+    val details: StateFlow<Character?> get() = _details.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -56,9 +54,9 @@ class DragonBallViewModel(
                         }
                     }
                 },
-                async {
-                    getFavoriteList()
-                },
+//                async {
+//                    getFavoriteList()
+//                },
             )
         }
     }
@@ -71,36 +69,9 @@ class DragonBallViewModel(
         }
     }
 
-
-    private val _details =
-        MutableStateFlow<SingleDragonBallLista?>(null) // Ajusta el tipo según sea necesario
-    val details: StateFlow<SingleDragonBallLista?> get() = _details.asStateFlow()
-
-    private val _detailsZ =
-        MutableStateFlow<SingleDragonBallZLista?>(null) // Ajusta el tipo según sea necesario
-    val detailsZ: StateFlow<SingleDragonBallZLista?> get() = _detailsZ.asStateFlow()
-
-    private val _detailsD =
-        MutableStateFlow<SingleDragonsLista?>(null) // Ajusta el tipo según sea necesario
-    val detailsD: StateFlow<SingleDragonsLista?> get() = _detailsD.asStateFlow()
-
-    fun getDetails(type: DragonBallType, id: Long) {
-        viewModelScope.launch {
-            val response = apiRepository.getDetails(type, id)
-            if (response.isSuccessful) {
-                when (type) {
-                    DragonBallType.SAIYAN -> _details.value =
-                        response.body() as? SingleDragonBallLista
-
-                    DragonBallType.SAIYAN_Z -> _detailsZ.value =
-                        response.body() as? SingleDragonBallZLista
-
-                    DragonBallType.DRAGONS -> _detailsD.value =
-                        response.body() as? SingleDragonsLista
-                }
-            } else {
-                Log.d("DragonBall Details Error", response.errorBody()?.string() ?: "Unknown error")
-            }
+    fun getDetails(type: DragonBallType, id: Long) = viewModelScope.launch {
+        apiRepository.getDetails(type, id).getOrNull()?.let { character ->
+            _details.value = character
         }
     }
 
@@ -115,9 +86,9 @@ class DragonBallViewModel(
     }
 
     data class DragonBallState(
-        val dragonBallList: List<DragonBallLista>,
-        val dragonBallZList: List<DragonBallZLista>,
-        val dragonList: List<DragonsLista>,
+        val dragonBallList: List<Character>,
+        val dragonBallZList: List<Character>,
+        val dragonList: List<Character>,
         val favoriteList: List<Favorite>
     ) {
         constructor() : this(
@@ -131,8 +102,8 @@ class DragonBallViewModel(
 
 // Enum para identificar el tipo de lista
 enum class DragonBallType {
-    SAIYAN,
-    SAIYAN_Z,
-    DRAGONS
+    DragonBall,
+    DragonBallZ,
+    Dragons
 }
 

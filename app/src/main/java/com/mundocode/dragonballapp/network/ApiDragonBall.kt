@@ -1,39 +1,32 @@
 package com.mundocode.dragonballapp.network
 
-import com.mundocode.dragonball.models.DragonBallLista
-import com.mundocode.dragonball.models.DragonBallZLista
-import com.mundocode.dragonball.models.DragonsLista
-import com.mundocode.dragonball.models.SingleDragonBallLista
-import com.mundocode.dragonball.models.SingleDragonBallZLista
-import com.mundocode.dragonball.models.SingleDragonsLista
-import retrofit2.Response
+import com.mundocode.dragonballapp.models.Character
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface ApiDragonBall {
 
     @GET("dragonball")
-    suspend fun obtenerPersonajes(): List<DragonBallLista>
+    suspend fun obtenerPersonajes(): List<Character>
 
     @GET("dragonball/{id}")
     suspend fun obtenerPersonaje(
         @Path("id") id: Long
-    ): Response<SingleDragonBallLista>
+    ): Character
 
     @GET("dragonballz")
-    suspend fun obtenerPersonajesZ(): List<DragonBallZLista>
+    suspend fun obtenerPersonajesZ(): List<Character>
 
     @GET("dragonballz/{id}")
     suspend fun obtenerPersonajeZ(
         @Path("id") id: Long
-    ): Response<SingleDragonBallZLista>
+    ): Character
 
     @GET("dragons")
-    suspend fun obtenerDragons(): List<DragonsLista>
+    suspend fun obtenerDragons(): List<Character>
 
     @GET("dragons/{id}")
     suspend fun obtenerDragons(
         @Path("id") id: Long
-    ): Response<SingleDragonsLista>
-
+    ): Character
 }

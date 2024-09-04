@@ -43,7 +43,7 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.request.ImageRequest
-import com.mundocode.dragonball.models.SingleDragonBallZLista
+import com.mundocode.dragonballapp.models.Character
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.DragonBallViewModel
@@ -57,10 +57,10 @@ fun PersonajeZ(
 
     // Obtener detalles del personaje
     LaunchedEffect(id) {
-        viewModel.getDetails(DragonBallType.SAIYAN_Z, id)
+        viewModel.getDetails(DragonBallType.DragonBallZ, id)
     }
 
-    val dragonDetails by viewModel.detailsZ.collectAsState()
+    val dragonDetails by viewModel.details.collectAsState()
 
     Content(
         dragonDetails = dragonDetails,
@@ -73,7 +73,7 @@ fun PersonajeZ(
 @Composable
 private fun Content(
     navController: NavController,
-    dragonDetails: SingleDragonBallZLista?,
+    dragonDetails: Character?,
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     var dominantColors by remember { mutableStateOf(listOf(Color.White)) }
@@ -102,7 +102,7 @@ private fun Content(
                     }
                 },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigate("dragonBallZ") }) {
+                    IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             tint = Color.White,

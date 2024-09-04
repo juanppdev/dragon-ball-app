@@ -36,17 +36,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import coil.request.ImageRequest
-import com.mundocode.dragonball.models.SingleDragonBallLista
+import com.mundocode.dragonballapp.models.Character
 import com.mundocode.dragonballapp.R
-import com.mundocode.dragonballapp.ui.theme.DragonBallAppTheme
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.DragonBallViewModel
 import kotlinx.coroutines.Dispatchers
@@ -61,13 +58,13 @@ fun Personaje(
 
     // Obtener detalles del personaje
     LaunchedEffect(id) {
-        viewModel.getDetails(DragonBallType.SAIYAN, id)
+        viewModel.getDetails(DragonBallType.DragonBall, id)
     }
 
-    val dragonDetails by viewModel.details.collectAsState()
+    val characterDetails by viewModel.details.collectAsState()
 
     Content(
-        dragonDetails = dragonDetails,
+        personaje = characterDetails,
         navController = navController
     )
 }
@@ -75,7 +72,7 @@ fun Personaje(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun Content(
-    dragonDetails: SingleDragonBallLista?,
+    personaje: Character?,
     navController: NavController
 ) {
     Box(
@@ -92,8 +89,15 @@ private fun Content(
             contentColor = Color.White,
             containerColor = colorResource(id = R.color.background),
             topBar = {
-                CustomTopBar(title = dragonDetails?.name ?: "") {
-                    IconButton(onClick = { navController.navigate("dragonBall") }) {
+                CustomTopBar(title = personaje?.name ?: "") {
+//                    IconButton(onClick = { navController.navigate("dragonBall") }) {
+//                        Icon(
+//                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+//                            tint = Color.White,
+//                            contentDescription = "Localized description"
+//                        )
+//                    }
+                    IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             tint = Color.White,
@@ -105,7 +109,7 @@ private fun Content(
             bottomBar = { CustomBottomAppBar(navController) }
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                dragonDetails?.let { details ->
+                personaje?.let { details ->
                     LazyColumn(
                         verticalArrangement = Arrangement.Top,
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -183,25 +187,25 @@ private fun Content(
     }
 }
 
-@Preview
-@Composable
-private fun PersonajeContentPreview() {
-    DragonBallAppTheme {
-        Content(
-            navController = rememberNavController(),
-            dragonDetails = SingleDragonBallLista(
-                id = 1,
-                name = "Goku",
-                description = "Goku es un personaje ficticio y el protagonista de la franquicia de Dragon Ball creada por Akira Toriyama. En la primera mitad de la serie, se le conoce como Kakarotto, un Saiyan que fue enviado a la Tierra cuando era un bebé. A medida que crece, se convierte en el héroe de su mundo al protegerlo de villanos cada vez más poderosos.",
-                genre = "Masculino",
-                race = "Saiyan",
-                planet = "Tierra",
-                biography = "Biografía de Goku",
-                image = "https://upload.wikimedia.org/wikipedia/en/5/5f/Goku_Dragon_Ball.png"
-            )
-        )
-    }
-}
+//@Preview
+//@Composable
+//private fun PersonajeContentPreview() {
+//    DragonBallAppTheme {
+//        Content(
+//            navController = rememberNavController(),
+//            dragonDetails = Character(
+//                id = 1,
+//                name = "Goku",
+//                description = "Goku es un personaje ficticio y el protagonista de la franquicia de Dragon Ball creada por Akira Toriyama. En la primera mitad de la serie, se le conoce como Kakarotto, un Saiyan que fue enviado a la Tierra cuando era un bebé. A medida que crece, se convierte en el héroe de su mundo al protegerlo de villanos cada vez más poderosos.",
+//                genre = "Masculino",
+//                race = "Saiyan",
+//                planet = "Tierra",
+//                biography = "Biografía de Goku",
+//                image = "https://upload.wikimedia.org/wikipedia/en/5/5f/Goku_Dragon_Ball.png"
+//            )
+//        )
+//    }
+//}
 
 suspend fun detectColors(bitmap: Bitmap, onComplete: (List<Color>, Color) -> Unit) {
     withContext(Dispatchers.Default) {

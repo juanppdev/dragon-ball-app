@@ -34,6 +34,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.ui.theme.DragonBallAppTheme
+import com.mundocode.dragonballapp.viewmodels.DragonBallType
 
 @Composable
 fun HomeScreen(navController: NavController) {
@@ -73,7 +74,11 @@ fun HomeScreen(navController: NavController) {
                 PersonajesListItem(
                     title = "Dragon Ball",
                     icon = R.drawable.logo_db,
-                    onClick = { navController.navigate("dragonBall") }
+                    onClick = {
+                        navController.navigate(
+                            route = "genericDragonBallScreen/${DragonBallType.DragonBall.ordinal}"
+                        )
+                    }
                 )
             }
 
@@ -81,7 +86,11 @@ fun HomeScreen(navController: NavController) {
                 PersonajesListItem(
                     title = "DragonBallZ",
                     icon = R.drawable.logo_z,
-                    onClick = { navController.navigate("dragonBallZ") }
+                    onClick = {
+                        navController.navigate(
+                            route = "genericDragonBallScreen/${DragonBallType.DragonBallZ.ordinal}"
+                        )
+                    }
                 )
             }
 
@@ -90,7 +99,11 @@ fun HomeScreen(navController: NavController) {
                     title = "Dragones",
                     icon = R.drawable.logo_dr,
                     iconSize = 60.dp,
-                    onClick = { navController.navigate("dragons") }
+                    onClick = {
+                        navController.navigate(
+                            route = "genericDragonBallScreen/${DragonBallType.Dragons.ordinal}"
+                        )
+                    }
                 )
             }
         }
