@@ -8,10 +8,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Scaffold
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
@@ -21,26 +17,22 @@ import com.mundocode.dragonballapp.ui.theme.DragonBallAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         askNotificationPermission()
         tokenNew()
-        super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             DragonBallAppTheme {
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    contentColor = Color.Black
-                ) { innerPadding ->
-                    NavManager()
-                }
+                NavManager()
             }
         }
     }
 
     private fun askNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) ==
-                PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) ==
+                PackageManager.PERMISSION_GRANTED
+            ) {
 
             } else {
                 requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)

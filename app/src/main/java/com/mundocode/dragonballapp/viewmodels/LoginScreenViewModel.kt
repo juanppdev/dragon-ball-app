@@ -30,7 +30,5 @@ class LoginScreenViewModel: ViewModel() {
         catch (ex:Exception) {
             Log.d("Juan", "Error: ${ex.localizedMessage}")
         }
-
     }
-
 }

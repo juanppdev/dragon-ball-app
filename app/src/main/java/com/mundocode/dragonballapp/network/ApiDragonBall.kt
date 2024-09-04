@@ -13,7 +13,7 @@ import retrofit2.http.Path
 interface ApiDragonBall {
 
     @GET("dragonball")
-    suspend fun obtenerPersonajes(): Response<List<DragonBallLista>>
+    suspend fun obtenerPersonajes(): List<DragonBallLista>
 
     @GET("dragonball/{id}")
     suspend fun obtenerPersonaje(
@@ -21,7 +21,7 @@ interface ApiDragonBall {
     ): Response<SingleDragonBallLista>
 
     @GET("dragonballz")
-    suspend fun obtenerPersonajesZ(): Response<List<DragonBallZLista>>
+    suspend fun obtenerPersonajesZ(): List<DragonBallZLista>
 
     @GET("dragonballz/{id}")
     suspend fun obtenerPersonajeZ(
@@ -29,7 +29,7 @@ interface ApiDragonBall {
     ): Response<SingleDragonBallZLista>
 
     @GET("dragons")
-    suspend fun obtenerDragons(): Response<List<DragonsLista>>
+    suspend fun obtenerDragons(): List<DragonsLista>
 
     @GET("dragons/{id}")
     suspend fun obtenerDragons(

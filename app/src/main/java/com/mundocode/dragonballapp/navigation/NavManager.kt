@@ -1,16 +1,14 @@
 package com.mundocode.dragonballapp.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.mundocode.dragonballapp.viewmodels.FavoriteViewModel
-import com.mundocode.dragonballapp.views.DragonBall
-import com.mundocode.dragonballapp.views.DragonBallZ
-import com.mundocode.dragonballapp.views.Dragons
+import com.mundocode.dragonballapp.views.DragonBallScreen
+import com.mundocode.dragonballapp.views.DragonBallZScreen
+import com.mundocode.dragonballapp.views.DragonsScreen
 import com.mundocode.dragonballapp.views.FavoriteScreen
 import com.mundocode.dragonballapp.views.HomeScreen
 import com.mundocode.dragonballapp.views.LoginScreen
@@ -21,14 +19,16 @@ import com.mundocode.dragonballapp.views.PersonajeZ
 @Composable
 fun NavManager() {
     val navController = rememberNavController()
-    val viewModelF: FavoriteViewModel = viewModel()
 
-    NavHost(navController = navController, startDestination = "loginScreen") {
+    NavHost(
+        navController = navController,
+        startDestination = "loginScreen",
+    ) {
         composable("loginScreen") { LoginScreen(navController = navController) }
         composable("homeScreen") { HomeScreen(navController = navController) }
-        composable("dragonBallZ") { DragonBallZ(navController, viewModelF) }
-        composable("dragons") { Dragons(navController, viewModelF) }
-        composable("dragonBall") { DragonBall(navController = navController, viewModelF) }
+        composable("dragonBall") { DragonBallScreen(navController = navController) }
+        composable("dragonBallZ") { DragonBallZScreen(navController = navController) }
+        composable("dragons") { DragonsScreen(navController = navController) }
         composable("personaje/{id}", arguments = listOf(navArgument("id") { type = NavType.LongType })) {
             it.arguments?.getLong("id")?.let { id ->
                 Personaje(navController = navController, id = id)
@@ -44,6 +44,8 @@ fun NavManager() {
                 PersonajeDragons(navController = navController, id = id)
             }
         }
-        composable("favoriteScreen") { FavoriteScreen(viewModelF, navController, viewModel(), viewModel(), viewModel()) }
+        composable("favoriteScreen") {
+            FavoriteScreen(navController)
+        }
     }
 }
