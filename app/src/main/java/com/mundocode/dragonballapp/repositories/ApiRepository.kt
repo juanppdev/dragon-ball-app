@@ -1,6 +1,6 @@
 package com.mundocode.dragonballapp.repositories
 
-import com.mundocode.dragonballapp.models.Character
+import com.mundocode.dragonballapp.models.Personaje
 import com.mundocode.dragonballapp.network.ApiDragonBall
 import com.mundocode.dragonballapp.network.RetrofitClient
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
@@ -9,19 +9,19 @@ class ApiRepositoryImpl(
     private val apiService: ApiDragonBall = RetrofitClient.retrofit
 ) : ApiRepository {
 
-    override suspend fun getDragonBallList(): Result<List<Character>> = runCatching {
+    override suspend fun getDragonBallList(): Result<List<Personaje>> = runCatching {
         apiService.obtenerPersonajes()
     }
 
-    override suspend fun getDragonBallZList(): Result<List<Character>> = runCatching {
+    override suspend fun getDragonBallZList(): Result<List<Personaje>> = runCatching {
         apiService.obtenerPersonajesZ()
     }
 
-    override suspend fun getDragonList(): Result<List<Character>> = runCatching {
+    override suspend fun getDragonList(): Result<List<Personaje>> = runCatching {
         apiService.obtenerDragons()
     }
 
-    override suspend fun getDetails(type: DragonBallType, id: Long): Result<Character> =
+    override suspend fun getDetails(type: DragonBallType, id: Long): Result<Personaje> =
         runCatching {
             when (type) {
                 DragonBallType.DragonBall -> apiService.obtenerPersonaje(id)
@@ -32,8 +32,8 @@ class ApiRepositoryImpl(
 }
 
 interface ApiRepository {
-    suspend fun getDragonBallList(): Result<List<Character>>
-    suspend fun getDragonBallZList(): Result<List<Character>>
-    suspend fun getDragonList(): Result<List<Character>>
-    suspend fun getDetails(type: DragonBallType, id: Long): Result<Character>
+    suspend fun getDragonBallList(): Result<List<Personaje>>
+    suspend fun getDragonBallZList(): Result<List<Personaje>>
+    suspend fun getDragonList(): Result<List<Personaje>>
+    suspend fun getDetails(type: DragonBallType, id: Long): Result<Personaje>
 }

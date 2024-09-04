@@ -43,7 +43,7 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.request.ImageRequest
-import com.mundocode.dragonballapp.models.Character
+import com.mundocode.dragonballapp.models.Personaje
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.DragonBallViewModel
@@ -73,7 +73,7 @@ fun PersonajeZ(
 @Composable
 private fun GenericCharacterContent(
     navController: NavController,
-    dragonDetails: Character?,
+    dragonDetails: Personaje?,
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     var dominantColors by remember { mutableStateOf(listOf(Color.White)) }

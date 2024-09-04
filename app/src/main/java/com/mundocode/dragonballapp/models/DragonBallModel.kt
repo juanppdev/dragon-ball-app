@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Character(
+data class Personaje(
     @SerializedName("id")
     val id: Long,
     @SerializedName("name")
@@ -34,6 +34,6 @@ data class Transformations(
     val image: String?,
     @SerializedName("description")
     val description: String?,
-):Parcelable
+) : Parcelable
 
 

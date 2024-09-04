@@ -1,13 +1,17 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.android)
+//    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kotlin.serialize)
+
     // Add the Google services Gradle plugin
-    id ("com.google.gms.google-services")
-    // Dagger Hilt
+    alias(libs.plugins.google.services)
+
     id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
-    id("kotlin-parcelize")
+
+    // Dagger Hilt
+    alias(libs.plugins.google.dagger.hilt)
 }
 
 android {
@@ -47,7 +51,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.14"
     }
     packaging {
         resources {
@@ -57,6 +61,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.kotlinx.serialization.core)
 
     //Room
     implementation(libs.androidx.room.runtime)
@@ -111,7 +116,7 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
 
-    implementation("com.google.android.gms:play-services-auth:20.5.0")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation("com.google.firebase:firebase-auth-ktx:23.0.0")
 
     implementation("androidx.credentials:credentials:1.2.2")

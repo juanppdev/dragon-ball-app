@@ -39,7 +39,8 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.data.Favorite
-import com.mundocode.dragonballapp.models.Character
+import com.mundocode.dragonballapp.models.Personaje
+import com.mundocode.dragonballapp.navigation.PersonajeDetail
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.DragonBallViewModel
 
@@ -87,7 +88,10 @@ fun GenericDragonBallScreen(
             modifier = Modifier.padding(paddingValues),
             onItemClicked = { character ->
                 navController.navigate(
-                    route = "genericCharacterBallScreen/$dragonBallType/$character"
+                    PersonajeDetail(
+                        dragonBallType = dragonBallType,
+                        personaje = character
+                    )
                 )
             },
             favoriteClicked = {
@@ -99,10 +103,10 @@ fun GenericDragonBallScreen(
 
 @Composable
 private fun ListContent(
-    list: List<Character>,
+    list: List<Personaje>,
     favorites: List<Favorite>,
     modifier: Modifier = Modifier,
-    onItemClicked: (Character) -> Unit = {},
+    onItemClicked: (Personaje) -> Unit = {},
     favoriteClicked: (Long) -> Unit = {},
 ) {
     Box(modifier = modifier.fillMaxSize()) {
@@ -126,9 +130,9 @@ private fun ListContent(
 
 @Composable
 fun GenericCardCharacter(
-    item: Character,
+    item: Personaje,
     isFavorite: Boolean,
-    onItemClicked: (Character) -> Unit = {},
+    onItemClicked: (Personaje) -> Unit = {},
     favoriteClicked: (Long) -> Unit = {},
 ) {
 

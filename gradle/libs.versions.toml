@@ -5,9 +5,10 @@ credentials = "1.2.2"
 firebaseBom = "33.2.0"
 firebaseMessaging = "24.0.1"
 googlePlayServicesAuth = "21.2.0"
-hiltAndroid = "2.52"
-hiltAndroidCompiler = "2.52"
-kotlin = "2.0.0"
+googleServices = "4.4.2"
+hiltVersion = "2.52"
+kotlin = "1.9.24"
+kotlinxSerializationCore = "1.6.3"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -22,6 +23,7 @@ roomRuntime = "2.6.1"
 runtimeLivedata = "1.7.0"
 
 [libraries]
+kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-credentials = { module = " androidx.credentials:credentials-play-services-auth", version.ref = "credentials" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
@@ -34,8 +36,8 @@ firebase-bom-v3223 = { module = "com.google.firebase:firebase-bom", version.ref 
 firebase-firestore = { module = "com.google.firebase:firebase-firestore" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebaseMessaging" }
 google-firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
-hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltVersion" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -57,6 +59,10 @@ androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtim
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+#compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+kotlin-serialize = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+google-dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" }
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 

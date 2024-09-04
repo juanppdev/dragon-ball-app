@@ -37,20 +37,19 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.request.ImageRequest
 import com.mundocode.dragonballapp.R
-import com.mundocode.dragonballapp.models.Character
+import com.mundocode.dragonballapp.models.Personaje
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.DragonBallViewModel
 
 @Composable
 fun GenericCharacterScreen(
     navController: NavController,
-    character: Character,
+    personaje: Personaje,
     dragonBallType: DragonBallType,
-    viewModel: DragonBallViewModel = viewModel()
 ) {
     Scaffold(
         topBar = {
-            CustomTopBar(title = character.name) {
+            CustomTopBar(title = personaje.name) {
                 IconButton(onClick = { navController.navigateUp() }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -66,7 +65,7 @@ fun GenericCharacterScreen(
     ) { paddingValues ->
         GenericCharacterContent(
             dragonBallType = dragonBallType,
-            character = character,
+            personaje = personaje,
             modifier = Modifier.padding(paddingValues)
         )
     }
@@ -75,7 +74,7 @@ fun GenericCharacterScreen(
 @Composable
 private fun GenericCharacterContent(
     dragonBallType: DragonBallType,
-    character: Character,
+    personaje: Personaje,
     modifier: Modifier,
 ) {
 
@@ -108,7 +107,7 @@ private fun GenericCharacterContent(
                     }
                     coil.compose.AsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
-                            .data(character.image)
+                            .data(personaje.image)
                             .build(),
                         contentDescription = null,
                         contentScale = ContentScale.Fit,
@@ -142,7 +141,7 @@ private fun GenericCharacterContent(
                     modifier = Modifier
                         .padding(top = 8.dp, start = 10.dp, end = 10.dp)
                         .fillMaxWidth(),
-                    text = character.description,
+                    text = personaje.description,
                     textAlign = TextAlign.Start,
                     fontSize = 20.sp,
                     color = Color.White

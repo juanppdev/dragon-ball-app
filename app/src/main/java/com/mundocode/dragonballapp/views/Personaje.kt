@@ -42,7 +42,7 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.request.ImageRequest
-import com.mundocode.dragonballapp.models.Character
+import com.mundocode.dragonballapp.models.Personaje
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.DragonBallViewModel
@@ -72,7 +72,7 @@ fun Personaje(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun GenericCharacterContent(
-    personaje: Character?,
+    personaje: Personaje?,
     navController: NavController
 ) {
     Box(

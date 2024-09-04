@@ -42,7 +42,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.request.ImageRequest
 import com.mundocode.dragonballapp.R
-import com.mundocode.dragonballapp.models.Character
+import com.mundocode.dragonballapp.models.Personaje
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.DragonBallViewModel
 
@@ -69,7 +69,7 @@ fun PersonajeDragons(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun GenericCharacterContent(
-    dragonDetails: Character?,
+    dragonDetails: Personaje?,
     navController: NavController
 ) {
     Box(

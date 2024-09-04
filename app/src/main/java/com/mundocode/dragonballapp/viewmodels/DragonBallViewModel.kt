@@ -3,7 +3,7 @@ package com.mundocode.dragonballapp.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mundocode.dragonballapp.data.Favorite
-import com.mundocode.dragonballapp.models.Character
+import com.mundocode.dragonballapp.models.Personaje
 import com.mundocode.dragonballapp.repositories.ApiRepository
 import com.mundocode.dragonballapp.repositories.ApiRepositoryImpl
 import com.mundocode.dragonballapp.repositories.FirebaseRepository
@@ -26,8 +26,8 @@ class DragonBallViewModel(
     private val _state = MutableStateFlow(DragonBallState())
     val state: StateFlow<DragonBallState> = _state.asStateFlow()
 
-    private val _details = MutableStateFlow<Character?>(null)
-    val details: StateFlow<Character?> get() = _details.asStateFlow()
+    private val _details = MutableStateFlow<Personaje?>(null)
+    val details: StateFlow<Personaje?> get() = _details.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -85,9 +85,9 @@ class DragonBallViewModel(
     }
 
     data class DragonBallState(
-        val dragonBallList: List<Character>,
-        val dragonBallZList: List<Character>,
-        val dragonList: List<Character>,
+        val dragonBallList: List<Personaje>,
+        val dragonBallZList: List<Personaje>,
+        val dragonList: List<Personaje>,
         val favoriteList: List<Favorite>
     ) {
         constructor() : this(
