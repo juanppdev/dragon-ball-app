@@ -35,10 +35,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
+import com.kiwi.navigationcompose.typed.navigate
 import com.mundocode.dragonballapp.R
+import com.mundocode.dragonballapp.navigation.Destinations
 import com.mundocode.dragonballapp.ui.theme.DragonBallAppTheme
 import com.mundocode.dragonballapp.viewmodels.LoginScreenViewModel
+import kotlinx.serialization.ExperimentalSerializationApi
 
+@OptIn(ExperimentalSerializationApi::class)
 @Composable
 fun LoginScreen(
     navController: NavController,
@@ -54,7 +58,7 @@ fun LoginScreen(
             val account = task.getResult(ApiException::class.java)
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
             viewModel.signInWithGoogleCredential(credential) {
-                navController.navigate("homeScreen")
+                navController.navigate(Destinations.Home)
             }
         } catch (ex: Exception) {
             Log.d("Juan", "Error: ${ex.localizedMessage}")

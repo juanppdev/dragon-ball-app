@@ -2,11 +2,9 @@ package com.mundocode.dragonballapp.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
+import com.kiwi.navigationcompose.typed.composable
 import com.kiwi.navigationcompose.typed.createRoutePattern
-import com.mundocode.dragonballapp.views.FavoriteScreen
 import com.mundocode.dragonballapp.views.GenericCharacterScreen
 import com.mundocode.dragonballapp.views.GenericDragonBallScreen
 import com.mundocode.dragonballapp.views.HomeScreen
@@ -30,27 +28,23 @@ fun NavManager() {
             HomeScreen(navController = navController)
         }
 
-        composable<Destinations.PersonajeList> { backStackEntry ->
-            val listScreen: Destinations.PersonajeList = backStackEntry.toRoute()
-
+        composable<Destinations.PersonajeList> {
             GenericDragonBallScreen(
                 navController = navController,
-                dragonBallType = listScreen.dragonBallType
+                dragonBallType = dragonBallType
             )
         }
 
-        composable<Destinations.PersonajeDetail> { backStackEntry ->
-            val personajeDetail: Destinations.PersonajeDetail = backStackEntry.toRoute()
-
+        composable<Destinations.PersonajeDetail> {
             GenericCharacterScreen(
                 navController = navController,
-                personaje = personajeDetail.personaje,
-                dragonBallType = personajeDetail.dragonBallType,
+                personaje = personaje,
+                dragonBallType = dragonBallType,
             )
         }
 
-        composable("favoriteScreen") {
-            FavoriteScreen(navController)
-        }
+//        composable("favoriteScreen") {
+//            FavoriteScreen(navController)
+//        }
     }
 }

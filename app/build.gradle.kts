@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-//    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlin.serialize)
 
@@ -9,6 +9,9 @@ plugins {
     alias(libs.plugins.google.services)
 
     id("kotlin-kapt")
+
+//    id("androidx.navigation.safeargs.kotlin")
+//    alias(libs.plugins.androidx.navigation.safe.args)
 
     // Dagger Hilt
     alias(libs.plugins.google.dagger.hilt)

@@ -32,11 +32,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.kiwi.navigationcompose.typed.navigate
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.navigation.Destinations
 import com.mundocode.dragonballapp.ui.theme.DragonBallAppTheme
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
+import kotlinx.serialization.ExperimentalSerializationApi
 
+@OptIn(ExperimentalSerializationApi::class)
 @Composable
 fun HomeScreen(navController: NavController) {
 

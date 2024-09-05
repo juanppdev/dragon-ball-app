@@ -6,5 +6,6 @@ plugins {
     alias(libs.plugins.kotlin.serialize) apply false
     alias(libs.plugins.google.services) apply false
     alias(libs.plugins.google.dagger.hilt) apply false
+//    alias(libs.plugins.androidx.navigation.safe.args) apply false
 //    alias(libs.plugins.compose.compiler) apply false
 }

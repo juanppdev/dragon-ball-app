@@ -7,7 +7,7 @@ firebaseMessaging = "24.0.1"
 googlePlayServicesAuth = "21.2.0"
 googleServices = "4.4.2"
 hiltVersion = "2.52"
-kotlin = "1.9.24"
+kotlin = "2.0.0"
 kotlinxSerializationCore = "1.6.3"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -17,7 +17,7 @@ lifecycleRuntimeKtx = "2.8.5"
 lifecycleViewModelCompose = "2.8.5"
 activityCompose = "1.9.2"
 composeBom = "2024.09.00"
-navigationCompose = "2.8.0"
+navigationCompose = "2.7.0"
 googleid = "1.1.1"
 roomRuntime = "2.6.1"
 runtimeLivedata = "1.7.0"
@@ -60,9 +60,10 @@ androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtim
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-#compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 kotlin-serialize = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 google-dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" }
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
-
+#androidx-navigation-safe-args = { id = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationCompose" }
+#androidx-navigation-safe-args = { id = "androidx.navigation.safeargs", version.ref = "navigationCompose" }
