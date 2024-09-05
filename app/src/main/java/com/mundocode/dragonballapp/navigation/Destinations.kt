@@ -20,6 +20,6 @@ sealed interface Destinations: Destination {
     @Serializable
     data class PersonajeDetail(
         val dragonBallType: DragonBallType,
-       @Contextual val personaje: Personaje
+        @Contextual val personaje: Personaje
     )
 }
