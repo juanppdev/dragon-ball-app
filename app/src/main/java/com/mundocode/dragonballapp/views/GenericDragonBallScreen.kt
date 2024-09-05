@@ -98,7 +98,11 @@ fun GenericDragonBallScreen(
                 )
             },
             favoriteClicked = {
-                viewModel.favoriteClicked(it)
+                when (dragonBallType) {
+                    DragonBallType.DragonBall -> viewModel.favoriteClicked(it, DragonBallType.DragonBall)
+                    DragonBallType.DragonBallZ -> viewModel.favoriteClicked(it, DragonBallType.DragonBallZ)
+                    DragonBallType.Dragons -> viewModel.favoriteClicked(it, DragonBallType.Dragons)
+                }
             }
         )
     }
@@ -183,8 +187,7 @@ fun GenericCardCharacter(
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .padding(12.dp)
-                    .size(120.dp),
+                    .size(190.dp),
             )
         }
     }

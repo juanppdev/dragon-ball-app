@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.kiwi.navigationcompose.typed.composable
 import com.kiwi.navigationcompose.typed.createRoutePattern
+import com.mundocode.dragonballapp.views.FavoriteScreen
 import com.mundocode.dragonballapp.views.GenericCharacterScreen
 import com.mundocode.dragonballapp.views.GenericDragonBallScreen
 import com.mundocode.dragonballapp.views.HomeScreen
@@ -43,8 +44,10 @@ fun NavManager() {
             )
         }
 
-//        composable("favoriteScreen") {
-//            FavoriteScreen(navController)
-//        }
+        composable<Destinations.FavoriteScreen> {
+            FavoriteScreen(
+                navController = navController
+            )
+        }
     }
 }

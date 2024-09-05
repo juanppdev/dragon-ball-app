@@ -3,6 +3,7 @@ package com.mundocode.dragonballapp.navigation
 import com.kiwi.navigationcompose.typed.Destination
 import com.mundocode.dragonballapp.models.Personaje
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
 sealed interface Destinations : Destination {
@@ -21,4 +22,7 @@ sealed interface Destinations : Destination {
         val dragonBallType: DragonBallType,
         val personaje: Personaje
     ) : Destinations
+
+    @Serializable
+    data object FavoriteScreen : Destinations
 }

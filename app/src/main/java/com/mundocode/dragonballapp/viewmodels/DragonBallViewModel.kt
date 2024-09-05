@@ -53,9 +53,9 @@ class DragonBallViewModel(
                         }
                     }
                 },
-//                async {
-//                    getFavoriteList()
-//                },
+                async {
+                    getFavoriteList()
+                },
             )
         }
     }
@@ -68,18 +68,12 @@ class DragonBallViewModel(
         }
     }
 
-    fun getDetails(type: DragonBallType, id: Long) = viewModelScope.launch {
-        apiRepository.getDetails(type, id).getOrNull()?.let { character ->
-            _details.value = character
-        }
-    }
-
-    fun favoriteClicked(itemId: Long) = viewModelScope.launch {
+    fun favoriteClicked(itemId: Long, character: DragonBallType) = viewModelScope.launch {
         val isFavorite = _state.value.favoriteList.any { it.id == itemId }
         if (isFavorite) {
-            firebaseRepository.removeFavorite(Favorite(itemId))
+            firebaseRepository.removeFavorite(Favorite(itemId, character))
         } else {
-            firebaseRepository.addFavorite(Favorite(itemId))
+            firebaseRepository.addFavorite(Favorite(itemId, character))
         }
         getFavoriteList()
     }

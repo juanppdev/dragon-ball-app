@@ -37,11 +37,15 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
+import com.kiwi.navigationcompose.typed.navigate
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.data.Favorite
+import com.mundocode.dragonballapp.navigation.Destinations
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.DragonBallViewModel
+import kotlinx.serialization.ExperimentalSerializationApi
 
+@OptIn(ExperimentalSerializationApi::class)
 @Composable
 fun FavoriteScreen(
     navController: NavController,
@@ -52,7 +56,7 @@ fun FavoriteScreen(
     Scaffold(
         topBar = {
             CustomTopBar(title = "Favoritos") {
-                IconButton(onClick = { navController.navigate("homeScreen") }) {
+                IconButton(onClick = { navController.navigateUp() }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         tint = Color.White,
@@ -83,9 +87,16 @@ fun FavoriteScreen(
                                 getItem = item.id,
                                 imagePainter = item.image,
                                 itemName = item.name,
-                                onItemClicked = { id -> navController.navigate("personaje/$id") },
+                                onItemClicked = {
+                                    navController.navigate(
+                                        Destinations.PersonajeDetail(
+                                            dragonBallType = DragonBallType.DragonBall,
+                                            personaje = item
+                                        )
+                                    )
+                                },
                                 favoriteClicked = {
-                                    viewModel.favoriteClicked(it)
+                                    viewModel.favoriteClicked(it, DragonBallType.DragonBall)
                                 }
                             )
                         }
@@ -100,9 +111,16 @@ fun FavoriteScreen(
                                 getItem = item.id,
                                 imagePainter = item.image,
                                 itemName = item.name,
-                                onItemClicked = { id -> navController.navigate("personajeZ/$id") },
+                                onItemClicked = {
+                                    navController.navigate(
+                                        Destinations.PersonajeDetail(
+                                            dragonBallType = DragonBallType.DragonBallZ,
+                                            personaje = item
+                                        )
+                                    )
+                                },
                                 favoriteClicked = {
-                                    viewModel.favoriteClicked(it)
+                                    viewModel.favoriteClicked(it, DragonBallType.DragonBallZ)
                                 }
                             )
                         }
@@ -117,9 +135,16 @@ fun FavoriteScreen(
                                 getItem = item.id,
                                 imagePainter = item.image,
                                 itemName = item.name,
-                                onItemClicked = { id -> navController.navigate("personajeDragons/$id") },
+                                onItemClicked = {
+                                    navController.navigate(
+                                        Destinations.PersonajeDetail(
+                                            dragonBallType = DragonBallType.Dragons,
+                                            personaje = item
+                                        )
+                                    )
+                                },
                                 favoriteClicked = {
-                                    viewModel.favoriteClicked(it)
+                                    viewModel.favoriteClicked(it, DragonBallType.Dragons)
                                 }
                             )
                         }

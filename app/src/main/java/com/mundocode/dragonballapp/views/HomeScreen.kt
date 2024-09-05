@@ -49,7 +49,7 @@ fun HomeScreen(navController: NavController) {
                 title = "Personajes",
                 actions = {
                     IconButton(onClick = {
-                        navController.navigate("favoriteScreen")
+                        navController.navigate(Destinations.FavoriteScreen)
                     }) {
                         Icon(
                             Icons.Filled.Favorite,
