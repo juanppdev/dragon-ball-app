@@ -5,30 +5,34 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.kiwi.navigationcompose.typed.Destination
+import com.kiwi.navigationcompose.typed.createRoutePattern
 import com.mundocode.dragonballapp.views.FavoriteScreen
 import com.mundocode.dragonballapp.views.GenericCharacterScreen
 import com.mundocode.dragonballapp.views.GenericDragonBallScreen
 import com.mundocode.dragonballapp.views.HomeScreen
 import com.mundocode.dragonballapp.views.LoginScreen
+import kotlinx.serialization.ExperimentalSerializationApi
 
+@OptIn(ExperimentalSerializationApi::class)
 @Composable
 fun NavManager() {
     val navController = rememberNavController()
 
     NavHost(
         navController = navController,
-        startDestination = "loginScreen",
+        startDestination = createRoutePattern<Destinations.Login>(),
     ) {
-        composable<Login> {
+        composable<Destinations.Login> {
             LoginScreen(navController = navController)
         }
 
-        composable<Home> {
+        composable<Destinations.Home> {
             HomeScreen(navController = navController)
         }
 
-        composable<PersonajeList> { backStackEntry ->
-            val listScreen: PersonajeList = backStackEntry.toRoute()
+        composable<Destinations.PersonajeList> { backStackEntry ->
+            val listScreen: Destinations.PersonajeList = backStackEntry.toRoute()
 
             GenericDragonBallScreen(
                 navController = navController,
@@ -36,8 +40,8 @@ fun NavManager() {
             )
         }
 
-        composable<PersonajeDetail> { backStackEntry ->
-            val personajeDetail: PersonajeDetail = backStackEntry.toRoute()
+        composable<Destinations.PersonajeDetail> { backStackEntry ->
+            val personajeDetail: Destinations.PersonajeDetail = backStackEntry.toRoute()
 
             GenericCharacterScreen(
                 navController = navController,

@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.mundocode.dragonballapp.R
-import com.mundocode.dragonballapp.navigation.PersonajeList
+import com.mundocode.dragonballapp.navigation.Destinations
 import com.mundocode.dragonballapp.ui.theme.DragonBallAppTheme
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
 
@@ -76,7 +76,7 @@ fun HomeScreen(navController: NavController) {
                     title = "Dragon Ball",
                     icon = R.drawable.logo_db,
                     onClick = {
-                        navController.navigate(PersonajeList(DragonBallType.DragonBall))
+                        navController.navigate(Destinations.PersonajeList(DragonBallType.DragonBall))
                     }
                 )
             }
@@ -86,7 +86,7 @@ fun HomeScreen(navController: NavController) {
                     title = "DragonBallZ",
                     icon = R.drawable.logo_z,
                     onClick = {
-                        navController.navigate(PersonajeList(DragonBallType.DragonBallZ))
+                        navController.navigate(Destinations.PersonajeList(DragonBallType.DragonBallZ))
                     }
                 )
             }
@@ -97,7 +97,7 @@ fun HomeScreen(navController: NavController) {
                     icon = R.drawable.logo_dr,
                     iconSize = 60.dp,
                     onClick = {
-                        navController.navigate(PersonajeList(DragonBallType.Dragons))
+                        navController.navigate(Destinations.PersonajeList(DragonBallType.Dragons))
                     }
                 )
             }

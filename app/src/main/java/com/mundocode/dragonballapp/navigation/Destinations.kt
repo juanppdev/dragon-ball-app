@@ -1,21 +1,25 @@
 package com.mundocode.dragonballapp.navigation
 
+import com.kiwi.navigationcompose.typed.Destination
 import com.mundocode.dragonballapp.models.Personaje
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
-@Serializable
-object Login
+sealed interface Destinations: Destination {
 
-@Serializable
-object Home
+    @Serializable
+    data object Login : Destinations
 
-@Serializable
-data class PersonajeList(val dragonBallType: DragonBallType)
+    @Serializable
+    data object Home : Destinations
 
-@Serializable
-data class PersonajeDetail(
-    val dragonBallType: DragonBallType,
-    val personaje: Personaje
-)
+    @Serializable
+    data class PersonajeList(val dragonBallType: DragonBallType) : Destinations
 
+    @Serializable
+    data class PersonajeDetail(
+        val dragonBallType: DragonBallType,
+       @Contextual val personaje: Personaje
+    )
+}
