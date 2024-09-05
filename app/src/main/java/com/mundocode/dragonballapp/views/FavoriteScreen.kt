@@ -60,7 +60,7 @@ fun FavoriteScreen(
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         tint = Color.White,
-                        contentDescription = "Localized description"
+                        contentDescription = null
                     )
                 }
             }

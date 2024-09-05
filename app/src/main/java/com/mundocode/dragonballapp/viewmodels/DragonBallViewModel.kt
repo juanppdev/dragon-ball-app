@@ -26,8 +26,8 @@ class DragonBallViewModel(
     private val _state = MutableStateFlow(DragonBallState())
     val state: StateFlow<DragonBallState> = _state.asStateFlow()
 
-    private val _details = MutableStateFlow<Personaje?>(null)
-    val details: StateFlow<Personaje?> get() = _details.asStateFlow()
+//    private val _details = MutableStateFlow<Personaje?>(null)
+//    val details: StateFlow<Personaje?> get() = _details.asStateFlow()
 
     init {
         viewModelScope.launch {
