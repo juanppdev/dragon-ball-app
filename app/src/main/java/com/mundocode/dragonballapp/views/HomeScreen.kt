@@ -86,10 +86,20 @@ fun HomeScreen(navController: NavController) {
 
             item {
                 PersonajesListItem(
-                    title = "DragonBallZ",
+                    title = "Dragon Ball Z",
                     icon = R.drawable.logo_z,
                     onClick = {
                         navController.navigate(Destinations.PersonajeList(DragonBallType.DragonBallZ))
+                    }
+                )
+            }
+
+            item {
+                PersonajesListItem(
+                    title = "Dragon Ball GT",
+                    icon = R.drawable.logo_gt,
+                    onClick = {
+                        navController.navigate(Destinations.PersonajeList(DragonBallType.DragonBallGT))
                     }
                 )
             }

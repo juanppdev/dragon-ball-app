@@ -47,6 +47,13 @@ class DragonBallViewModel(
                     }
                 },
                 async {
+                    apiRepository.getDragonBallGTList().getOrElse { emptyList() }.let { list ->
+                        _state.update {
+                            it.copy(dragonBallGtList = list)
+                        }
+                    }
+                },
+                async {
                     apiRepository.getDragonList().getOrElse { emptyList() }.let { list ->
                         _state.update {
                             it.copy(dragonList = list)
@@ -81,12 +88,14 @@ class DragonBallViewModel(
     data class DragonBallState(
         val dragonBallList: List<Personaje>,
         val dragonBallZList: List<Personaje>,
+        val dragonBallGtList: List<Personaje>,
         val dragonList: List<Personaje>,
         val favoriteList: List<Favorite>
     ) {
         constructor() : this(
             dragonBallList = emptyList(),
             dragonBallZList = emptyList(),
+            dragonBallGtList = emptyList(),
             dragonList = emptyList(),
             favoriteList = emptyList()
         )
@@ -97,6 +106,7 @@ class DragonBallViewModel(
 enum class DragonBallType {
     DragonBall,
     DragonBallZ,
+    DragonBallGT,
     Dragons
 }
 

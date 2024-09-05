@@ -17,6 +17,10 @@ class ApiRepositoryImpl(
         apiService.obtenerPersonajesZ()
     }
 
+    override suspend fun getDragonBallGTList(): Result<List<Personaje>> = runCatching {
+        apiService.obtenerPersonajesGT()
+    }
+
     override suspend fun getDragonList(): Result<List<Personaje>> = runCatching {
         apiService.obtenerDragons()
     }
@@ -26,6 +30,7 @@ class ApiRepositoryImpl(
             when (type) {
                 DragonBallType.DragonBall -> apiService.obtenerPersonaje(id)
                 DragonBallType.DragonBallZ -> apiService.obtenerPersonajeZ(id)
+                DragonBallType.DragonBallGT -> apiService.obtenerPersonajeGT(id)
                 DragonBallType.Dragons -> apiService.obtenerDragons(id)
             }
         }
@@ -34,6 +39,7 @@ class ApiRepositoryImpl(
 interface ApiRepository {
     suspend fun getDragonBallList(): Result<List<Personaje>>
     suspend fun getDragonBallZList(): Result<List<Personaje>>
+    suspend fun getDragonBallGTList(): Result<List<Personaje>>
     suspend fun getDragonList(): Result<List<Personaje>>
     suspend fun getDetails(type: DragonBallType, id: Long): Result<Personaje>
 }

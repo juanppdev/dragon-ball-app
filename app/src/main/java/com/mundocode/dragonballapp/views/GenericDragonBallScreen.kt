@@ -65,6 +65,7 @@ fun GenericDragonBallScreen(
                 title = when (dragonBallType) {
                     DragonBallType.DragonBall -> "Dragon Ball"
                     DragonBallType.DragonBallZ -> "Dragon Ball Z"
+                    DragonBallType.DragonBallGT -> "Dragon Ball GT"
                     DragonBallType.Dragons -> "Dragons"
                 },
                 navigationIcon = {
@@ -85,6 +86,7 @@ fun GenericDragonBallScreen(
             list = when (dragonBallType) {
                 DragonBallType.DragonBall -> state.dragonBallList
                 DragonBallType.DragonBallZ -> state.dragonBallZList
+                DragonBallType.DragonBallGT -> state.dragonBallGtList
                 DragonBallType.Dragons -> state.dragonList
             },
             favorites = state.favoriteList,
@@ -101,6 +103,7 @@ fun GenericDragonBallScreen(
                 when (dragonBallType) {
                     DragonBallType.DragonBall -> viewModel.favoriteClicked(it, DragonBallType.DragonBall)
                     DragonBallType.DragonBallZ -> viewModel.favoriteClicked(it, DragonBallType.DragonBallZ)
+                    DragonBallType.DragonBallGT -> viewModel.favoriteClicked(it, DragonBallType.DragonBallGT)
                     DragonBallType.Dragons -> viewModel.favoriteClicked(it, DragonBallType.Dragons)
                 }
             }

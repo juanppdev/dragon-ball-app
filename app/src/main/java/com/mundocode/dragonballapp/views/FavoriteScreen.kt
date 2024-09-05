@@ -126,6 +126,30 @@ fun FavoriteScreen(
                         }
                     }
 
+                    DragonBallType.DragonBallGT -> {
+                        val item = state.dragonBallGtList.find { it.id == favorite.id }
+                        if (item != null) {
+                            FavoriteItemCard(
+                                favorite = favorite,
+                                isFavorite = state.favoriteList.any { it.id == favorite.id },
+                                getItem = item.id,
+                                imagePainter = item.image,
+                                itemName = item.name,
+                                onItemClicked = {
+                                    navController.navigate(
+                                        Destinations.PersonajeDetail(
+                                            dragonBallType = DragonBallType.DragonBallGT,
+                                            personaje = item
+                                        )
+                                    )
+                                },
+                                favoriteClicked = {
+                                    viewModel.favoriteClicked(it, DragonBallType.DragonBallGT)
+                                }
+                            )
+                        }
+                    }
+
                     DragonBallType.Dragons -> {
                         val item = state.dragonList.find { it.id == favorite.id }
                         if (item != null) {

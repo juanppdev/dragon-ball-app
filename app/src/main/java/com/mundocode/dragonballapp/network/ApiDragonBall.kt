@@ -22,6 +22,14 @@ interface ApiDragonBall {
         @Path("id") id: Long
     ): Personaje
 
+    @GET("dragonballgt")
+    suspend fun obtenerPersonajesGT(): List<Personaje>
+
+    @GET("dragonballgt/{id}")
+    suspend fun obtenerPersonajeGT(
+        @Path("id") id: Long
+    ): Personaje
+
     @GET("dragons")
     suspend fun obtenerDragons(): List<Personaje>
 
