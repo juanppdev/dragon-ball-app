@@ -75,6 +75,7 @@ fun HomeScreen(navController: NavController) {
                 .padding(25.dp)
         ) {
             item {
+
                 PersonajesListItem(
                     title = "Dragon Ball",
                     icon = R.drawable.logo_db,
