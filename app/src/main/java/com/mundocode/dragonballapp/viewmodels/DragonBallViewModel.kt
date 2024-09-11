@@ -8,6 +8,7 @@ import com.mundocode.dragonballapp.repositories.ApiRepository
 import com.mundocode.dragonballapp.repositories.ApiRepositoryImpl
 import com.mundocode.dragonballapp.repositories.FirebaseRepository
 import com.mundocode.dragonballapp.repositories.FirebaseRepositoryImpl
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,9 +16,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class DragonBallViewModel(
+@HiltViewModel
+class DragonBallViewModel @Inject constructor(
     private val apiRepository: ApiRepository = ApiRepositoryImpl(),
     private val firebaseRepository: FirebaseRepository = FirebaseRepositoryImpl()
 ) : ViewModel() {
