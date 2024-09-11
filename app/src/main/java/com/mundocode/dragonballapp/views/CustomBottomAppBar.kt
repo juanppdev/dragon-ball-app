@@ -48,7 +48,7 @@ fun CustomBottomAppBar(navController: NavController) {
                     icon = {
                         Icon(
                             painterResource(id = R.drawable.wiki),
-                            contentDescription = "Localized description",
+                            contentDescription = null,
                             modifier = Modifier.size(30.dp),
                             tint = Color.White
                         )
@@ -64,7 +64,24 @@ fun CustomBottomAppBar(navController: NavController) {
                     icon = {
                         Icon(
                             painterResource(id = R.drawable.games),
-                            contentDescription = "Localized description",
+                            contentDescription = null,
+                            modifier = Modifier.size(30.dp),
+                            tint = Color.White
+                        )
+                    },
+                    label = { Text(text = "Games", color = Color.White) }
+                )
+
+                NavigationBarItem(
+                    selected = false,
+                    onClick = {
+                        navController.navigate(Destinations.OptionsScreen)
+                    },
+                    enabled = true,
+                    icon = {
+                        Icon(
+                            painterResource(id = R.drawable.ic_settings),
+                            contentDescription = null,
                             modifier = Modifier.size(30.dp),
                             tint = Color.White
                         )

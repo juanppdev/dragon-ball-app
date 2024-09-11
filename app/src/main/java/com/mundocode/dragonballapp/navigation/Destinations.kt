@@ -25,4 +25,7 @@ sealed interface Destinations : Destination {
 
     @Serializable
     data object FavoriteScreen : Destinations
+
+    @Serializable
+    data object OptionsScreen : Destinations
 }

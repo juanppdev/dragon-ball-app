@@ -10,6 +10,7 @@ import com.mundocode.dragonballapp.views.GenericCharacterScreen
 import com.mundocode.dragonballapp.views.GenericDragonBallScreen
 import com.mundocode.dragonballapp.views.HomeScreen
 import com.mundocode.dragonballapp.views.LoginScreen
+import com.mundocode.dragonballapp.views.OptionsScreen
 import kotlinx.serialization.ExperimentalSerializationApi
 
 @OptIn(ExperimentalSerializationApi::class)
@@ -46,6 +47,12 @@ fun NavManager() {
 
         composable<Destinations.FavoriteScreen> {
             FavoriteScreen(
+                navController = navController
+            )
+        }
+
+        composable<Destinations.OptionsScreen> {
+            OptionsScreen(
                 navController = navController
             )
         }
