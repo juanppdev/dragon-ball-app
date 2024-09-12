@@ -25,15 +25,6 @@ class ApiRepositoryImpl @Inject constructor(
         apiService.obtenerDragons()
     }
 
-    override suspend fun getDetails(type: DragonBallType, id: Long): Result<Personaje> =
-        runCatching {
-            when (type) {
-                DragonBallType.DragonBall -> apiService.obtenerPersonaje(id)
-                DragonBallType.DragonBallZ -> apiService.obtenerPersonajeZ(id)
-                DragonBallType.DragonBallGT -> apiService.obtenerPersonajeGT(id)
-                DragonBallType.Dragons -> apiService.obtenerDragons(id)
-            }
-        }
 }
 
 interface ApiRepository {
@@ -41,5 +32,4 @@ interface ApiRepository {
     suspend fun getDragonBallZList(): Result<List<Personaje>>
     suspend fun getDragonBallGTList(): Result<List<Personaje>>
     suspend fun getDragonList(): Result<List<Personaje>>
-    suspend fun getDetails(type: DragonBallType, id: Long): Result<Personaje>
 }
