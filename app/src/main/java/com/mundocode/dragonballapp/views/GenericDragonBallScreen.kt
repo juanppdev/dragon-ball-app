@@ -38,7 +38,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.kiwi.navigationcompose.typed.navigate
+import com.kiwi.navigationcompose.typed.navigate as kiwiNavigation
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.data.Favorite
 import com.mundocode.dragonballapp.models.Personaje
@@ -93,7 +93,7 @@ fun GenericDragonBallScreen(
             favorites = state.favoriteList,
             modifier = Modifier.padding(paddingValues),
             onItemClicked = { character ->
-                navController.navigate(
+                navController.kiwiNavigation(
                     Destinations.PersonajeDetail(
                         dragonBallType = dragonBallType,
                         personaje = character

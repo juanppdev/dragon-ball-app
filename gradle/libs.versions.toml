@@ -21,7 +21,7 @@ composeBom = "2024.09.01"
 navigationCompose = "2.8.0"
 googleid = "1.1.1"
 roomRuntime = "2.6.1"
-runtimeLivedata = "1.7.0"
+runtimeLivedata = "1.7.1"
 
 [libraries]
 kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }

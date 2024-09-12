@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.kiwi.navigationcompose.typed.navigate
+import com.kiwi.navigationcompose.typed.navigate as kiwiNavigation
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.navigation.Destinations
 import com.mundocode.dragonballapp.ui.theme.DragonBallAppTheme
@@ -49,7 +49,7 @@ fun HomeScreen(navController: NavController) {
                 title = "Personajes",
                 actions = {
                     IconButton(onClick = {
-                        navController.navigate(Destinations.FavoriteScreen)
+                        navController.kiwiNavigation(Destinations.FavoriteScreen)
                     }) {
                         Icon(
                             Icons.Filled.Favorite,
@@ -80,7 +80,7 @@ fun HomeScreen(navController: NavController) {
                     title = "Dragon Ball",
                     icon = R.drawable.logo_db,
                     onClick = {
-                        navController.navigate(Destinations.PersonajeList(DragonBallType.DragonBall))
+                        navController.kiwiNavigation(Destinations.PersonajeList(DragonBallType.DragonBall))
                     }
                 )
             }
@@ -90,7 +90,7 @@ fun HomeScreen(navController: NavController) {
                     title = "Dragon Ball Z",
                     icon = R.drawable.logo_z,
                     onClick = {
-                        navController.navigate(Destinations.PersonajeList(DragonBallType.DragonBallZ))
+                        navController.kiwiNavigation(Destinations.PersonajeList(DragonBallType.DragonBallZ))
                     }
                 )
             }
@@ -100,7 +100,7 @@ fun HomeScreen(navController: NavController) {
                     title = "Dragon Ball GT",
                     icon = R.drawable.logo_gt,
                     onClick = {
-                        navController.navigate(Destinations.PersonajeList(DragonBallType.DragonBallGT))
+                        navController.kiwiNavigation(Destinations.PersonajeList(DragonBallType.DragonBallGT))
                     }
                 )
             }
@@ -111,7 +111,7 @@ fun HomeScreen(navController: NavController) {
                     icon = R.drawable.logo_dr,
                     iconSize = 60.dp,
                     onClick = {
-                        navController.navigate(Destinations.PersonajeList(DragonBallType.Dragons))
+                        navController.kiwiNavigation(Destinations.PersonajeList(DragonBallType.Dragons))
                     }
                 )
             }
