@@ -112,7 +112,7 @@ fun FavoriteScreen(
                                 imagePainter = item.image,
                                 itemName = item.name,
                                 onItemClicked = {
-                                    navController.navigate(
+                                    navController.kiwiNavigation(
                                         Destinations.PersonajeDetail(
                                             dragonBallType = DragonBallType.DragonBallZ,
                                             personaje = item
@@ -136,7 +136,7 @@ fun FavoriteScreen(
                                 imagePainter = item.image,
                                 itemName = item.name,
                                 onItemClicked = {
-                                    navController.navigate(
+                                    navController.kiwiNavigation(
                                         Destinations.PersonajeDetail(
                                             dragonBallType = DragonBallType.DragonBallGT,
                                             personaje = item
@@ -160,7 +160,7 @@ fun FavoriteScreen(
                                 imagePainter = item.image,
                                 itemName = item.name,
                                 onItemClicked = {
-                                    navController.navigate(
+                                    navController.kiwiNavigation(
                                         Destinations.PersonajeDetail(
                                             dragonBallType = DragonBallType.Dragons,
                                             personaje = item
