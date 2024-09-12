@@ -7,11 +7,14 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginScreenViewModel: ViewModel() {
-
-    private val auth:FirebaseAuth = Firebase.auth
+@HiltViewModel
+class LoginScreenViewModel @Inject constructor(
+    private val auth:FirebaseAuth
+): ViewModel() {
 
     fun signInWithGoogleCredential(credential: AuthCredential, home: () -> Unit) = viewModelScope.launch {
 

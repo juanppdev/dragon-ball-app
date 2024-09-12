@@ -34,10 +34,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.kiwi.navigationcompose.typed.navigate
+import com.kiwi.navigationcompose.typed.navigate as kiwiNavigation
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.data.Favorite
 import com.mundocode.dragonballapp.navigation.Destinations
@@ -49,7 +49,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 @Composable
 fun FavoriteScreen(
     navController: NavController,
-    viewModel: DragonBallViewModel = viewModel(),
+    viewModel: DragonBallViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
 
@@ -88,7 +88,7 @@ fun FavoriteScreen(
                                 imagePainter = item.image,
                                 itemName = item.name,
                                 onItemClicked = {
-                                    navController.navigate(
+                                    navController.kiwiNavigation(
                                         Destinations.PersonajeDetail(
                                             dragonBallType = DragonBallType.DragonBall,
                                             personaje = item

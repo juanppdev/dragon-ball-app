@@ -34,10 +34,11 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.kiwi.navigationcompose.typed.navigate
+import com.kiwi.navigationcompose.typed.navigate as kiwiNavigation
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.data.Favorite
 import com.mundocode.dragonballapp.models.Personaje
@@ -51,7 +52,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 fun GenericDragonBallScreen(
     navController: NavController,
     dragonBallType: DragonBallType,
-    viewModel: DragonBallViewModel = viewModel(),
+    viewModel: DragonBallViewModel = hiltViewModel(),
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -92,7 +93,7 @@ fun GenericDragonBallScreen(
             favorites = state.favoriteList,
             modifier = Modifier.padding(paddingValues),
             onItemClicked = { character ->
-                navController.navigate(
+                navController.kiwiNavigation(
                     Destinations.PersonajeDetail(
                         dragonBallType = dragonBallType,
                         personaje = character

@@ -29,14 +29,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
-import com.kiwi.navigationcompose.typed.navigate
 import com.mundocode.dragonballapp.R
+import com.kiwi.navigationcompose.typed.navigate as kiwiNavigation
 import com.mundocode.dragonballapp.navigation.Destinations
 import com.mundocode.dragonballapp.ui.theme.DragonBallAppTheme
 import com.mundocode.dragonballapp.viewmodels.LoginScreenViewModel
@@ -46,7 +46,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 @Composable
 fun LoginScreen(
     navController: NavController,
-    viewModel: LoginScreenViewModel = viewModel()
+    viewModel: LoginScreenViewModel = hiltViewModel()
 ) {
 
     val launcher = rememberLauncherForActivityResult(
@@ -58,7 +58,7 @@ fun LoginScreen(
             val account = task.getResult(ApiException::class.java)
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
             viewModel.signInWithGoogleCredential(credential) {
-                navController.navigate(Destinations.Home)
+                navController.kiwiNavigation(Destinations.Home)
             }
         } catch (ex: Exception) {
             Log.d("Juan", "Error: ${ex.localizedMessage}")

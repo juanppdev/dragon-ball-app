@@ -17,7 +17,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.kiwi.navigationcompose.typed.navigate
+import com.kiwi.navigationcompose.typed.navigate as kiwiNavigation
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.navigation.Destinations
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -43,7 +43,7 @@ fun CustomBottomAppBar(navController: NavController) {
                 NavigationBarItem(
                     selected = false,
                     onClick = {
-                        navController.navigate(Destinations.Home)
+                        navController.kiwiNavigation(Destinations.Home)
                     },
                     icon = {
                         Icon(
@@ -75,7 +75,7 @@ fun CustomBottomAppBar(navController: NavController) {
                 NavigationBarItem(
                     selected = false,
                     onClick = {
-                        navController.navigate(Destinations.OptionsScreen)
+                        navController.kiwiNavigation(Destinations.OptionsScreen)
                     },
                     enabled = true,
                     icon = {

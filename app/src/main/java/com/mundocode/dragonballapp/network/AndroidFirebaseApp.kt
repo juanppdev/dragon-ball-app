@@ -3,8 +3,9 @@ package com.mundocode.dragonballapp.network
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import javax.inject.Inject
 
-class AndroidFirebaseApp : Application() {
+class AndroidFirebaseApp @Inject constructor() : Application() {
     companion object {
         const val FCM_CHANNEL_ID = "FCM_CHANNEL_ID"
     }

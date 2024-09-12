@@ -4,13 +4,15 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mundocode.dragonballapp.data.Favorite
+import javax.inject.Inject
 
-class FirebaseRepositoryImpl : FirebaseRepository {
+class FirebaseRepositoryImpl @Inject constructor(
+    firestore: FirebaseFirestore,
+    auth: FirebaseAuth
+) : FirebaseRepository {
 
-    private val firestore = FirebaseFirestore.getInstance()
-    private val currentUser = FirebaseAuth.getInstance().currentUser
     private val favoritesCollection = firestore.collection("users")
-        .document(currentUser?.uid ?: "")
+        .document(auth.currentUser?.uid ?: "")
         .collection("favoriteCharacters")
 
     override fun addFavorite(favorite: Favorite) {
@@ -37,7 +39,6 @@ class FirebaseRepositoryImpl : FirebaseRepository {
         }
     }
 }
-
 
 interface FirebaseRepository {
     fun addFavorite(favorite: Favorite)
