@@ -13,9 +13,10 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.mundocode.dragonballapp.MainActivity
 import com.mundocode.dragonballapp.R
+import javax.inject.Inject
 import kotlin.random.Random
 
-class MyFirebaseService: FirebaseMessagingService() {
+class MyFirebaseService @Inject constructor() : FirebaseMessagingService() {
     private val random = Random
 
     override fun onMessageReceived(message: RemoteMessage) {

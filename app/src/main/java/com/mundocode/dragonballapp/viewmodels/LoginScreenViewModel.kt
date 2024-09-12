@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginScreenViewModel @Inject constructor(
-    private val auth:FirebaseAuth = Firebase.auth
+    private val auth:FirebaseAuth
 ): ViewModel() {
 
     fun signInWithGoogleCredential(credential: AuthCredential, home: () -> Unit) = viewModelScope.launch {

@@ -4,8 +4,9 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mundocode.dragonballapp.data.Favorite
+import javax.inject.Inject
 
-class FirebaseRepositoryImpl : FirebaseRepository {
+class FirebaseRepositoryImpl @Inject constructor() : FirebaseRepository {
 
     private val firestore = FirebaseFirestore.getInstance()
     private val currentUser = FirebaseAuth.getInstance().currentUser

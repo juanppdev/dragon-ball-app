@@ -20,8 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DragonBallViewModel @Inject constructor(
-    private val apiRepository: ApiRepository = ApiRepositoryImpl(),
-    private val firebaseRepository: FirebaseRepository = FirebaseRepositoryImpl()
+    private val apiRepository: ApiRepository,
+    private val firebaseRepository: FirebaseRepository
 ) : ViewModel() {
 
 

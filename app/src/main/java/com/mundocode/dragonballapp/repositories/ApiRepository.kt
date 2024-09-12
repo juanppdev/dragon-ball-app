@@ -2,11 +2,11 @@ package com.mundocode.dragonballapp.repositories
 
 import com.mundocode.dragonballapp.models.Personaje
 import com.mundocode.dragonballapp.network.ApiDragonBall
-import com.mundocode.dragonballapp.network.RetrofitClient
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
+import javax.inject.Inject
 
-class ApiRepositoryImpl(
-    private val apiService: ApiDragonBall = RetrofitClient.retrofit
+class ApiRepositoryImpl @Inject constructor(
+    private val apiService: ApiDragonBall
 ) : ApiRepository {
 
     override suspend fun getDragonBallList(): Result<List<Personaje>> = runCatching {
