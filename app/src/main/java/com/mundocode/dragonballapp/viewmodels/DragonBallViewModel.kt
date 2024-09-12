@@ -4,10 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mundocode.dragonballapp.data.Favorite
 import com.mundocode.dragonballapp.models.Personaje
+import com.mundocode.dragonballapp.network.ApiDragonBall
 import com.mundocode.dragonballapp.repositories.ApiRepository
 import com.mundocode.dragonballapp.repositories.ApiRepositoryImpl
 import com.mundocode.dragonballapp.repositories.FirebaseRepository
 import com.mundocode.dragonballapp.repositories.FirebaseRepositoryImpl
+import dagger.Provides
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -17,6 +19,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Singleton
 
 @HiltViewModel
 class DragonBallViewModel @Inject constructor(

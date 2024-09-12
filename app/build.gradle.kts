@@ -117,6 +117,7 @@ dependencies {
 
     // Dagger Hilt
     implementation(libs.hilt.android)
+    implementation(libs.hilt.android.navigation.compose)
     kapt(libs.hilt.android.compiler)
 
     implementation("com.google.android.gms:play-services-auth:21.2.0")

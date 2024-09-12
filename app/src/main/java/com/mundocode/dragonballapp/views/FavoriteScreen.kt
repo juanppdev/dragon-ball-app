@@ -34,6 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
@@ -45,11 +46,10 @@ import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.DragonBallViewModel
 import kotlinx.serialization.ExperimentalSerializationApi
 
-@OptIn(ExperimentalSerializationApi::class)
 @Composable
 fun FavoriteScreen(
     navController: NavController,
-    viewModel: DragonBallViewModel = viewModel(),
+    viewModel: DragonBallViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
 
