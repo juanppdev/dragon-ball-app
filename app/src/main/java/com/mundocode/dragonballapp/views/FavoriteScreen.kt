@@ -37,11 +37,15 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
+import com.kiwi.navigationcompose.typed.navigate
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.data.Favorite
+import com.mundocode.dragonballapp.navigation.Destinations
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.DragonBallViewModel
+import kotlinx.serialization.ExperimentalSerializationApi
 
+@OptIn(ExperimentalSerializationApi::class)
 @Composable
 fun FavoriteScreen(
     navController: NavController,
@@ -52,11 +56,11 @@ fun FavoriteScreen(
     Scaffold(
         topBar = {
             CustomTopBar(title = "Favoritos") {
-                IconButton(onClick = { navController.navigate("homeScreen") }) {
+                IconButton(onClick = { navController.navigateUp() }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         tint = Color.White,
-                        contentDescription = "Localized description"
+                        contentDescription = null
                     )
                 }
             }
@@ -74,7 +78,7 @@ fun FavoriteScreen(
         ) {
             items(state.favoriteList) { favorite ->
                 when (favorite.type) {
-                    DragonBallType.SAIYAN -> {
+                    DragonBallType.DragonBall -> {
                         val item = state.dragonBallList.find { it.id == favorite.id }
                         if (item != null) {
                             FavoriteItemCard(
@@ -83,15 +87,22 @@ fun FavoriteScreen(
                                 getItem = item.id,
                                 imagePainter = item.image,
                                 itemName = item.name,
-                                onItemClicked = { id -> navController.navigate("personaje/$id") },
+                                onItemClicked = {
+                                    navController.navigate(
+                                        Destinations.PersonajeDetail(
+                                            dragonBallType = DragonBallType.DragonBall,
+                                            personaje = item
+                                        )
+                                    )
+                                },
                                 favoriteClicked = {
-                                    viewModel.favoriteClicked(it)
+                                    viewModel.favoriteClicked(it, DragonBallType.DragonBall)
                                 }
                             )
                         }
                     }
 
-                    DragonBallType.SAIYAN_Z -> {
+                    DragonBallType.DragonBallZ -> {
                         val item = state.dragonBallZList.find { it.id == favorite.id }
                         if (item != null) {
                             FavoriteItemCard(
@@ -100,15 +111,46 @@ fun FavoriteScreen(
                                 getItem = item.id,
                                 imagePainter = item.image,
                                 itemName = item.name,
-                                onItemClicked = { id -> navController.navigate("personajeZ/$id") },
+                                onItemClicked = {
+                                    navController.navigate(
+                                        Destinations.PersonajeDetail(
+                                            dragonBallType = DragonBallType.DragonBallZ,
+                                            personaje = item
+                                        )
+                                    )
+                                },
                                 favoriteClicked = {
-                                    viewModel.favoriteClicked(it)
+                                    viewModel.favoriteClicked(it, DragonBallType.DragonBallZ)
                                 }
                             )
                         }
                     }
 
-                    DragonBallType.DRAGONS -> {
+                    DragonBallType.DragonBallGT -> {
+                        val item = state.dragonBallGtList.find { it.id == favorite.id }
+                        if (item != null) {
+                            FavoriteItemCard(
+                                favorite = favorite,
+                                isFavorite = state.favoriteList.any { it.id == favorite.id },
+                                getItem = item.id,
+                                imagePainter = item.image,
+                                itemName = item.name,
+                                onItemClicked = {
+                                    navController.navigate(
+                                        Destinations.PersonajeDetail(
+                                            dragonBallType = DragonBallType.DragonBallGT,
+                                            personaje = item
+                                        )
+                                    )
+                                },
+                                favoriteClicked = {
+                                    viewModel.favoriteClicked(it, DragonBallType.DragonBallGT)
+                                }
+                            )
+                        }
+                    }
+
+                    DragonBallType.Dragons -> {
                         val item = state.dragonList.find { it.id == favorite.id }
                         if (item != null) {
                             FavoriteItemCard(
@@ -117,9 +159,16 @@ fun FavoriteScreen(
                                 getItem = item.id,
                                 imagePainter = item.image,
                                 itemName = item.name,
-                                onItemClicked = { id -> navController.navigate("personajeDragons/$id") },
+                                onItemClicked = {
+                                    navController.navigate(
+                                        Destinations.PersonajeDetail(
+                                            dragonBallType = DragonBallType.Dragons,
+                                            personaje = item
+                                        )
+                                    )
+                                },
                                 favoriteClicked = {
-                                    viewModel.favoriteClicked(it)
+                                    viewModel.favoriteClicked(it, DragonBallType.Dragons)
                                 }
                             )
                         }
@@ -195,7 +244,7 @@ fun FavoriteItemCard(
 @Composable
 fun FavoriteScreenPreview() {
     FavoriteItemCard(
-        favorite = Favorite(1, DragonBallType.SAIYAN),
+        favorite = Favorite(1, DragonBallType.DragonBall),
         isFavorite = true,
         getItem = 1,
         imagePainter = "https://fastly.picsum.photos/id/959/200/300.jpg?hmac=q2WZ7w-aqWQyUVa4vEv-28yCS6TLS-M19or3y7YVvso",

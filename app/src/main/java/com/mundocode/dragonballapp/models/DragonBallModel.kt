@@ -1,118 +1,36 @@
-package com.mundocode.dragonball.models
+package com.mundocode.dragonballapp.models
 
 import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
 
-data class DragonBallLista (
+@Serializable
+data class Personaje(
     @SerializedName("id")
     val id: Long,
     @SerializedName("name")
     val name: String,
-    @SerializedName("genre")
-    val genre: String,
-    @SerializedName("race")
-    val race: String,
     @SerializedName("image")
     val image: String,
-    @SerializedName("planet")
-    val planet: String,
     @SerializedName("description")
     val description: String,
     @SerializedName("biography")
     val biography: String,
-)
-
-data class SingleDragonBallLista (
-    @SerializedName("id")
-    val id: Long,
-    @SerializedName("name")
-    val name: String,
     @SerializedName("genre")
-    val genre: String,
+    val genre: String?,
     @SerializedName("race")
-    val race: String,
-    @SerializedName("image")
-    val image: String,
+    val race: String?,
     @SerializedName("planet")
-    val planet: String,
-    @SerializedName("description")
-    val description: String,
-    @SerializedName("biography")
-    val biography: String,
-)
-
-data class DragonBallZLista (
-    @SerializedName("id")
-    val id: Long,
-    @SerializedName("name")
-    val name: String,
-    @SerializedName("genre")
-    val genre: String,
-    @SerializedName("race")
-    val race: String,
-    @SerializedName("image")
-    val image: String,
-    @SerializedName("planet")
-    val planet: String,
-    @SerializedName("description")
-    val description: String,
-    @SerializedName("biography")
-    val biography: String,
+    val planet: String?,
     @SerializedName("transformations")
-    val transformations: List<Transformations>
+    val transformations: List<Transformations>?
 )
 
-data class Transformations (
+@Serializable
+data class Transformations(
     @SerializedName("id")
-    val id: Long,
+    val id: Long?,
     @SerializedName("image")
-    val image: String,
+    val image: String?,
     @SerializedName("description")
-    val description: String,
-)
-
-data class SingleDragonBallZLista (
-    @SerializedName("id")
-    val id: Long,
-    @SerializedName("name")
-    val name: String,
-    @SerializedName("genre")
-    val genre: String,
-    @SerializedName("race")
-    val race: String,
-    @SerializedName("image")
-    val image: String,
-    @SerializedName("planet")
-    val planet: String,
-    @SerializedName("description")
-    val description: String,
-    @SerializedName("biography")
-    val biography: String,
-    @SerializedName("transformations")
-    val transformations: List<Transformations>
-)
-
-data class DragonsLista (
-    @SerializedName("id")
-    val id: Long,
-    @SerializedName("name")
-    val name: String,
-    @SerializedName("image")
-    val image: String,
-    @SerializedName("description")
-    val description: String,
-    @SerializedName("biography")
-    val biography: String
-)
-
-data class SingleDragonsLista (
-    @SerializedName("id")
-    val id: Long,
-    @SerializedName("name")
-    val name: String,
-    @SerializedName("image")
-    val image: String,
-    @SerializedName("description")
-    val description: String,
-    @SerializedName("biography")
-    val biography: String
+    val description: String?,
 )

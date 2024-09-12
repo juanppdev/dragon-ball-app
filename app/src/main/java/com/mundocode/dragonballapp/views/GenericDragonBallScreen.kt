@@ -37,25 +37,37 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.mundocode.dragonball.models.DragonsLista
+import com.kiwi.navigationcompose.typed.navigate
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.data.Favorite
+import com.mundocode.dragonballapp.models.Personaje
+import com.mundocode.dragonballapp.navigation.Destinations
+import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.DragonBallViewModel
+import kotlinx.serialization.ExperimentalSerializationApi
 
+@OptIn(ExperimentalSerializationApi::class)
 @Composable
-fun DragonsScreen(
+fun GenericDragonBallScreen(
     navController: NavController,
-    viewModel: DragonBallViewModel = viewModel()
+    dragonBallType: DragonBallType,
+    viewModel: DragonBallViewModel = viewModel(),
 ) {
 
     val state by viewModel.state.collectAsState()
 
     Scaffold(
+        modifier = Modifier.fillMaxSize(),
         contentColor = Color.White,
         containerColor = colorResource(id = R.color.background),
         topBar = {
             CustomTopBar(
-                title = "Dragones",
+                title = when (dragonBallType) {
+                    DragonBallType.DragonBall -> "Dragon Ball"
+                    DragonBallType.DragonBallZ -> "Dragon Ball Z"
+                    DragonBallType.DragonBallGT -> "Dragon Ball GT"
+                    DragonBallType.Dragons -> "Dragons"
+                },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
@@ -64,31 +76,47 @@ fun DragonsScreen(
                             contentDescription = null
                         )
                     }
-                }
+                },
             )
         },
         bottomBar = { CustomBottomAppBar(navController) }
     ) { paddingValues ->
-        DragonsContent(
-            list = state.dragonList,
+
+        ListContent(
+            list = when (dragonBallType) {
+                DragonBallType.DragonBall -> state.dragonBallList
+                DragonBallType.DragonBallZ -> state.dragonBallZList
+                DragonBallType.DragonBallGT -> state.dragonBallGtList
+                DragonBallType.Dragons -> state.dragonList
+            },
             favorites = state.favoriteList,
             modifier = Modifier.padding(paddingValues),
-            onItemClicked = { id ->
-                navController.navigate("personaje/$id")
+            onItemClicked = { character ->
+                navController.navigate(
+                    Destinations.PersonajeDetail(
+                        dragonBallType = dragonBallType,
+                        personaje = character
+                    )
+                )
             },
             favoriteClicked = {
-                viewModel.favoriteClicked(it)
+                when (dragonBallType) {
+                    DragonBallType.DragonBall -> viewModel.favoriteClicked(it, DragonBallType.DragonBall)
+                    DragonBallType.DragonBallZ -> viewModel.favoriteClicked(it, DragonBallType.DragonBallZ)
+                    DragonBallType.DragonBallGT -> viewModel.favoriteClicked(it, DragonBallType.DragonBallGT)
+                    DragonBallType.Dragons -> viewModel.favoriteClicked(it, DragonBallType.Dragons)
+                }
             }
         )
     }
 }
 
 @Composable
-private fun DragonsContent(
-    list: List<DragonsLista>,
+private fun ListContent(
+    list: List<Personaje>,
     favorites: List<Favorite>,
     modifier: Modifier = Modifier,
-    onItemClicked: (Long) -> Unit = {},
+    onItemClicked: (Personaje) -> Unit = {},
     favoriteClicked: (Long) -> Unit = {},
 ) {
     Box(modifier = modifier.fillMaxSize()) {
@@ -98,7 +126,7 @@ private fun DragonsContent(
             modifier = Modifier.fillMaxSize(),
         ) {
             items(list) { item ->
-                CardPersonajeD(
+                GenericCardCharacter(
                     item = item,
                     isFavorite = favorites.any { it.id == item.id },
                     onItemClicked = onItemClicked,
@@ -109,13 +137,15 @@ private fun DragonsContent(
     }
 }
 
+
 @Composable
-fun CardPersonajeD(
-    item: DragonsLista,
+fun GenericCardCharacter(
+    item: Personaje,
     isFavorite: Boolean,
-    onItemClicked: (Long) -> Unit = {},
+    onItemClicked: (Personaje) -> Unit = {},
     favoriteClicked: (Long) -> Unit = {},
 ) {
+
     Card(
         shape = MaterialTheme.shapes.large,
         colors = CardDefaults.cardColors(
@@ -124,7 +154,7 @@ fun CardPersonajeD(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { onItemClicked(item.id) }
+            .clickable { onItemClicked(item) }
     ) {
 
         Column(
@@ -160,9 +190,53 @@ fun CardPersonajeD(
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .padding(12.dp)
-                    .size(120.dp),
+                    .size(190.dp),
             )
         }
     }
 }
+
+
+//@Preview(showBackground = true, backgroundColor = 0xFF0E0F19)
+//@PreviewLightDark
+//@Composable
+//private fun GenericDragonBallContentPreview() {
+//    DragonBallAppTheme {
+//        ListContent(
+//            list = listOf(
+//                object : BaseCharacter(
+//                    id = 1,
+//                    name = "name",
+//                    image = "https://fastly.picsum.photos/id/959/200/300.jpg?hmac=q2WZ7w-aqWQyUVa4vEv-28yCS6TLS-M19or3y7YVvso",
+//                    description = "description",
+//                    biography = "biography",
+//                ),
+//                object : BaseCharacter(
+//                    id = 1,
+//                    name = "name",
+//                    image = "https://fastly.picsum.photos/id/959/200/300.jpg?hmac=q2WZ7w-aqWQyUVa4vEv-28yCS6TLS-M19or3y7YVvso",
+//                    description = "description",
+//                    biography = "biography",
+//                ),
+//            ),
+//            favorites = emptyList(),
+//        )
+//    }
+//}
+
+//@Preview(showBackground = true)
+//@Composable
+//private fun GenericCardCharacterPreview() {
+//    DragonBallAppTheme {
+//        GenericCardCharacter(
+//            item = object : BaseCharacter(
+//                id = 1,
+//                name = "name",
+//                image = "https://fastly.picsum.photos/id/959/200/300.jpg?hmac=q2WZ7w-aqWQyUVa4vEv-28yCS6TLS-M19or3y7YVvso",
+//                description = "description",
+//                biography = "biography",
+//            ),
+//            isFavorite = false
+//        ),
+//    }
+//}

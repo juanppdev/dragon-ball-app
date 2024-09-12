@@ -1,51 +1,60 @@
 package com.mundocode.dragonballapp.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.mundocode.dragonballapp.views.DragonBallScreen
-import com.mundocode.dragonballapp.views.DragonBallZScreen
-import com.mundocode.dragonballapp.views.DragonsScreen
+import com.kiwi.navigationcompose.typed.composable
+import com.kiwi.navigationcompose.typed.createRoutePattern
 import com.mundocode.dragonballapp.views.FavoriteScreen
+import com.mundocode.dragonballapp.views.GenericCharacterScreen
+import com.mundocode.dragonballapp.views.GenericDragonBallScreen
 import com.mundocode.dragonballapp.views.HomeScreen
 import com.mundocode.dragonballapp.views.LoginScreen
-import com.mundocode.dragonballapp.views.Personaje
-import com.mundocode.dragonballapp.views.PersonajeDragons
-import com.mundocode.dragonballapp.views.PersonajeZ
+import com.mundocode.dragonballapp.views.OptionsScreen
+import kotlinx.serialization.ExperimentalSerializationApi
 
+@OptIn(ExperimentalSerializationApi::class)
 @Composable
 fun NavManager() {
     val navController = rememberNavController()
 
     NavHost(
         navController = navController,
-        startDestination = "loginScreen",
+        startDestination = createRoutePattern<Destinations.Login>(),
     ) {
-        composable("loginScreen") { LoginScreen(navController = navController) }
-        composable("homeScreen") { HomeScreen(navController = navController) }
-        composable("dragonBall") { DragonBallScreen(navController = navController) }
-        composable("dragonBallZ") { DragonBallZScreen(navController = navController) }
-        composable("dragons") { DragonsScreen(navController = navController) }
-        composable("personaje/{id}", arguments = listOf(navArgument("id") { type = NavType.LongType })) {
-            it.arguments?.getLong("id")?.let { id ->
-                Personaje(navController = navController, id = id)
-            }
+        composable<Destinations.Login> {
+            LoginScreen(navController = navController)
         }
-        composable("personajeZ/{id}", arguments = listOf(navArgument("id") { type = NavType.LongType })) {
-            it.arguments?.getLong("id")?.let { id ->
-                PersonajeZ(navController = navController, id = id)
-            }
+
+        composable<Destinations.Home> {
+            HomeScreen(navController = navController)
         }
-        composable("personajeDragons/{id}", arguments = listOf(navArgument("id") { type = NavType.LongType })) {
-            it.arguments?.getLong("id")?.let { id ->
-                PersonajeDragons(navController = navController, id = id)
-            }
+
+        composable<Destinations.PersonajeList> {
+            GenericDragonBallScreen(
+                navController = navController,
+                dragonBallType = dragonBallType
+            )
         }
-        composable("favoriteScreen") {
-            FavoriteScreen(navController)
+
+        composable<Destinations.PersonajeDetail> {
+            GenericCharacterScreen(
+                navController = navController,
+                personaje = personaje,
+                dragonBallType = dragonBallType,
+            )
+        }
+
+        composable<Destinations.FavoriteScreen> {
+            FavoriteScreen(
+                navController = navController
+            )
+        }
+
+        composable<Destinations.OptionsScreen> {
+            OptionsScreen(
+                navController = navController
+            )
         }
     }
 }

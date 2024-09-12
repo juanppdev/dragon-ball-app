@@ -17,8 +17,12 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.kiwi.navigationcompose.typed.navigate
 import com.mundocode.dragonballapp.R
+import com.mundocode.dragonballapp.navigation.Destinations
+import kotlinx.serialization.ExperimentalSerializationApi
 
+@OptIn(ExperimentalSerializationApi::class)
 @Composable
 fun CustomBottomAppBar(navController: NavController) {
 
@@ -38,11 +42,13 @@ fun CustomBottomAppBar(navController: NavController) {
             ) {
                 NavigationBarItem(
                     selected = false,
-                    onClick = { navController.navigate("homeScreen") },
+                    onClick = {
+                        navController.navigate(Destinations.Home)
+                    },
                     icon = {
                         Icon(
                             painterResource(id = R.drawable.wiki),
-                            contentDescription = "Localized description",
+                            contentDescription = null,
                             modifier = Modifier.size(30.dp),
                             tint = Color.White
                         )
@@ -51,12 +57,31 @@ fun CustomBottomAppBar(navController: NavController) {
                 )
                 NavigationBarItem(
                     selected = false,
-                    onClick = { navController.navigate("homeScreen") },
+                    onClick = {
+
+                    },
                     enabled = false,
                     icon = {
                         Icon(
                             painterResource(id = R.drawable.games),
-                            contentDescription = "Localized description",
+                            contentDescription = null,
+                            modifier = Modifier.size(30.dp),
+                            tint = Color.White
+                        )
+                    },
+                    label = { Text(text = "Games", color = Color.White) }
+                )
+
+                NavigationBarItem(
+                    selected = false,
+                    onClick = {
+                        navController.navigate(Destinations.OptionsScreen)
+                    },
+                    enabled = true,
+                    icon = {
+                        Icon(
+                            painterResource(id = R.drawable.ic_settings),
+                            contentDescription = null,
                             modifier = Modifier.size(30.dp),
                             tint = Color.White
                         )
