@@ -30,16 +30,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.kiwi.navigationcompose.typed.navigate as kiwiNavigation
-import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.data.Favorite
 import com.mundocode.dragonballapp.models.Personaje
 import com.mundocode.dragonballapp.navigation.Destinations
@@ -59,8 +56,8 @@ fun GenericDragonBallScreen(
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        contentColor = Color.White,
-        containerColor = colorResource(id = R.color.background),
+        contentColor = MaterialTheme.colorScheme.onSurface,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             CustomTopBar(
                 title = when (dragonBallType) {
@@ -73,7 +70,7 @@ fun GenericDragonBallScreen(
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            tint = Color.White,
+                            tint = MaterialTheme.colorScheme.onSurface,
                             contentDescription = null
                         )
                     }
@@ -150,7 +147,7 @@ fun GenericCardCharacter(
     Card(
         shape = MaterialTheme.shapes.large,
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
         ),
         modifier = Modifier
             .fillMaxWidth()

@@ -29,7 +29,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,7 +37,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.kiwi.navigationcompose.typed.navigate as kiwiNavigation
-import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.data.Favorite
 import com.mundocode.dragonballapp.navigation.Destinations
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
@@ -59,7 +57,7 @@ fun FavoriteScreen(
                 IconButton(onClick = { navController.navigateUp() }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        tint = Color.White,
+                        tint = MaterialTheme.colorScheme.onSurface,
                         contentDescription = null
                     )
                 }
@@ -67,8 +65,8 @@ fun FavoriteScreen(
         },
         bottomBar = { CustomBottomAppBar(navController) },
         modifier = Modifier.fillMaxSize(),
-        contentColor = Color.White,
-        containerColor = colorResource(id = R.color.background),
+        contentColor = MaterialTheme.colorScheme.onSurface,
+        containerColor = MaterialTheme.colorScheme.background,
     ) { innerPadding ->
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
@@ -193,7 +191,7 @@ fun FavoriteItemCard(
     Card(
         shape = MaterialTheme.shapes.large,
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
         ),
         modifier = Modifier
             .fillMaxWidth()

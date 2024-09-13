@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
@@ -27,8 +28,8 @@ import kotlinx.serialization.ExperimentalSerializationApi
 fun CustomBottomAppBar(navController: NavController) {
 
     BottomAppBar(
-        containerColor = colorResource(id = R.color.card),
-        contentColor = Color.White,
+        containerColor = MaterialTheme.colorScheme.primaryContainer,
+        contentColor = MaterialTheme.colorScheme.primary,
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -36,8 +37,8 @@ fun CustomBottomAppBar(navController: NavController) {
         ) {
 
             NavigationBar(
-                containerColor = colorResource(id = R.color.card),
-                contentColor = Color.White,
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.primary,
                 windowInsets = NavigationBarDefaults.windowInsets
             ) {
                 NavigationBarItem(
@@ -50,10 +51,10 @@ fun CustomBottomAppBar(navController: NavController) {
                             painterResource(id = R.drawable.wiki),
                             contentDescription = null,
                             modifier = Modifier.size(30.dp),
-                            tint = Color.White
+                            tint = MaterialTheme.colorScheme.secondary
                         )
                     },
-                    label = { Text(text = "Wiki", color = Color.White) }
+                    label = { Text(text = "Wiki", color = MaterialTheme.colorScheme.onSurface) }
                 )
                 NavigationBarItem(
                     selected = false,
@@ -66,10 +67,10 @@ fun CustomBottomAppBar(navController: NavController) {
                             painterResource(id = R.drawable.games),
                             contentDescription = null,
                             modifier = Modifier.size(30.dp),
-                            tint = Color.White
+                            tint = MaterialTheme.colorScheme.secondary
                         )
                     },
-                    label = { Text(text = "Games", color = Color.White) }
+                    label = { Text(text = "Games", color = MaterialTheme.colorScheme.onSurface) }
                 )
 
                 NavigationBarItem(
@@ -83,10 +84,10 @@ fun CustomBottomAppBar(navController: NavController) {
                             painterResource(id = R.drawable.ic_settings),
                             contentDescription = null,
                             modifier = Modifier.size(30.dp),
-                            tint = Color.White
+                            tint = MaterialTheme.colorScheme.secondary
                         )
                     },
-                    label = { Text(text = "Games", color = Color.White) }
+                    label = { Text(text = "Games", color = MaterialTheme.colorScheme.onSurface) }
                 )
             }
         }

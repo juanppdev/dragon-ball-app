@@ -13,6 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,7 +28,6 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
 import androidx.navigation.NavController
 import coil.request.ImageRequest
-import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.models.Personaje
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import kotlinx.coroutines.Dispatchers
@@ -53,18 +52,17 @@ fun GenericCharacterScreen(
                 IconButton(onClick = { navController.navigateUp() }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        tint = Color.White,
+                        tint = MaterialTheme.colorScheme.onSurface,
                         contentDescription = "Localized description"
                     )
                 }
             }
         },
-        contentColor = Color.White,
-        containerColor = colorResource(id = R.color.background),
+        contentColor = MaterialTheme.colorScheme.onSurface,
+        containerColor = MaterialTheme.colorScheme.background,
         bottomBar = { CustomBottomAppBar(navController) }
     ) { paddingValues ->
         GenericCharacterContent(
-            dragonBallType = dragonBallType,
             personaje = personaje,
             modifier = Modifier.padding(paddingValues)
         )
@@ -73,7 +71,6 @@ fun GenericCharacterScreen(
 
 @Composable
 private fun GenericCharacterContent(
-    dragonBallType: DragonBallType,
     personaje: Personaje,
     modifier: Modifier,
 ) {
@@ -135,7 +132,7 @@ private fun GenericCharacterContent(
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Start,
                     fontSize = 24.sp,
-                    color = Color.White
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
                     modifier = Modifier
@@ -144,7 +141,7 @@ private fun GenericCharacterContent(
                     text = personaje.description,
                     textAlign = TextAlign.Start,
                     fontSize = 20.sp,
-                    color = Color.White
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
                     modifier = Modifier
@@ -154,7 +151,7 @@ private fun GenericCharacterContent(
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Start,
                     fontSize = 24.sp,
-                    color = Color.White
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
         }

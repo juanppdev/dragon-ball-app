@@ -61,6 +61,4 @@ class MainActivity : ComponentActivity() {
             Log.d("FCM TOKEN", token.toString())
         })
     }
-
-
 }

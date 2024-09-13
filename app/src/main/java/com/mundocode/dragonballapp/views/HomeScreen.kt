@@ -17,13 +17,12 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,8 +52,8 @@ fun HomeScreen(navController: NavController) {
                     }) {
                         Icon(
                             Icons.Filled.Favorite,
-                            contentDescription = "Localized description",
-                            tint = Color.White,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier.size(30.dp)
                         )
                     }
@@ -62,8 +61,8 @@ fun HomeScreen(navController: NavController) {
             )
         },
         bottomBar = { CustomBottomAppBar(navController) },
-        contentColor = Color.White,
-        containerColor = colorResource(id = R.color.background),
+        contentColor = MaterialTheme.colorScheme.primary,
+        containerColor = MaterialTheme.colorScheme.background,
     ) { paddingValues ->
 
         LazyColumn(
@@ -128,7 +127,7 @@ private fun PersonajesListItem(
 ) {
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = colorResource(id = R.color.card),
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
         ),
         modifier = Modifier
             .fillMaxWidth()
@@ -165,7 +164,7 @@ private fun PersonajesListItem(
 @Preview(showBackground = true, backgroundColor = 0xFFF3F0F0)
 @Composable
 fun HomeScreenPreview() {
-    DragonBallAppTheme {
+    DragonBallAppTheme(darkTheme = false) {
         HomeScreen(navController = rememberNavController())
     }
 }
@@ -173,7 +172,7 @@ fun HomeScreenPreview() {
 @Preview(showBackground = true, backgroundColor = 0xFFF3F0F0)
 @Composable
 fun PersonajesListItemPreview() {
-    DragonBallAppTheme {
+    DragonBallAppTheme(darkTheme = false) {
         PersonajesListItem(
             title = "DragonBallZ",
             icon = R.drawable.logo_z,
