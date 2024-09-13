@@ -1,4 +1,4 @@
-package com.mundocode.dragonballapp.views
+package com.mundocode.dragonballapp.ui.screens.favorite
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -41,6 +41,8 @@ import com.mundocode.dragonballapp.data.Favorite
 import com.mundocode.dragonballapp.navigation.Destinations
 import com.mundocode.dragonballapp.viewmodels.DragonBallType
 import com.mundocode.dragonballapp.viewmodels.DragonBallViewModel
+import com.mundocode.dragonballapp.views.CustomBottomAppBar
+import com.mundocode.dragonballapp.views.CustomTopBar
 import kotlinx.serialization.ExperimentalSerializationApi
 
 @OptIn(ExperimentalSerializationApi::class)

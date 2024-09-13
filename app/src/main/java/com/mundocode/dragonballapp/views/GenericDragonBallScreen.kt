@@ -135,7 +135,6 @@ private fun ListContent(
     }
 }
 
-
 @Composable
 fun GenericCardCharacter(
     item: Personaje,
@@ -168,8 +167,8 @@ fun GenericCardCharacter(
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface,
                     softWrap = true,
-                    minLines = 3,
-                    maxLines = 3,
+                    minLines = 2,
+                    maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                 )
                 Icon(
@@ -188,53 +187,9 @@ fun GenericCardCharacter(
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
+                    .padding(0.dp)
                     .size(190.dp),
             )
         }
     }
 }
-
-
-//@Preview(showBackground = true, backgroundColor = 0xFF0E0F19)
-//@PreviewLightDark
-//@Composable
-//private fun GenericDragonBallContentPreview() {
-//    DragonBallAppTheme {
-//        ListContent(
-//            list = listOf(
-//                object : BaseCharacter(
-//                    id = 1,
-//                    name = "name",
-//                    image = "https://fastly.picsum.photos/id/959/200/300.jpg?hmac=q2WZ7w-aqWQyUVa4vEv-28yCS6TLS-M19or3y7YVvso",
-//                    description = "description",
-//                    biography = "biography",
-//                ),
-//                object : BaseCharacter(
-//                    id = 1,
-//                    name = "name",
-//                    image = "https://fastly.picsum.photos/id/959/200/300.jpg?hmac=q2WZ7w-aqWQyUVa4vEv-28yCS6TLS-M19or3y7YVvso",
-//                    description = "description",
-//                    biography = "biography",
-//                ),
-//            ),
-//            favorites = emptyList(),
-//        )
-//    }
-//}
-
-//@Preview(showBackground = true)
-//@Composable
-//private fun GenericCardCharacterPreview() {
-//    DragonBallAppTheme {
-//        GenericCardCharacter(
-//            item = object : BaseCharacter(
-//                id = 1,
-//                name = "name",
-//                image = "https://fastly.picsum.photos/id/959/200/300.jpg?hmac=q2WZ7w-aqWQyUVa4vEv-28yCS6TLS-M19or3y7YVvso",
-//                description = "description",
-//                biography = "biography",
-//            ),
-//            isFavorite = false
-//        ),
-//    }
-//}

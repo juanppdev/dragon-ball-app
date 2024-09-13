@@ -44,7 +44,6 @@ import kotlinx.coroutines.withContext
 fun GenericCharacterScreen(
     navController: NavController,
     personaje: Personaje,
-    dragonBallType: DragonBallType,
 ) {
     Scaffold(
         topBar = {
