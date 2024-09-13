@@ -13,15 +13,13 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.kiwi.navigationcompose.typed.navigate as kiwiNavigation
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.navigation.Destinations
 import kotlinx.serialization.ExperimentalSerializationApi
+import com.kiwi.navigationcompose.typed.navigate as kiwiNavigation
 
 @OptIn(ExperimentalSerializationApi::class)
 @Composable

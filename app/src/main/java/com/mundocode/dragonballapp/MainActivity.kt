@@ -8,7 +8,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.mundocode.dragonballapp.navigation.NavManager
@@ -17,13 +19,17 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         askNotificationPermission()
         tokenNew()
         enableEdgeToEdge()
         setContent {
-            DragonBallAppTheme {
+            val isDarkMode = viewModel.isDarkMode.collectAsStateWithLifecycle()
+            DragonBallAppTheme(darkTheme = isDarkMode.value) {
                 NavManager()
             }
         }

@@ -13,15 +13,6 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="ReplyAppPreview">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="PersonajesListItemPreview">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="HomeScreenPreview">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
     </selectionStates>
   </component>
 </project>

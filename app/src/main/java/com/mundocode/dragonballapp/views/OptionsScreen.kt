@@ -2,89 +2,171 @@ package com.mundocode.dragonballapp.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.mundocode.dragonballapp.R
-import com.mundocode.dragonballapp.viewmodels.LoginScreenViewModel
+import com.mundocode.dragonballapp.navigation.Destinations
+import com.mundocode.dragonballapp.viewmodels.OptionsViewModel
+import kotlinx.serialization.ExperimentalSerializationApi
+import com.kiwi.navigationcompose.typed.navigate as kiwiNavigation
 
+@OptIn(ExperimentalSerializationApi::class)
 @Composable
 fun OptionsScreen(
     navController: NavController,
-    viewModel: LoginScreenViewModel = hiltViewModel()
+    viewModel: OptionsViewModel = hiltViewModel()
 ) {
+
+    val context = LocalContext.current
+
+    val isDarkMode = viewModel.isDarkMode.collectAsStateWithLifecycle()
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         contentColor = MaterialTheme.colorScheme.onSurface,
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
-            CustomTopBar(
-                title = "Settings",
-                navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            tint = MaterialTheme.colorScheme.onSurface,
-                            contentDescription = null
-                        )
-                    }
-                },
-            )
+            CustomTopBar(title = "Settings")
         },
         bottomBar = { CustomBottomAppBar(navController) }
     ) { paddingValues ->
 
-        Column(
-            modifier = Modifier.padding(paddingValues)
-        ) {
+        OptionsContent(
+            isDarkMode = isDarkMode.value,
+            modifier = Modifier.padding(paddingValues),
+            signOut = {
+                viewModel.signOut(context)
+                navController.kiwiNavigation(Destinations.Login)
+            },
+            toggleDarkMode = { darkMode ->
+                viewModel.toggleDarkMode(darkMode)
+            }
+        )
+    }
+}
 
-//            Text(
-//                text = "Settings",
-//                textAlign = TextAlign.Start,
-//                style = MaterialTheme.typography.titleLarge,
-//                modifier = Modifier.fillMaxWidth().padding(8.dp)
-//            )
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun OptionsContent(
+    isDarkMode: Boolean,
+    modifier: Modifier = Modifier,
+    signOut: () -> Unit = {},
+    toggleDarkMode: (Boolean) -> Unit = {}
+) {
 
-            LogoutButton(
+
+    LazyColumn(
+        modifier = modifier
+    ) {
+
+
+        item {
+            SettingsItem("Cerrar Sesión", R.drawable.ic_logout, action = signOut)
+        }
+
+        item {
+            CompositionLocalProvider(LocalRippleConfiguration provides null) {
+                SettingsItem(
+                    title = "Modo Oscuro",
+                    icon = R.drawable.ic_dark,
+                    additionalComponent = {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.CenterEnd
+                        ) {
+                            Switch(
+                                checked = isDarkMode,
+                                onCheckedChange = {
+                                    toggleDarkMode(it)
+                                }
+                            )
+                        }
+                    }
+                )
+            }
+        }
+    }
+
+    LogoutButton(
+        modifier = Modifier
+            .padding(8.dp)
+            .height(60.dp)
+            .fillMaxWidth(),
+        logoutClick = signOut,
+        darkModeClick = {
+
+        }
+    )
+}
+
+@Composable
+fun SettingsItem(
+    title: String,
+    icon: Int,
+    modifier: Modifier = Modifier,
+    action: () -> Unit = {},
+    additionalComponent: @Composable () -> Unit = {}
+) {
+
+    Card(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp)
+            .clickable { action() },
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+        )
+    ) {
+        Row(modifier = Modifier.padding(vertical = 8.dp, horizontal = 8.dp)) {
+            Icon(
+                painter = painterResource(id = icon),
+                contentDescription = null,
                 modifier = Modifier
+                    .size(50.dp)
                     .padding(8.dp)
-                    .height(60.dp)
-                    .fillMaxWidth(),
-                logoutClick = {
-                    viewModel.signOut(navController)
-                },
-                darkModeClick = {
-
-                }
+                    .align(Alignment.CenterVertically)
             )
 
+            Text(
+                text = title,
+                textAlign = TextAlign.Start,
+                fontSize = 25.sp,
+                modifier = Modifier.align(Alignment.CenterVertically)
+            )
 
+            additionalComponent()
         }
     }
 }
+
 
 @Composable
 fun LogoutButton(
@@ -120,7 +202,6 @@ fun LogoutButton(
         }
     }
 
-
     Card(
         modifier = modifier.clickable {
             darkModeClick()
@@ -148,5 +229,4 @@ fun LogoutButton(
 
         }
     }
-
 }

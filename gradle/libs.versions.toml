@@ -2,14 +2,15 @@
 agp = "8.6.0"
 coilCompose = "2.7.0"
 credentials = "1.2.2"
-firebaseBom = "33.2.0"
+datastorePreferences = "1.1.1"
+firebaseBom = "33.3.0"
 firebaseMessaging = "24.0.1"
 googlePlayServicesAuth = "21.2.0"
 googleServices = "4.4.2"
 hiltVersion = "2.52"
 androidHiltVersion = "1.2.0"
 kotlin = "2.0.0"
-kotlinxSerializationCore = "1.6.3"
+kotlinxSerializationCore = "1.7.1"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -24,6 +25,7 @@ roomRuntime = "2.6.1"
 runtimeLivedata = "1.7.1"
 
 [libraries]
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-credentials = { module = " androidx.credentials:credentials-play-services-auth", version.ref = "credentials" }

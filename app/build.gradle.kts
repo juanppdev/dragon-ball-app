@@ -51,6 +51,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
@@ -119,6 +120,8 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.android.navigation.compose)
     kapt(libs.hilt.android.compiler)
+
+    implementation(libs.androidx.datastore.preferences)
 
     implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation("com.google.firebase:firebase-auth-ktx:23.0.0")
