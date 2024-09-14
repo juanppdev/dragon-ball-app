@@ -1,4 +1,4 @@
-package com.mundocode.dragonballapp.views
+package com.mundocode.dragonballapp.ui.screens.settings
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -33,15 +33,16 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.mundocode.dragonballapp.R
 import com.mundocode.dragonballapp.navigation.Destinations
-import com.mundocode.dragonballapp.viewmodels.OptionsViewModel
+import com.mundocode.dragonballapp.ui.components.CustomBottomAppBar
+import com.mundocode.dragonballapp.ui.components.CustomTopBar
 import kotlinx.serialization.ExperimentalSerializationApi
 import com.kiwi.navigationcompose.typed.navigate as kiwiNavigation
 
 @OptIn(ExperimentalSerializationApi::class)
 @Composable
-fun OptionsScreen(
+fun SettingsScreen(
     navController: NavController,
-    viewModel: OptionsViewModel = hiltViewModel()
+    viewModel: SettingsViewModel = hiltViewModel()
 ) {
 
     val context = LocalContext.current
@@ -58,7 +59,7 @@ fun OptionsScreen(
         bottomBar = { CustomBottomAppBar(navController) }
     ) { paddingValues ->
 
-        OptionsContent(
+        SettingsContent(
             isDarkMode = isDarkMode.value,
             modifier = Modifier.padding(paddingValues),
             signOut = {
@@ -74,14 +75,12 @@ fun OptionsScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OptionsContent(
+fun SettingsContent(
     isDarkMode: Boolean,
     modifier: Modifier = Modifier,
     signOut: () -> Unit = {},
     toggleDarkMode: (Boolean) -> Unit = {}
 ) {
-
-
     LazyColumn(
         modifier = modifier
     ) {

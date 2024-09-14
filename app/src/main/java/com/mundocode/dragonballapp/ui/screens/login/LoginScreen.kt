@@ -1,4 +1,4 @@
-package com.mundocode.dragonballapp.views
+package com.mundocode.dragonballapp.ui.screens.login
 
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -38,8 +38,8 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.mundocode.dragonballapp.R
 import com.kiwi.navigationcompose.typed.navigate as kiwiNavigation
 import com.mundocode.dragonballapp.navigation.Destinations
+import com.mundocode.dragonballapp.ui.components.CustomTopBar
 import com.mundocode.dragonballapp.ui.theme.DragonBallAppTheme
-import com.mundocode.dragonballapp.viewmodels.LoginScreenViewModel
 import kotlinx.serialization.ExperimentalSerializationApi
 
 @OptIn(ExperimentalSerializationApi::class)

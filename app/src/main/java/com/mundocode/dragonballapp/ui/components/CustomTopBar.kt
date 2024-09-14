@@ -1,4 +1,4 @@
-package com.mundocode.dragonballapp.views
+package com.mundocode.dragonballapp.ui.components
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.CenterAlignedTopAppBar
