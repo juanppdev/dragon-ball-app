@@ -108,6 +108,16 @@ fun HomeScreen(navController: NavController) {
 
             item {
                 PersonajesListItem(
+                    title = "Dragon Ball Super",
+                    icon = R.drawable.logo_super,
+                    onClick = {
+                        navController.kiwiNavigation(Destinations.CharacterList(DragonBallType.DragonBallSuper))
+                    }
+                )
+            }
+
+            item {
+                PersonajesListItem(
                     title = "Dragones",
                     icon = R.drawable.logo_dr,
                     iconSize = 60.dp,

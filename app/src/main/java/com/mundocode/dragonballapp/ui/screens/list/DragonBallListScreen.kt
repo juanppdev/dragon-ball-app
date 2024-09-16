@@ -87,6 +87,7 @@ fun DragonBallListScreen(
                     DragonBallType.DragonBall -> "Dragon Ball"
                     DragonBallType.DragonBallZ -> "Dragon Ball Z"
                     DragonBallType.DragonBallGT -> "Dragon Ball GT"
+                    DragonBallType.DragonBallSuper -> "Dragon Ball Super"
                     DragonBallType.Dragons -> "Dragons"
                     DragonBallType.Favorites -> "Favoritos"
                 },

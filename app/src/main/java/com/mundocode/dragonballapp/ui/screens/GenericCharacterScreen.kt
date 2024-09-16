@@ -30,10 +30,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.request.ImageRequest
 import com.mundocode.dragonballapp.models.local.DbCharacter
 import com.mundocode.dragonballapp.ui.components.CustomBottomAppBar
@@ -159,6 +161,24 @@ private fun GenericCharacterContent(
             }
         }
     }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF3F0F0)
+@Composable
+fun GenericCharacterScreenPreview() {
+    GenericCharacterScreen(
+        navController = rememberNavController(),
+        characterRemote = DbCharacter()
+    )
+}
+
+@Preview
+@Composable
+fun GenericCharacterContentPreview() {
+    GenericCharacterContent(
+        characterRemote = DbCharacter(),
+        modifier = Modifier
+    )
 }
 
 suspend fun detectColors(bitmap: Bitmap, onComplete: (List<Color>, Color) -> Unit) {

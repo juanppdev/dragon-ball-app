@@ -6,6 +6,7 @@ import com.mundocode.dragonballapp.models.types.DragonBallType
 import com.mundocode.dragonballapp.network.ApiDragonBall
 import com.mundocode.dragonballapp.network.ApiDragonBall.Companion.DRAGONBALL_GT_PATH
 import com.mundocode.dragonballapp.network.ApiDragonBall.Companion.DRAGONBALL_PATH
+import com.mundocode.dragonballapp.network.ApiDragonBall.Companion.DRAGONBALL_SUPER_PATH
 import com.mundocode.dragonballapp.network.ApiDragonBall.Companion.DRAGONBALL_Z_PATH
 import com.mundocode.dragonballapp.network.ApiDragonBall.Companion.DRAGONS_PATH
 import javax.inject.Inject
@@ -19,6 +20,7 @@ class ApiRepositoryImpl @Inject constructor(
             DragonBallType.DragonBall -> DRAGONBALL_PATH
             DragonBallType.DragonBallZ -> DRAGONBALL_Z_PATH
             DragonBallType.DragonBallGT -> DRAGONBALL_GT_PATH
+            DragonBallType.DragonBallSuper -> DRAGONBALL_SUPER_PATH
             DragonBallType.Dragons -> DRAGONS_PATH
             DragonBallType.Favorites -> throw IllegalArgumentException("Favorites not supported")
         }.let { path ->

@@ -35,6 +35,13 @@ interface ApiDragonBall {
         @Path("id") id: Long
     ): DbCharacterRemote
 
+
+    @GET("dragonballsuper/{id}")
+    suspend fun obtenerPersonajeSUPER(
+        @Path("id") id: Long
+    ): DbCharacterRemote
+
+
 //    @GET("dragons")
 //    suspend fun obtenerDragons(): List<Personaje>
 
@@ -47,6 +54,7 @@ interface ApiDragonBall {
         const val DRAGONBALL_PATH = "dragonball"
         const val DRAGONBALL_Z_PATH = "dragonballz"
         const val DRAGONBALL_GT_PATH = "dragonballgt"
+        const val DRAGONBALL_SUPER_PATH = "dragonballsuper"
         const val DRAGONS_PATH = "dragons"
     }
 

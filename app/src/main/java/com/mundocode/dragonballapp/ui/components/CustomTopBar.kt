@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,4 +31,11 @@ fun CustomTopBar(
             titleContentColor = MaterialTheme.colorScheme.onSurface,
         ),
     )
+}
+
+
+@Preview
+@Composable
+fun CustomTopBarPreview() {
+    CustomTopBar(title = "Dragon Ball")
 }

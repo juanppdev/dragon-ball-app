@@ -1,5 +1,6 @@
 package com.mundocode.dragonballapp.ui.screens.list
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mundocode.dragonballapp.models.local.DbCharacter
@@ -40,6 +41,7 @@ class DragonBallViewModel @Inject constructor(
                     DragonBallType.DragonBall,
                     DragonBallType.DragonBallZ,
                     DragonBallType.DragonBallGT,
+                    DragonBallType.DragonBallSuper,
                     DragonBallType.Dragons -> {
                         tempCharacterList = apiRepository.getCharacters(dragonBallType).getOrElse { error ->
                             _state.update {

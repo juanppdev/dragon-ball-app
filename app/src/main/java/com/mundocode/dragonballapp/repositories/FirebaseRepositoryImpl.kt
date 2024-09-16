@@ -34,7 +34,7 @@ class FirebaseRepositoryImpl @Inject constructor(
             .addSnapshotListener { snapshot, _ ->
                 if (snapshot != null) {
                     val favorites = snapshot.toObjects(DbCharacter::class.java)
-                    Log.d("Favorites", "Favorites: $favorites")
+                    //Log.d("Favorites", "Favorites: $favorites")
                     callback(Result.success(favorites))
                 }else{
                     callback(Result.failure(Exception("Error getting favorites")))
