@@ -1,9 +1,8 @@
 package com.mundocode.dragonballapp.repositories
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.mundocode.dragonballapp.models.local.DbCharacter
+import com.mundocode.dragonballapp.data.Favorite
 import javax.inject.Inject
 
 class FirebaseRepositoryImpl @Inject constructor(
@@ -15,11 +14,11 @@ class FirebaseRepositoryImpl @Inject constructor(
         .document(auth.currentUser?.uid ?: "")
         .collection("favoriteCharacters")
 
-    override fun addFavorite(favorite: DbCharacter) {
+    override fun addFavorite(favorite: Favorite) {
         favoritesCollection.document(favorite.id.toString()).set(favorite)
     }
 
-    override fun removeFavorite(favorite: DbCharacter) {
+    override fun removeFavorite(favorite: Favorite) {
         favoritesCollection.whereEqualTo("id", favorite.id)
             .get()
             .addOnSuccessListener { documents ->
@@ -29,11 +28,11 @@ class FirebaseRepositoryImpl @Inject constructor(
             }
     }
 
-    override fun getAllFavorites(callback: (Result<List<DbCharacter>>) -> Unit) {
+    override fun getAllFavorites(callback: (Result<List<Favorite>>) -> Unit) {
         favoritesCollection
             .addSnapshotListener { snapshot, _ ->
                 if (snapshot != null) {
-                    val favorites = snapshot.toObjects(DbCharacter::class.java)
+                    val favorites = snapshot.toObjects(Favorite::class.java)
                     //Log.d("Favorites", "Favorites: $favorites")
                     callback(Result.success(favorites))
                 }else{
@@ -45,7 +44,7 @@ class FirebaseRepositoryImpl @Inject constructor(
 }
 
 interface FirebaseRepository {
-    fun addFavorite(favorite: DbCharacter)
-    fun removeFavorite(favorite: DbCharacter)
-    fun getAllFavorites(callback: (Result<List<DbCharacter>>) -> Unit)
+    fun addFavorite(favorite: Favorite)
+    fun removeFavorite(favorite: Favorite)
+    fun getAllFavorites(callback: (Result<List<Favorite>>) -> Unit)
 }

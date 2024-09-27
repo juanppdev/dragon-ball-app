@@ -50,7 +50,7 @@ fun HomeScreen(navController: NavController) {
                 title = "Personajes",
                 actions = {
                     IconButton(onClick = {
-                        navController.kiwiNavigation(Destinations.CharacterList(DragonBallType.Favorites))
+                        navController.kiwiNavigation(Destinations.Favorite)
                     }) {
                         Icon(
                             Icons.Filled.Favorite,

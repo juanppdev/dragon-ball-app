@@ -15,18 +15,18 @@ class ApiRepositoryImpl @Inject constructor(
     private val apiService: ApiDragonBall
 ) : ApiRepository {
 
-    override suspend fun getCharacters(type: DragonBallType): Result<List<DbCharacter>> = runCatching {
-        when (type) {
-            DragonBallType.DragonBall -> DRAGONBALL_PATH
-            DragonBallType.DragonBallZ -> DRAGONBALL_Z_PATH
-            DragonBallType.DragonBallGT -> DRAGONBALL_GT_PATH
-            DragonBallType.DragonBallSuper -> DRAGONBALL_SUPER_PATH
-            DragonBallType.Dragons -> DRAGONS_PATH
-            DragonBallType.Favorites -> throw IllegalArgumentException("Favorites not supported")
-        }.let { path ->
-            apiService.getCharacters(path).map { it.toLocal() }
+    override suspend fun getCharacters(type: DragonBallType): Result<List<DbCharacter>> =
+        runCatching {
+            when (type) {
+                DragonBallType.DragonBall -> DRAGONBALL_PATH
+                DragonBallType.DragonBallZ -> DRAGONBALL_Z_PATH
+                DragonBallType.DragonBallGT -> DRAGONBALL_GT_PATH
+                DragonBallType.DragonBallSuper -> DRAGONBALL_SUPER_PATH
+                DragonBallType.Dragons -> DRAGONS_PATH
+            }.let { path ->
+                apiService.getCharacters(path).map { it.toLocal().copy(type = type) }
+            }
         }
-    }
 }
 
 interface ApiRepository {

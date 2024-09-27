@@ -36,6 +36,7 @@ data class TransformationsRemote(
 
 fun DbCharacterRemote.toLocal() = DbCharacter(
     id = id ?: -1,
+    type = null,
     name = name ?: "",
     image = image ?: "",
     description = description ?: "",

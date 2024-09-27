@@ -46,12 +46,12 @@ import kotlinx.coroutines.withContext
 @Composable
 fun GenericCharacterScreen(
     navController: NavController,
-    characterRemote: DbCharacter,
+    character: DbCharacter,
 ) {
     Scaffold(
         topBar = {
             CustomTopBar(
-                title = characterRemote.name,
+                title = character.name,
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
@@ -68,7 +68,7 @@ fun GenericCharacterScreen(
         bottomBar = { CustomBottomAppBar(navController) }
     ) { paddingValues ->
         GenericCharacterContent(
-            characterRemote = characterRemote,
+            characterRemote = character,
             modifier = Modifier.padding(paddingValues)
         )
     }
@@ -168,7 +168,7 @@ private fun GenericCharacterContent(
 fun GenericCharacterScreenPreview() {
     GenericCharacterScreen(
         navController = rememberNavController(),
-        characterRemote = DbCharacter()
+        character = DbCharacter()
     )
 }
 

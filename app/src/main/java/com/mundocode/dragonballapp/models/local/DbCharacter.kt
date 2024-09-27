@@ -1,10 +1,12 @@
 package com.mundocode.dragonballapp.models.local
 
+import com.mundocode.dragonballapp.models.types.DragonBallType
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class DbCharacter(
     val id: Long,
+    val type : DragonBallType?,
     val name: String,
     val image: String,
     val description: String,
@@ -17,6 +19,7 @@ data class DbCharacter(
 ){
     constructor() : this(
         id = -1,
+        type = null,
         name = "",
         image = "",
         description = "",

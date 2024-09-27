@@ -7,6 +7,7 @@ import com.kiwi.navigationcompose.typed.composable
 import com.kiwi.navigationcompose.typed.createRoutePattern
 import com.mundocode.dragonballapp.ui.screens.GenericCharacterScreen
 import com.mundocode.dragonballapp.ui.screens.HomeScreen
+import com.mundocode.dragonballapp.ui.screens.favorite.FavoriteScreen
 import com.mundocode.dragonballapp.ui.screens.list.DragonBallListScreen
 import com.mundocode.dragonballapp.ui.screens.login.LoginScreen
 import com.mundocode.dragonballapp.ui.screens.settings.SettingsScreen
@@ -39,7 +40,13 @@ fun NavManager() {
         composable<Destinations.CharacterDetail> {
             GenericCharacterScreen(
                 navController = navController,
-                characterRemote = characterRemote
+                character = character
+            )
+        }
+
+        composable<Destinations.Favorite> {
+            FavoriteScreen(
+                navController = navController
             )
         }
 

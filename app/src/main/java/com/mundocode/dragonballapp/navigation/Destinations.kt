@@ -18,9 +18,11 @@ sealed interface Destinations : Destination {
 
     @Serializable
     data class CharacterDetail(
-        val dragonBallType: DragonBallType,
-        val characterRemote: DbCharacter
+        val character: DbCharacter
     ) : Destinations
+
+    @Serializable
+    data object Favorite : Destinations
 
     @Serializable
     data object OptionsScreen : Destinations

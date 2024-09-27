@@ -89,7 +89,6 @@ fun DragonBallListScreen(
                     DragonBallType.DragonBallGT -> "Dragon Ball GT"
                     DragonBallType.DragonBallSuper -> "Dragon Ball Super"
                     DragonBallType.Dragons -> "Dragons"
-                    DragonBallType.Favorites -> "Favoritos"
                 },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
@@ -111,10 +110,7 @@ fun DragonBallListScreen(
             modifier = Modifier.padding(paddingValues),
             onItemClicked = { character ->
                 navController.kiwiNavigation(
-                    Destinations.CharacterDetail(
-                        dragonBallType = dragonBallType,
-                        characterRemote = character
-                    )
+                    Destinations.CharacterDetail(character = character)
                 )
             },
             favoriteClicked = { character ->
@@ -127,7 +123,7 @@ fun DragonBallListScreen(
 }
 
 @Composable
-private fun DragonBallListContent(
+fun DragonBallListContent(
     list: List<DbCharacter>,
     modifier: Modifier = Modifier,
     onItemClicked: (DbCharacter) -> Unit = {},

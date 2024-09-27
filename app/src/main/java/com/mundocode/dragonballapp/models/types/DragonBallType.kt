@@ -9,6 +9,5 @@ enum class DragonBallType {
     DragonBallGT,
     DragonBallSuper,
     Dragons,
-    Favorites,
 }
 
