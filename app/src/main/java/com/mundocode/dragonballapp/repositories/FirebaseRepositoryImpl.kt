@@ -2,7 +2,7 @@ package com.mundocode.dragonballapp.repositories
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.mundocode.dragonballapp.data.Favorite
+import com.mundocode.dragonballapp.models.local.Favorite
 import javax.inject.Inject
 
 class FirebaseRepositoryImpl @Inject constructor(

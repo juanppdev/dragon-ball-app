@@ -2,8 +2,8 @@ package com.mundocode.dragonballapp.ui.screens.favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mundocode.dragonballapp.data.Favorite
 import com.mundocode.dragonballapp.models.local.DbCharacter
+import com.mundocode.dragonballapp.models.local.Favorite
 import com.mundocode.dragonballapp.models.types.DragonBallType
 import com.mundocode.dragonballapp.repositories.ApiRepository
 import com.mundocode.dragonballapp.repositories.FirebaseRepository

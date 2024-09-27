@@ -62,7 +62,7 @@ fun HomeScreen(navController: NavController) {
                 }
             )
         },
-        bottomBar = { CustomBottomAppBar(navController) },
+        bottomBar = { CustomBottomAppBar(navController, Destinations.Home) },
         contentColor = MaterialTheme.colorScheme.primary,
         containerColor = MaterialTheme.colorScheme.background,
     ) { paddingValues ->

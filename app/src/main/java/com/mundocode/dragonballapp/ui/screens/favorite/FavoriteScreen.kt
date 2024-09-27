@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.mundocode.dragonballapp.data.Favorite
+import com.mundocode.dragonballapp.models.local.Favorite
 import com.mundocode.dragonballapp.navigation.Destinations
 import com.mundocode.dragonballapp.ui.components.CustomBottomAppBar
 import com.mundocode.dragonballapp.ui.components.CustomTopBar

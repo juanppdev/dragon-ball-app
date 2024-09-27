@@ -57,7 +57,7 @@ fun SettingsScreen(
         topBar = {
             CustomTopBar(title = "Settings")
         },
-        bottomBar = { CustomBottomAppBar(navController) }
+        bottomBar = { CustomBottomAppBar(navController, Destinations.OptionsScreen) }
     ) { paddingValues ->
 
         SettingsContent(

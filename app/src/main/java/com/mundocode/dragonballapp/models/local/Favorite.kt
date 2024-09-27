@@ -1,4 +1,4 @@
-package com.mundocode.dragonballapp.data
+package com.mundocode.dragonballapp.models.local
 
 import com.mundocode.dragonballapp.models.types.DragonBallType
 
