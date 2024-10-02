@@ -1,6 +1,7 @@
 package com.mundocode.dragonballapp.ui.screens.login
 
 import android.content.Context
+import android.util.Log
 import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
@@ -33,18 +34,16 @@ class LoginScreenViewModel @Inject constructor(
     private val _loginSuccess = MutableStateFlow(false)
     val loginSuccess: StateFlow<Boolean> = _loginSuccess
 
-    private val _loginAttempted = MutableStateFlow(false)
-    val loginAttempted: StateFlow<Boolean> = _loginAttempted
-
     fun handleGoogleSignIn(context: Context) {
         viewModelScope.launch {
-            _loginAttempted.value = true
             googleSignIn(context).collect { result ->
                 result.fold(
                     onSuccess = {
+                        Log.d("LoginScreenViewModel", "Google sign-in successful")
                         _loginSuccess.value = true
                     },
                     onFailure = { e ->
+                        Log.e("LoginScreenViewModel", "Google sign-in failed", e)
                         _loginSuccess.value = false
                     }
                 )

@@ -50,15 +50,10 @@ fun LoginScreen(
 
     val context = LocalContext.current as Activity
     val loginSuccess by viewModel.loginSuccess.collectAsState()
-    val loginAttempted by viewModel.loginAttempted.collectAsState()
 
-    LaunchedEffect(loginSuccess, loginAttempted) {
-        if (loginAttempted) {
-            if (loginSuccess) {
-                navController.kiwiNavigation(Destinations.Home)
-            } else {
-                Toast.makeText(context, "Error al iniciar sesión", Toast.LENGTH_SHORT).show()
-            }
+    LaunchedEffect(loginSuccess) {
+        if (loginSuccess) {
+            navController.kiwiNavigation(Destinations.Home)
         }
     }
 
