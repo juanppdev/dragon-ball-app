@@ -16,17 +16,21 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.mundocode.dragonballapp.navigation.NavManager
 import com.mundocode.dragonballapp.ui.theme.DragonBallAppTheme
 import dagger.hilt.android.AndroidEntryPoint
+import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.gms.auth.api.identity.SignInClient
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
+    private lateinit var signInClient: SignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         askNotificationPermission()
         tokenNew()
         enableEdgeToEdge()
+        signInClient = Identity.getSignInClient(this)
         setContent {
             val isDarkMode = viewModel.isDarkMode.collectAsStateWithLifecycle()
             DragonBallAppTheme(darkTheme = isDarkMode.value) {

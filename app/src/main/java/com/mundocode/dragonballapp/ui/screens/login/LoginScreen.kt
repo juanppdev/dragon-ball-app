@@ -1,8 +1,7 @@
 package com.mundocode.dragonballapp.ui.screens.login
 
-import android.util.Log
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
+import android.app.Activity
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -17,9 +16,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
@@ -31,10 +34,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.GoogleAuthProvider
 import com.mundocode.dragonballapp.R
 import com.kiwi.navigationcompose.typed.navigate as kiwiNavigation
 import com.mundocode.dragonballapp.navigation.Destinations
@@ -49,19 +48,17 @@ fun LoginScreen(
     viewModel: LoginScreenViewModel = hiltViewModel()
 ) {
 
-    val launcher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+    val context = LocalContext.current as Activity
+    val loginSuccess by viewModel.loginSuccess.collectAsState()
+    val loginAttempted by viewModel.loginAttempted.collectAsState()
 
-        try {
-            val account = task.getResult(ApiException::class.java)
-            val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-            viewModel.signInWithGoogleCredential(credential) {
+    LaunchedEffect(loginSuccess, loginAttempted) {
+        if (loginAttempted) {
+            if (loginSuccess) {
                 navController.kiwiNavigation(Destinations.Home)
+            } else {
+                Toast.makeText(context, "Error al iniciar sesión", Toast.LENGTH_SHORT).show()
             }
-        } catch (ex: Exception) {
-            Log.d("Juan", "Error: ${ex.localizedMessage}")
         }
     }
 
@@ -80,14 +77,8 @@ fun LoginScreen(
         LoginContent(
             modifier = Modifier.padding(paddingValues),
             loginGoogleClicked = {
-                val opciones = GoogleSignInOptions
-                    .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(navController.context.getString(R.string.default_web_client_id))
-                    .requestEmail()
-                    .build()
-                val googleSignInClient =
-                    GoogleSignIn.getClient(navController.context, opciones)
-                launcher.launch(googleSignInClient.signInIntent)
+                viewModel.handleGoogleSignIn(context)
+
             }
         )
     }

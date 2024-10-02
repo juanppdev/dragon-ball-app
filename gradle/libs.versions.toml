@@ -1,5 +1,5 @@
 [versions]
-agp = "8.6.1"
+agp = "8.7.0"
 coilCompose = "2.7.0"
 credentials = "1.2.2"
 datastorePreferences = "1.1.1"
@@ -15,14 +15,15 @@ coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.5"
-lifecycleViewModelCompose = "2.8.5"
+lifecycleRuntimeKtx = "2.8.6"
+lifecycleViewModelCompose = "2.8.6"
 activityCompose = "1.9.2"
-composeBom = "2024.09.01"
-navigationCompose = "2.8.0"
+composeBom = "2024.09.02"
+navigationCompose = "2.8.1"
 googleid = "1.1.1"
 roomRuntime = "2.6.1"
-runtimeLivedata = "1.7.1"
+runtimeLivedata = "1.7.2"
+playServicesIdentityCredentials = "16.0.0-alpha03"
 
 [libraries]
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
@@ -60,6 +61,7 @@ androidx-navigation-compose = { group = "androidx.navigation", name = "navigatio
 googleid = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "googleid" }
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "googlePlayServicesAuth" }
 androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
+play-services-identity-credentials = { group = "com.google.android.gms", name = "play-services-identity-credentials", version.ref = "playServicesIdentityCredentials" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
