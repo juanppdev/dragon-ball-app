@@ -35,11 +35,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mundocode.dragonballapp.R
-import com.kiwi.navigationcompose.typed.navigate as kiwiNavigation
 import com.mundocode.dragonballapp.navigation.Destinations
 import com.mundocode.dragonballapp.ui.components.CustomTopBar
 import com.mundocode.dragonballapp.ui.theme.DragonBallAppTheme
 import kotlinx.serialization.ExperimentalSerializationApi
+import com.kiwi.navigationcompose.typed.navigate as kiwiNavigation
 
 @OptIn(ExperimentalSerializationApi::class)
 @Composable
@@ -78,7 +78,6 @@ fun LoginScreen(
             modifier = Modifier.padding(paddingValues),
             loginGoogleClicked = {
                 viewModel.handleGoogleSignIn(context)
-
             }
         )
     }

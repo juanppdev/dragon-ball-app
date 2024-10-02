@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">Dragon Ball App</string>
     <string name="default_notification_channel_id">fcm_default_channel</string>
-    <string name="web_client_id">364266574381-js9rlqab7v635pb8lo3pva00dvoaph5g.apps.googleusercontent.com</string>
 </resources>
