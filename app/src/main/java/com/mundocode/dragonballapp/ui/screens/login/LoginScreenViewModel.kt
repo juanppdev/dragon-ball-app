@@ -68,6 +68,7 @@ class LoginScreenViewModel @Inject constructor(
             val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
                 .setFilterByAuthorizedAccounts(false)
                 .setServerClientId(BuildConfig.WEB_CLIENT_ID)
+                .setAutoSelectEnabled(true)
                 .setNonce(hashedNonce)
                 .build()
 
