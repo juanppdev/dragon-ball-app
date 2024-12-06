@@ -1,10 +1,15 @@
 [versions]
-agp = "8.7.2"
+agp = "8.7.3"
 coilCompose = "2.7.0"
+converterGson = "2.11.0"
+core = "0.10.0"
 credentials = "1.3.0"
+credentialsPlayServicesAuth = "1.2.2"
 datastorePreferences = "1.1.1"
-firebaseBom = "33.5.1"
-firebaseMessaging = "24.0.3"
+firebaseAuthKtx = "23.1.0"
+firebaseBom = "33.7.0"
+firebaseMessaging = "24.1.0"
+googleidVersion = ".1.2.2"
 googlePlayServicesAuth = "21.2.0"
 googleServices = "4.4.2"
 hiltVersion = "2.52"
@@ -15,18 +20,24 @@ coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
+kotlinxSerializationCoreVersion = "1.5.0"
 lifecycleRuntimeKtx = "2.8.7"
 lifecycleViewModelCompose = "2.8.7"
 activityCompose = "1.9.3"
 composeBom = "2024.11.00"
 navigationCompose = "2.8.4"
 googleid = "1.1.1"
+retrofit = "2.11.0"
 roomRuntime = "2.6.1"
 runtimeLivedata = "1.7.5"
 playServicesIdentityCredentials = "16.0.0-alpha03"
 
 [libraries]
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+com-google-firebase-firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+core = { module = "com.kiwi.navigation-compose.typed:core", version.ref = "core" }
+credentials = { module = "androidx.credentials:credentials", version.ref = "credentials" }
 kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-credentials = { module = " androidx.credentials:credentials-play-services-auth", version.ref = "credentials" }
@@ -62,6 +73,7 @@ googleid = { group = "com.google.android.libraries.identity.googleid", name = "g
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "googlePlayServicesAuth" }
 androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
 play-services-identity-credentials = { group = "com.google.android.gms", name = "play-services-identity-credentials", version.ref = "playServicesIdentityCredentials" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

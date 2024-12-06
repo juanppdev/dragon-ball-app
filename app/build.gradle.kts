@@ -109,8 +109,8 @@ dependencies {
     implementation(libs.coil.compose)
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
     //Firebase
     implementation(platform(libs.firebase.bom.v3223))
@@ -137,15 +137,13 @@ dependencies {
 
     implementation(libs.androidx.datastore.preferences)
 
-    implementation("com.google.android.gms:play-services-auth:21.2.0")
-    implementation("com.google.firebase:firebase-auth-ktx:23.0.0")
+    implementation(libs.play.services.auth)
+    implementation(libs.com.google.firebase.firebase.auth.ktx)
 
-    implementation("androidx.credentials:credentials:1.2.2")
-    implementation("androidx.credentials:credentials-play-services-auth:1.2.2")
-    implementation("com.google.android.libraries.identity.googleid:googleid:.1.2.2")
+    implementation(libs.credentials)
 
-    implementation("com.kiwi.navigation-compose.typed:core:0.10.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.5.0")
+    implementation(libs.core)
+    implementation(libs.kotlinx.serialization.core)
 
 
 }
