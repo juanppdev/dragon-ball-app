@@ -1,4 +1,4 @@
-package com.mundocode.dragonballapp.viewmodels
+package com.mundocode.dragonballapp.ui.screens.settings
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
@@ -14,13 +14,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class OptionsViewModel @Inject constructor(
+class SettingsViewModel @Inject constructor(
     private val auth: FirebaseAuth,
     private val localRepository: LocalRepository,
 ) : ViewModel() {
-
-//    private val _backendState = MutableStateFlow(BackendState())
-//    val backendState: StateFlow<BackendState> = _backendState.asStateFlow()
 
     val isDarkMode = localRepository.darkModeFlow.stateIn(
         viewModelScope,
@@ -38,13 +35,4 @@ class OptionsViewModel @Inject constructor(
         localRepository.setDarkMode(darkMode)
     }
 
-//    data class BackendState(
-//        val isLoading: Boolean,
-//        val errorMessage: String?,
-//    ) {
-//        constructor() : this(
-//            isLoading = false,
-//            errorMessage = null,
-//        )
-//    }
 }

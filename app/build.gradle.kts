@@ -19,12 +19,12 @@ plugins {
 
 android {
     namespace = "com.mundocode.dragonballapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.mundocode.dragonballapp"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -35,6 +35,15 @@ android {
     }
 
     buildTypes {
+
+        forEach { buildType ->
+            buildType.buildConfigField(
+                "String",
+                "WEB_CLIENT_ID",
+                "\"${providers.gradleProperty("web_client_id").get()}\"",
+            )
+        }
+
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -55,7 +64,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.14"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
     packaging {
         resources {
@@ -67,12 +76,15 @@ android {
 dependencies {
     implementation(libs.kotlinx.serialization.core)
 
+    implementation(libs.play.services.identity.credentials)
+
     //Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.runtime.livedata)
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
+    // Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -84,6 +96,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.googleid)
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -5,12 +5,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.kiwi.navigationcompose.typed.composable
 import com.kiwi.navigationcompose.typed.createRoutePattern
-import com.mundocode.dragonballapp.views.FavoriteScreen
-import com.mundocode.dragonballapp.views.GenericCharacterScreen
-import com.mundocode.dragonballapp.views.GenericDragonBallScreen
-import com.mundocode.dragonballapp.views.HomeScreen
-import com.mundocode.dragonballapp.views.LoginScreen
-import com.mundocode.dragonballapp.views.OptionsScreen
+import com.mundocode.dragonballapp.ui.screens.GenericCharacterScreen
+import com.mundocode.dragonballapp.ui.screens.HomeScreen
+import com.mundocode.dragonballapp.ui.screens.favorite.FavoriteScreen
+import com.mundocode.dragonballapp.ui.screens.list.DragonBallListScreen
+import com.mundocode.dragonballapp.ui.screens.login.LoginScreen
+import com.mundocode.dragonballapp.ui.screens.settings.SettingsScreen
 import kotlinx.serialization.ExperimentalSerializationApi
 
 @OptIn(ExperimentalSerializationApi::class)
@@ -30,29 +30,28 @@ fun NavManager() {
             HomeScreen(navController = navController)
         }
 
-        composable<Destinations.PersonajeList> {
-            GenericDragonBallScreen(
+        composable<Destinations.CharacterList> {
+            DragonBallListScreen(
                 navController = navController,
                 dragonBallType = dragonBallType
             )
         }
 
-        composable<Destinations.PersonajeDetail> {
+        composable<Destinations.CharacterDetail> {
             GenericCharacterScreen(
                 navController = navController,
-                personaje = personaje,
-                dragonBallType = dragonBallType,
+                character = character
             )
         }
 
-        composable<Destinations.FavoriteScreen> {
+        composable<Destinations.Favorite> {
             FavoriteScreen(
                 navController = navController
             )
         }
 
         composable<Destinations.OptionsScreen> {
-            OptionsScreen(
+            SettingsScreen(
                 navController = navController
             )
         }

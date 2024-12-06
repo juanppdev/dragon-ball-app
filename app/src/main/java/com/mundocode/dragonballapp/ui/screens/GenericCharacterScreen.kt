@@ -1,4 +1,4 @@
-package com.mundocode.dragonballapp.views
+package com.mundocode.dragonballapp.ui.screens
 
 import android.graphics.Bitmap
 import androidx.compose.foundation.Canvas
@@ -30,40 +30,45 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.request.ImageRequest
-import com.mundocode.dragonballapp.models.Personaje
-import com.mundocode.dragonballapp.viewmodels.DragonBallType
+import com.mundocode.dragonballapp.models.local.DbCharacter
+import com.mundocode.dragonballapp.ui.components.CustomBottomAppBar
+import com.mundocode.dragonballapp.ui.components.CustomTopBar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 @Composable
 fun GenericCharacterScreen(
     navController: NavController,
-    personaje: Personaje,
-    dragonBallType: DragonBallType,
+    character: DbCharacter,
 ) {
     Scaffold(
         topBar = {
-            CustomTopBar(title = personaje.name) {
-                IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        tint = MaterialTheme.colorScheme.onSurface,
-                        contentDescription = "Localized description"
-                    )
+            CustomTopBar(
+                title = character.name,
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            tint = MaterialTheme.colorScheme.onSurface,
+                            contentDescription = "Localized description"
+                        )
+                    }
                 }
-            }
+            )
         },
         contentColor = MaterialTheme.colorScheme.onSurface,
         containerColor = MaterialTheme.colorScheme.background,
         bottomBar = { CustomBottomAppBar(navController) }
     ) { paddingValues ->
         GenericCharacterContent(
-            personaje = personaje,
+            characterRemote = character,
             modifier = Modifier.padding(paddingValues)
         )
     }
@@ -71,7 +76,7 @@ fun GenericCharacterScreen(
 
 @Composable
 private fun GenericCharacterContent(
-    personaje: Personaje,
+    characterRemote: DbCharacter,
     modifier: Modifier,
 ) {
 
@@ -104,7 +109,7 @@ private fun GenericCharacterContent(
                     }
                     coil.compose.AsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
-                            .data(personaje.image)
+                            .data(characterRemote.image)
                             .build(),
                         contentDescription = null,
                         contentScale = ContentScale.Fit,
@@ -138,7 +143,7 @@ private fun GenericCharacterContent(
                     modifier = Modifier
                         .padding(top = 8.dp, start = 10.dp, end = 10.dp)
                         .fillMaxWidth(),
-                    text = personaje.description,
+                    text = characterRemote.description,
                     textAlign = TextAlign.Start,
                     fontSize = 20.sp,
                     color = MaterialTheme.colorScheme.onSurface
@@ -156,6 +161,24 @@ private fun GenericCharacterContent(
             }
         }
     }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF3F0F0)
+@Composable
+fun GenericCharacterScreenPreview() {
+    GenericCharacterScreen(
+        navController = rememberNavController(),
+        character = DbCharacter()
+    )
+}
+
+@Preview
+@Composable
+fun GenericCharacterContentPreview() {
+    GenericCharacterContent(
+        characterRemote = DbCharacter(),
+        modifier = Modifier
+    )
 }
 
 suspend fun detectColors(bitmap: Bitmap, onComplete: (List<Color>, Color) -> Unit) {

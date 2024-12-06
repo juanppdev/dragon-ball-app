@@ -1,35 +1,34 @@
 package com.mundocode.dragonballapp.repositories
 
-import com.mundocode.dragonballapp.models.Personaje
+import com.mundocode.dragonballapp.models.local.DbCharacter
+import com.mundocode.dragonballapp.models.remote.toLocal
+import com.mundocode.dragonballapp.models.types.DragonBallType
 import com.mundocode.dragonballapp.network.ApiDragonBall
-import com.mundocode.dragonballapp.viewmodels.DragonBallType
+import com.mundocode.dragonballapp.network.ApiDragonBall.Companion.DRAGONBALL_GT_PATH
+import com.mundocode.dragonballapp.network.ApiDragonBall.Companion.DRAGONBALL_PATH
+import com.mundocode.dragonballapp.network.ApiDragonBall.Companion.DRAGONBALL_SUPER_PATH
+import com.mundocode.dragonballapp.network.ApiDragonBall.Companion.DRAGONBALL_Z_PATH
+import com.mundocode.dragonballapp.network.ApiDragonBall.Companion.DRAGONS_PATH
 import javax.inject.Inject
 
 class ApiRepositoryImpl @Inject constructor(
     private val apiService: ApiDragonBall
 ) : ApiRepository {
 
-    override suspend fun getDragonBallList(): Result<List<Personaje>> = runCatching {
-        apiService.obtenerPersonajes()
-    }
-
-    override suspend fun getDragonBallZList(): Result<List<Personaje>> = runCatching {
-        apiService.obtenerPersonajesZ()
-    }
-
-    override suspend fun getDragonBallGTList(): Result<List<Personaje>> = runCatching {
-        apiService.obtenerPersonajesGT()
-    }
-
-    override suspend fun getDragonList(): Result<List<Personaje>> = runCatching {
-        apiService.obtenerDragons()
-    }
-
+    override suspend fun getCharacters(type: DragonBallType): Result<List<DbCharacter>> =
+        runCatching {
+            when (type) {
+                DragonBallType.DragonBall -> DRAGONBALL_PATH
+                DragonBallType.DragonBallZ -> DRAGONBALL_Z_PATH
+                DragonBallType.DragonBallGT -> DRAGONBALL_GT_PATH
+                DragonBallType.DragonBallSuper -> DRAGONBALL_SUPER_PATH
+                DragonBallType.Dragons -> DRAGONS_PATH
+            }.let { path ->
+                apiService.getCharacters(path).map { it.toLocal().copy(type = type) }
+            }
+        }
 }
 
 interface ApiRepository {
-    suspend fun getDragonBallList(): Result<List<Personaje>>
-    suspend fun getDragonBallZList(): Result<List<Personaje>>
-    suspend fun getDragonBallGTList(): Result<List<Personaje>>
-    suspend fun getDragonList(): Result<List<Personaje>>
+    suspend fun getCharacters(type: DragonBallType): Result<List<DbCharacter>>
 }

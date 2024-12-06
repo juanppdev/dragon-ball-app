@@ -1,9 +1,8 @@
 package com.mundocode.dragonballapp.repositories
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.mundocode.dragonballapp.data.Favorite
+import com.mundocode.dragonballapp.models.local.Favorite
 import javax.inject.Inject
 
 class FirebaseRepositoryImpl @Inject constructor(
@@ -29,19 +28,23 @@ class FirebaseRepositoryImpl @Inject constructor(
             }
     }
 
-    override fun getAllFavorites(callback: (List<Favorite>) -> Unit) {
-        favoritesCollection.addSnapshotListener { snapshot, _ ->
-            if (snapshot != null) {
-                val favorites = snapshot.toObjects(Favorite::class.java)
-                Log.d("Favorites", "Favorites: $favorites")
-                callback(favorites)
+    override fun getAllFavorites(callback: (Result<List<Favorite>>) -> Unit) {
+        favoritesCollection
+            .addSnapshotListener { snapshot, _ ->
+                if (snapshot != null) {
+                    val favorites = snapshot.toObjects(Favorite::class.java)
+                    //Log.d("Favorites", "Favorites: $favorites")
+                    callback(Result.success(favorites))
+                }else{
+                    callback(Result.failure(Exception("Error getting favorites")))
+                }
             }
-        }
+
     }
 }
 
 interface FirebaseRepository {
     fun addFavorite(favorite: Favorite)
     fun removeFavorite(favorite: Favorite)
-    fun getAllFavorites(callback: (List<Favorite>) -> Unit)
+    fun getAllFavorites(callback: (Result<List<Favorite>>) -> Unit)
 }
